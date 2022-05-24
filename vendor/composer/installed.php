@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'b0e3205294cf3e362b7c1c9f598dbeec1baf7b59',
+        'reference' => 'f122374353ba2f01eb2ce4646c939a897541fbd4',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -388,7 +388,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'b0e3205294cf3e362b7c1c9f598dbeec1baf7b59',
+            'reference' => 'f122374353ba2f01eb2ce4646c939a897541fbd4',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -593,6 +593,15 @@
             'install_path' => __DIR__ . '/../pestphp/pest-plugin',
             'aliases' => array(),
             'reference' => 'fc8519de148699fe612d9c669be60554cd2db4fa',
+            'dev_requirement' => true,
+        ),
+        'pestphp/pest-plugin-laravel' => array(
+            'pretty_version' => 'v1.2.0',
+            'version' => '1.2.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../pestphp/pest-plugin-laravel',
+            'aliases' => array(),
+            'reference' => '64996218006570f6f58f3c7ebb6f0c7bfb3c60b9',
             'dev_requirement' => true,
         ),
         'pestphp/pest-plugin-livewire' => array(
@@ -808,8 +817,8 @@
         'psr/log-implementation' => array(
             'dev_requirement' => false,
             'provided' => array(
-                0 => '1.0|2.0|3.0',
-                1 => '1.0.0 || 2.0.0 || 3.0.0',
+                0 => '1.0.0 || 2.0.0 || 3.0.0',
+                1 => '1.0|2.0|3.0',
             ),
         ),
         'psr/simple-cache' => array(
