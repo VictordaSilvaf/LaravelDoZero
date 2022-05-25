@@ -9,6 +9,7 @@ use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
 use App\Http\Livewire\Components\SplashScreen;
+use App\Http\Livewire\Pages\Home;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('password/confirm', Confirm::class)
         ->name('password.confirm');
 
-    Route::get('dashboard', Dashboard::class);
+    Route::get('dashboard', Home::class);
 });
 
 Route::middleware('auth')->group(function () {
