@@ -1,6 +1,6 @@
 <div x-data="splash()" x-init='initSplash'
     class="w-screen h-screen bg-desicon-white flex justify-center items-center">
-    <div class="opacity-0 duration-1000" x-ref="containerSplash">
+    <div class="opacity-0 duration-1000 scale-0" x-ref="containerSplash">
         <img src={{ asset('imgs/logo.png') }} alt="Logo desicon" class="w-48 h-auto">
     </div>
 </div>
@@ -10,8 +10,10 @@
         return {
             initSplash() {
                 document.body.classList.add('overflow-hidden')
-                this.animate(this.$refs.containerSplash, ['opacity-0'], 'remove', 500,
-                    () => this.animate(this.$refs.containerSplash, ['opacity-0'], 'add', 1200, )
+                this.animate(this.$refs.containerSplash, ['opacity-0', 'scale-0'], 'remove', 500,
+                    () => this.animate(this.$refs.containerSplash, ['opacity-0'], 'add', 1200,
+                        () => window.location.href = "/dashboard"
+                    )
                 )
             },
             animate(element, classList, type, time, callback) {

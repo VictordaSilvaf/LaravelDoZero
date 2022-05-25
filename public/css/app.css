@@ -525,34 +525,6 @@ input:invalid, textarea:invalid, select:invalid {
 /**
  * This injects any component classes registered by plugins.
  */
-.container {
-  width: 100%;
-}
-@media (min-width: 640px) {
-  .container {
-    max-width: 640px;
-  }
-}
-@media (min-width: 768px) {
-  .container {
-    max-width: 768px;
-  }
-}
-@media (min-width: 1024px) {
-  .container {
-    max-width: 1024px;
-  }
-}
-@media (min-width: 1280px) {
-  .container {
-    max-width: 1280px;
-  }
-}
-@media (min-width: 1536px) {
-  .container {
-    max-width: 1536px;
-  }
-}
 /**
  * Here you would add any of your custom component classes; stuff that you'd
  * want loaded *before* the utilities so that the utilities could still
@@ -578,9 +550,6 @@ input:invalid, textarea:invalid, select:invalid {
 }
 .right-0 {
   right: 0px;
-}
-.left-full {
-  left: 100%;
 }
 .z-0 {
   z-index: 0;
@@ -682,8 +651,9 @@ input:invalid, textarea:invalid, select:invalid {
 .flex-shrink-0 {
   flex-shrink: 0;
 }
-.skew-x-12 {
-  --tw-skew-x: 12deg;
+.scale-0 {
+  --tw-scale-x: 0;
+  --tw-scale-y: 0;
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 .cursor-pointer {
@@ -922,9 +892,6 @@ input:invalid, textarea:invalid, select:invalid {
 .opacity-0 {
   opacity: 0;
 }
-.opacity-100 {
-  opacity: 1;
-}
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -944,9 +911,6 @@ input:invalid, textarea:invalid, select:invalid {
 }
 .duration-150 {
   transition-duration: 150ms;
-}
-.duration-100 {
-  transition-duration: 100ms;
 }
 .duration-1000 {
   transition-duration: 1000ms;

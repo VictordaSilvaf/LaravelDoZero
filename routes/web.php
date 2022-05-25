@@ -45,6 +45,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('password/confirm', Confirm::class)
         ->name('password.confirm');
+
+    Route::get('dashboard', Dashboard::class);
 });
 
 Route::middleware('auth')->group(function () {
