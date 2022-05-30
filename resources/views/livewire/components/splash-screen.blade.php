@@ -12,7 +12,7 @@
                 document.body.classList.add('overflow-hidden')
                 this.animate(this.$refs.containerSplash, ['opacity-0', 'scale-0'], 'remove', 500,
                     () => this.animate(this.$refs.containerSplash, ['opacity-0'], 'add', 1200,
-                        () => window.location.href = "/dashboard"
+                        () => window.location.href = "/dashboard/home"
                     )
                 )
             },

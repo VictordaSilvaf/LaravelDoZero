@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'f122374353ba2f01eb2ce4646c939a897541fbd4',
+        'reference' => '04be0c29988246ad9f69dbf28ef1425fa904c3cb',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -119,6 +119,15 @@
             'install_path' => __DIR__ . '/../fruitcake/php-cors',
             'aliases' => array(),
             'reference' => '58571acbaa5f9f462c9c77e911700ac66f446d4e',
+            'dev_requirement' => false,
+        ),
+        'fx3costa/laravelchartjs' => array(
+            'pretty_version' => '2.9.0',
+            'version' => '2.9.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../fx3costa/laravelchartjs',
+            'aliases' => array(),
+            'reference' => 'cd554ef247bdceeb8215b68ec48ec4f46c779bb9',
             'dev_requirement' => false,
         ),
         'graham-campbell/result-type' => array(
@@ -388,7 +397,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'f122374353ba2f01eb2ce4646c939a897541fbd4',
+            'reference' => '04be0c29988246ad9f69dbf28ef1425fa904c3cb',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(

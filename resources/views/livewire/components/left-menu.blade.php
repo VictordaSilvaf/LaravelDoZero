@@ -4,7 +4,7 @@
     </div>
     <div class="flex flex-col mt-3">
         <div class="flex flex-col">
-            <h2 class="px-5 py-3 text-sm rounded-xl">Menu</h2>
+            <h2 class="px-5 py-3 text-sm rounded-xl font-medium">Menu</h2>
             <a class="px-5 py-2 text-sm text-white bg-desicon-blue rounded-xl" href="#">
                 Dashboard
             </a>
@@ -16,24 +16,28 @@
             </a>
         </div>
         <div class="flex flex-col mt-3">
-            <h2 class="px-5 py-3 text-sm rounded-xl" >Proposta Comercial</h2>
-            
-            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl text-desicon-natural5 hover:bg-slate-100" href="#">
+            <h2 class="px-5 py-3 text-sm rounded-xl font-medium">Proposta Comercial</h2>
+
+            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl text-desicon-natural5 hover:bg-slate-100"
+                href={{ route('proposta.create') }}>
                 Cadastrar Proposta
             </a>
-            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl text-desicon-natural5 hover:bg-slate-100" href="#">
+            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl text-desicon-natural5 hover:bg-slate-100"
+                href="propostas?stats=aceitas">
                 Propostas Aceitas
             </a>
-            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl text-desicon-natural5 hover:bg-slate-100" href="#">
+            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl text-desicon-natural5 hover:bg-slate-100"
+                href="propostas?stats=pendentes">
                 Propostas Pendentes
             </a>
-            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl text-desicon-natural5 hover:bg-slate-100" href="#">
+            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl text-desicon-natural5 hover:bg-slate-100"
+                href="propostas?stats=recusadas">
                 Propostas Recusadas
             </a>
-            
+
         </div>
         <div class="flex flex-col mt-3">
-            <h2 class="px-5 py-3 text-sm rounded-xl" >Outros</h2>
+            <h2 class="px-5 py-3 text-sm rounded-xl font-medium">Outros</h2>
             <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl text-desicon-natural5 hover:bg-slate-100" href="#">
                 Produtos
             </a>

@@ -151,6 +151,7 @@ class ComposerStaticInit9fee26c5c3b5fb10627c01ee2fc9331b
         ),
         'F' => 
         array (
+            'Fx3costa\\LaravelChartJs\\' => 24,
             'Fruitcake\\Cors\\' => 15,
             'Faker\\' => 6,
             'Facade\\IgnitionContracts\\' => 25,
@@ -483,6 +484,10 @@ class ComposerStaticInit9fee26c5c3b5fb10627c01ee2fc9331b
         array (
             0 => __DIR__ . '/..' . '/graham-campbell/result-type/src',
         ),
+        'Fx3costa\\LaravelChartJs\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/fx3costa/laravelchartjs/src',
+        ),
         'Fruitcake\\Cors\\' => 
         array (
             0 => __DIR__ . '/..' . '/fruitcake/php-cors/src',
@@ -572,7 +577,12 @@ class ComposerStaticInit9fee26c5c3b5fb10627c01ee2fc9331b
         'App\\Http\\Livewire\\Auth\\Passwords\\Reset' => __DIR__ . '/../..' . '/app/Http/Livewire/Auth/Passwords/Reset.php',
         'App\\Http\\Livewire\\Auth\\Register' => __DIR__ . '/../..' . '/app/Http/Livewire/Auth/Register.php',
         'App\\Http\\Livewire\\Auth\\Verify' => __DIR__ . '/../..' . '/app/Http/Livewire/Auth/Verify.php',
+        'App\\Http\\Livewire\\Components\\DashboardScreen' => __DIR__ . '/../..' . '/app/Http/Livewire/Components/DashboardScreen.php',
+        'App\\Http\\Livewire\\Components\\LeftMenu' => __DIR__ . '/../..' . '/app/Http/Livewire/Components/LeftMenu.php',
+        'App\\Http\\Livewire\\Components\\RightMenu' => __DIR__ . '/../..' . '/app/Http/Livewire/Components/RightMenu.php',
         'App\\Http\\Livewire\\Components\\SplashScreen' => __DIR__ . '/../..' . '/app/Http/Livewire/Components/SplashScreen.php',
+        'App\\Http\\Livewire\\Layouts\\DashboardLayout' => __DIR__ . '/../..' . '/app/Http/Livewire/Layouts/DashboardLayout.php',
+        'App\\Http\\Livewire\\Pages\\Home' => __DIR__ . '/../..' . '/app/Http/Livewire/Pages/Home.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
@@ -1409,6 +1419,8 @@ class ComposerStaticInit9fee26c5c3b5fb10627c01ee2fc9331b
         'Faker\\ValidGenerator' => __DIR__ . '/..' . '/fakerphp/faker/src/Faker/ValidGenerator.php',
         'Fruitcake\\Cors\\CorsService' => __DIR__ . '/..' . '/fruitcake/php-cors/src/CorsService.php',
         'Fruitcake\\Cors\\Exceptions\\InvalidOptionException' => __DIR__ . '/..' . '/fruitcake/php-cors/src/Exceptions/InvalidOptionException.php',
+        'Fx3costa\\LaravelChartJs\\Builder' => __DIR__ . '/..' . '/fx3costa/laravelchartjs/src/Builder.php',
+        'Fx3costa\\LaravelChartJs\\Providers\\ChartjsServiceProvider' => __DIR__ . '/..' . '/fx3costa/laravelchartjs/src/Providers/ChartjsServiceProvider.php',
         'GrahamCampbell\\ResultType\\Error' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Error.php',
         'GrahamCampbell\\ResultType\\Result' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Result.php',
         'GrahamCampbell\\ResultType\\Success' => __DIR__ . '/..' . '/graham-campbell/result-type/src/Success.php',

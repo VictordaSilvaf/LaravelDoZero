@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\Propostas;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Livewire\Auth\Passwords\Email;
@@ -10,6 +11,8 @@ use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
 use App\Http\Livewire\Components\SplashScreen;
 use App\Http\Livewire\Pages\Home;
+use App\Http\Livewire\Pages\Proposta\PropostaCreate;
+use App\Http\Livewire\Pages\Proposta\PropostaShow;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,8 +49,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('password/confirm', Confirm::class)
         ->name('password.confirm');
-
-    Route::get('dashboard', Home::class);
 });
 
 Route::middleware('auth')->group(function () {
@@ -57,4 +58,14 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', LogoutController::class)
         ->name('logout');
+});
+
+/* My routes */
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard/home', Home::class)
+        ->name('dashboard.home');
+
+    Route::get('dashboard/proposta/criar', PropostaCreate::class)->name('proposta.create');
+
+    Route::resource('dashboard/propostas', Propostas::class);
 });
