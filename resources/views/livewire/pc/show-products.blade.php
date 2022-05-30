@@ -13,11 +13,7 @@
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-desicon-white border  rounded appearance-none focus:outline-none focus:bg-white"
                     type="text" name="identificacaoProduto" id="identificacaoProduto"
                     placeholder="Digite o SKU do produto" wire:model='identificacaoProduto' required />
-                @error('identificacaoProduto')
-                    <div class="" style="color: red; text-align: left; opacity: .65;">
-                        <span class="error">{{ $message }}</span>
-                    </div>
-                @enderror
+
             </div>
 
             <div class="pc--sessaoInput w-full">
@@ -32,6 +28,11 @@
         <button type="submit"
             class="bg-blue-500 hover:bg-blue-700 text-white font-light py-2 px-4 rounded duration-150 mb-3"
             id="btnBuscarProduto" onclick="">Buscar</button>
+        @error('buscaProduto')
+            <div class="" style="color: red; text-align: left; opacity: .65;">
+                <span class="error">{{ $message }}</span>
+            </div>
+        @enderror
 
         {{-- Tabela de produtos --}}
         <section class="">

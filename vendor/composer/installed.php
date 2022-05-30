@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '04be0c29988246ad9f69dbf28ef1425fa904c3cb',
+        'reference' => '8df19bb3929359a5c7fdb72e9e85e6177fb85535',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -397,7 +397,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '04be0c29988246ad9f69dbf28ef1425fa904c3cb',
+            'reference' => '8df19bb3929359a5c7fdb72e9e85e6177fb85535',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -452,6 +452,15 @@
             'install_path' => __DIR__ . '/../laravel/ui',
             'aliases' => array(),
             'reference' => 'f11d295de1508c5bb56206a620b00b6616de414c',
+            'dev_requirement' => false,
+        ),
+        'laravellegends/pt-br-validator' => array(
+            'pretty_version' => '9.0.0',
+            'version' => '9.0.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../laravellegends/pt-br-validator',
+            'aliases' => array(),
+            'reference' => 'dd7e0b612e00be500ead7a6aba71e7bcfd72f026',
             'dev_requirement' => false,
         ),
         'league/commonmark' => array(

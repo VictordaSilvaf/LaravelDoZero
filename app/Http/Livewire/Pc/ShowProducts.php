@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pc;
 
+use App\Models\Produto;
 use App\Models\Produtos;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -23,7 +24,7 @@ class ShowProducts extends Component
         $produtosCache = Cache::get('listaProdutos', function () {
             return false;
         });
-        
+
         return view('livewire.pc.show-products', compact('produtosCache', 'produtos'));
     }
 
@@ -31,9 +32,9 @@ class ShowProducts extends Component
     {
         $produtos = $this->listaProdutos;
 
-        if (Produtos::where('codigo', $this->identificacaoProduto)->first() != null) {
+        if (Produto::where('codigo', $this->identificacaoProduto)->first() != null) {
             $quantidade = $this->quantidadeProduto;
-            $produto = Produtos::where('codigo', $this->identificacaoProduto)->first();
+            $produto = Produto::where('codigo', $this->identificacaoProduto)->first();
             $key_cache = 'produtos_user_id_produtos' . auth()->user()->id;
 
             if (Cache::has($key_cache)) {
@@ -43,10 +44,10 @@ class ShowProducts extends Component
             } else {
                 array_push($produtos, [$produto, $quantidade]);
             }
-            
+
             Cache::add($key_cache, $produtos, 1200);
         } else {
-            $this->addError('identifiacaoCliente', 'Produto não encontado.');
+            $this->addError('buscaProduto', 'Produto não encontado.');
         }
 
         /* dd($this->listaProdutos); */
