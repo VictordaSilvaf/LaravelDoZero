@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
+use App\Http\Controllers\FormaPagamentoController;
 use App\Http\Controllers\Propostas;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
@@ -10,10 +11,13 @@ use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
 use App\Http\Livewire\Components\SplashScreen;
+use App\Http\Livewire\Pages\Descontos;
 use App\Http\Livewire\Pages\Home;
+use App\Http\Livewire\Pages\Produtos;
 use App\Http\Livewire\Pages\Proposta\PropostaCreate;
 use App\Http\Livewire\Pages\Proposta\PropostaShow;
 use App\Models\Cliente;
+use App\Models\Pagamento;
 use App\Models\Produto;
 use Illuminate\Support\Facades\Route;
 
@@ -67,9 +71,18 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard/home', Home::class)
         ->name('dashboard.home');
 
-    Route::get('dashboard/proposta/criar', PropostaCreate::class)->name('proposta.create');
+    Route::get('dashboard/produtos', Produtos::class)
+        ->name('dashboard.produtos');
+
+    Route::get('dashboard/descontos', Descontos::class)
+        ->name('dashboard.descontos');
+
+    Route::get('dashboard/proposta/cadastrar', PropostaCreate::class)->name('proposta.create');
 
     Route::resource('dashboard/propostas', Propostas::class);
+
+    /* FormasPagamento */
+    Route::get('/atualizarPagamento', [FormaPagamentoController::class, 'getFormasPagamentoBling'])->middleware('auth')->name('formaPagamento.getFormasPagamentoBling');
 });
 
 Route::get('produtos', function () {
@@ -78,4 +91,8 @@ Route::get('produtos', function () {
 
 Route::get('clientes', function () {
     dd(Cliente::all());
+});
+
+Route::get('pagamentos', function () {
+    dd(Pagamento::all());
 });

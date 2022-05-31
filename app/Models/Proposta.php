@@ -10,7 +10,7 @@ class Proposta extends Model
     use HasFactory;
 
     protected $fillable = [
-        'user_id', 'cliente_id', 'forma_pagamento_id', 'consumo_revenda', 'observacaoVendedor', 'transportadora', 'modo_envio', 'frete', 'peso_total', 'parcelas', 'desconto_vendedor', 'desconto_total', 'total'
+        'users_id', 'clientes_id', 'pagamentos_id', 'consumo_revenda', 'observacaoVendedor', 'transportadora', 'modo_envio', 'frete', 'peso_total', 'parcelas', 'desconto_vendedor', 'desconto_total', 'total'
     ];
 
     protected $casts = [

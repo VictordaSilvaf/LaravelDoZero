@@ -2,35 +2,27 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\BuscarClientesBlingJob;
+use App\Jobs\BuscarPagamentosBling;
 use App\Jobs\BuscarProdutosBlingJob;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Bus;
 
-class AtualizarProdutosCommand extends Command
+class AtualizarTudo extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'atualizar-tabela-produtos';
+    protected $signature = 'all';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Listar todos os produtos do bling.';
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
+    protected $description = 'Atualiza todas as tabelas ao mesmo tempo';
 
     /**
      * Execute the console command.
@@ -40,7 +32,9 @@ class AtualizarProdutosCommand extends Command
     public function handle()
     {
         Bus::batch([
+            new BuscarPagamentosBling,
             new BuscarProdutosBlingJob,
-        ])->name('Batch_Listar_produtos')->dispatch();
+            new BuscarClientesBlingJob,
+        ])->name('Batch_Att_All')->dispatch();
     }
 }

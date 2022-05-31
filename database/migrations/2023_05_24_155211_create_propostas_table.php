@@ -33,15 +33,6 @@ return new class extends Migration
             $table->string('status')->default('pendente');
             $table->timestamps();
         });
-
-        Schema::create('produtos_propostas', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('propostas_id')->constrained('propostas');
-            $table->foreignId('produtos_id')->constrained('produtos');
-            $table->foreignId('users_id')->constrained('users');
-            $table->float('quantidade');
-            $table->timestamps();
-        });
     }
 
     /**
@@ -51,7 +42,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('produtos_propostas');
         Schema::dropIfExists('propostas');
     }
 };

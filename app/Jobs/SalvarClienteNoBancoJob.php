@@ -74,7 +74,6 @@ class SalvarClienteNoBancoJob implements ShouldQueue
                     }
                 }
             } catch (\Throwable $th) {
-                dd($th);
                 array_push($clientes_com_erro, $cliente['contato']['id']);
             }
         }

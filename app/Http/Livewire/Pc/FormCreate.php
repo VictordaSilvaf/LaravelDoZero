@@ -106,9 +106,10 @@ class FormCreate extends Component
 
         $parcelas = $this->buildParcels();
         $pc = Proposta::create([
-            'user_id' => auth()->user()->id,
-            'cliente_id' => $cliente->id,
-            'forma_pagamento_id' => $id_formaPagamento,
+            'users_id' => auth()->user()->id,
+            'clientes_id' => $cliente->id,
+            'pagamentos_id' => 1,
+
             'consumo_revenda' => $this->clienteConsumoRevenda,
             'observacaoVendedor' => $this->observacaoVendedor,
             'transportadora' => $this->clienteTransportadora,

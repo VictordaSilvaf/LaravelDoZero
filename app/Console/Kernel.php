@@ -3,6 +3,7 @@
 namespace App\Console;
 
 use App\Console\Commands\AtualizarProdutosCommand;
+use App\Console\Commands\AtualizarTudo;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -14,7 +15,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        AtualizarProdutosCommand::class,
+        AtualizarTudo::class,
     ];
 
     /**
@@ -27,9 +28,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
 
-        $schedule->command('atualizar-tabela-produtos')
-            //->dailyAt('00:00');
-            ->hourly();
+        $schedule->command('all')
+            ->dailyAt('00:00');
     }
 
     /**

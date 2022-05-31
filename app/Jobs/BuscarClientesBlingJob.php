@@ -51,7 +51,6 @@ class BuscarClientesBlingJob implements ShouldQueue
                     $finalizado = true;
                 }
             } catch (\Throwable $th) {
-                dd($th);
             }
         } while ($finalizado == false);
     }
