@@ -13,6 +13,8 @@ use App\Http\Livewire\Components\SplashScreen;
 use App\Http\Livewire\Pages\Home;
 use App\Http\Livewire\Pages\Proposta\PropostaCreate;
 use App\Http\Livewire\Pages\Proposta\PropostaShow;
+use App\Models\Cliente;
+use App\Models\Produto;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -68,4 +70,12 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard/proposta/criar', PropostaCreate::class)->name('proposta.create');
 
     Route::resource('dashboard/propostas', Propostas::class);
+});
+
+Route::get('produtos', function () {
+    dd(Produto::all());
+});
+
+Route::get('clientes', function () {
+    dd(Cliente::all());
 });
