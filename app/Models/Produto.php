@@ -24,8 +24,8 @@ class Produto extends Model
         return $this->hasOne(Desconto::class);
     }
 
-    public function proposta()
+    public function propostaProduto()
     {
-        return $this->belongsToMany(Proposta::class, 'produtos_propostas', 'propostas_id')->withPivot(['user_id', 'quantidade']);
+        return $this->belongsTo(PropostaProduto::class);
     }
 }

@@ -3,10 +3,15 @@
 namespace App\Http\Livewire\Pc;
 
 use App\Models\Pagamento;
+use App\Models\Produto;
+use App\Models\ProdutoProposta;
 use App\Models\Proposta;
 use App\Models\PropostaComercial;
+use App\Models\PropostaProduto;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
+
+use function PHPSTORM_META\type;
 
 class FormCreate extends Component
 {
@@ -108,7 +113,7 @@ class FormCreate extends Component
         $pc = Proposta::create([
             'users_id' => auth()->user()->id,
             'clientes_id' => $cliente->id,
-            'pagamentos_id' => 1,
+            'pagamentos_id' => $id_formaPagamento,
 
             'consumo_revenda' => $this->clienteConsumoRevenda,
             'observacaoVendedor' => $this->observacaoVendedor,
@@ -129,10 +134,19 @@ class FormCreate extends Component
     public function storeProdutos($pc, $produtos)
     {
         try {
+
+            $produtoProposta = new PropostaProduto();
+
             foreach ($produtos as $produto) {
-                $pc->produtos()->attach([
-                    $produto['0']->id => ['quantidade' => $produto['1'], 'user_id' => auth()->user()->id]
+
+                $produtoProposta->create([
+                    'propostas_id' => $pc['id'],
+                    'produtos_id' => strval(Produto::all()->find($produto['0']['id'])->id),
+                    'users_id' => auth()->user()->id,
+                    'quantidade' => $produto['1'],
                 ]);
+
+                $produtoProposta->save();
             }
 
             Cache::forget('produtos_user_id_produtos');

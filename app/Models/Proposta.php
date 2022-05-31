@@ -24,11 +24,11 @@ class Proposta extends Model
 
     public function clientes()
     {
-        return $this->belongsTo(Cliente::class, 'id');
+        return $this->belongsTo(Cliente::class);
     }
 
-    public function produtos()
+    public function produtosProposta()
     {
-        return $this->belongsToMany(Produto::class)->withPivot('quantidade', 'user_id')->withTimestamps();
+        return $this->hasMany(PropostaProduto::class);
     }
 }

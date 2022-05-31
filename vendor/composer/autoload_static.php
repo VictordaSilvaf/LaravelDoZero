@@ -581,10 +581,7 @@ class ComposerStaticInit9fee26c5c3b5fb10627c01ee2fc9331b
     );
 
     public static $classMap = array (
-        'App\\Console\\Commands\\AtualizarPagamentos' => __DIR__ . '/../..' . '/app/Console/Commands/AtualizarPagamentos.php',
-        'App\\Console\\Commands\\AtualizarProdutosCommand' => __DIR__ . '/../..' . '/app/Console/Commands/AtualizarProdutosCommand.php',
         'App\\Console\\Commands\\AtualizarTudo' => __DIR__ . '/../..' . '/app/Console/Commands/AtualizarTudo.php',
-        'App\\Console\\Commands\\BuscarClientesCommand' => __DIR__ . '/../..' . '/app/Console/Commands/BuscarClientesCommand.php',
         'App\\Console\\Kernel' => __DIR__ . '/../..' . '/app/Console/Kernel.php',
         'App\\Exceptions\\Handler' => __DIR__ . '/../..' . '/app/Exceptions/Handler.php',
         'App\\Http\\Controllers\\Auth\\EmailVerificationController' => __DIR__ . '/../..' . '/app/Http/Controllers/Auth/EmailVerificationController.php',
@@ -633,7 +630,9 @@ class ComposerStaticInit9fee26c5c3b5fb10627c01ee2fc9331b
         'App\\Models\\Desconto' => __DIR__ . '/../..' . '/app/Models/Desconto.php',
         'App\\Models\\Pagamento' => __DIR__ . '/../..' . '/app/Models/Pagamento.php',
         'App\\Models\\Produto' => __DIR__ . '/../..' . '/app/Models/Produto.php',
+        'App\\Models\\ProdutoProposta' => __DIR__ . '/../..' . '/app/Models/ProdutoProposta.php',
         'App\\Models\\Proposta' => __DIR__ . '/../..' . '/app/Models/Proposta.php',
+        'App\\Models\\PropostaProduto' => __DIR__ . '/../..' . '/app/Models/PropostaProduto.php',
         'App\\Models\\Transporte' => __DIR__ . '/../..' . '/app/Models/Transporte.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

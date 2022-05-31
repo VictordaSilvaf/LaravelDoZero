@@ -6,10 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'App\\Console\\Commands\\AtualizarPagamentos' => $baseDir . '/app/Console/Commands/AtualizarPagamentos.php',
-    'App\\Console\\Commands\\AtualizarProdutosCommand' => $baseDir . '/app/Console/Commands/AtualizarProdutosCommand.php',
     'App\\Console\\Commands\\AtualizarTudo' => $baseDir . '/app/Console/Commands/AtualizarTudo.php',
-    'App\\Console\\Commands\\BuscarClientesCommand' => $baseDir . '/app/Console/Commands/BuscarClientesCommand.php',
     'App\\Console\\Kernel' => $baseDir . '/app/Console/Kernel.php',
     'App\\Exceptions\\Handler' => $baseDir . '/app/Exceptions/Handler.php',
     'App\\Http\\Controllers\\Auth\\EmailVerificationController' => $baseDir . '/app/Http/Controllers/Auth/EmailVerificationController.php',
@@ -58,7 +55,9 @@ return array(
     'App\\Models\\Desconto' => $baseDir . '/app/Models/Desconto.php',
     'App\\Models\\Pagamento' => $baseDir . '/app/Models/Pagamento.php',
     'App\\Models\\Produto' => $baseDir . '/app/Models/Produto.php',
+    'App\\Models\\ProdutoProposta' => $baseDir . '/app/Models/ProdutoProposta.php',
     'App\\Models\\Proposta' => $baseDir . '/app/Models/Proposta.php',
+    'App\\Models\\PropostaProduto' => $baseDir . '/app/Models/PropostaProduto.php',
     'App\\Models\\Transporte' => $baseDir . '/app/Models/Transporte.php',
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
