@@ -38,7 +38,7 @@ class BuscarProdutosBlingJob implements ShouldQueue
         do {
             try {
 
-                $request = Http::get("https://bling.com.br/Api/v2/produtos/page=$count/json/&apikey=9e9423b85ebb62aac022e74a212a2fa643dd9704753fdfebe07457803cc475c0c78211b2&loja=203345790%22");
+                $request = Http::get("https://bling.com.br/Api/v2/produtos/page=$count/json/&estoque=S&apikey=9e9423b85ebb62aac022e74a212a2fa643dd9704753fdfebe07457803cc475c0c78211b2&loja=203345790%22");
 
                 $list_produtos = json_decode($request, true);
                 $list_produtos = array_shift($list_produtos);

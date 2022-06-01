@@ -23,16 +23,16 @@
             <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl  {{ (request()-> is('dashboard/proposta/cadastrar')) ? 'text-white bg-desicon-blue hover:bg-opacity-50' : 'text-desicon-natural5 hover:bg-slate-100' }}" href={{ route('proposta.create') }} title="Cadastrar Proposta">
                 {{ __('Cadastrar Proposta') }}
             </a>
-            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl  {{ (request()-> is('dashboard/propostas/aceitas')) ? 'text-white bg-desicon-blue hover:bg-opacity-50' : 'text-desicon-natural5 hover:bg-slate-100' }}"
-                href="propostas?stats=aceitas">
+            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl  {{ (request()-> is('dashboard/propostas?stats=aceitas')) ? 'text-white bg-desicon-blue hover:bg-opacity-50' : 'text-desicon-natural5 hover:bg-slate-100' }}"
+                href="/dashboard/propostas?stats=aceitas">
                 Propostas Aceitas
             </a>
-            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl  {{ (request()-> is('dashboard/propostas/pendentes')) ? 'text-white bg-desicon-blue hover:bg-opacity-50' : 'text-desicon-natural5 hover:bg-slate-100' }}"
-                href="propostas?stats=pendentes">
+            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl  {{ (request()-> is('dashboard/propostas?stats=pendentes')) ? 'text-white bg-desicon-blue hover:bg-opacity-50' : 'text-desicon-natural5 hover:bg-slate-100' }}"
+                href="/dashboard/propostas?stats=pendentes">
                 Propostas Pendentes
             </a>
-            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl  {{ (request()-> is('dashboard/propostas/recusadas')) ? 'text-white bg-desicon-blue hover:bg-opacity-50' : 'text-desicon-natural5 hover:bg-slate-100' }}"
-                href="propostas?stats=recusadas">
+            <a class="px-5 py-2 mt-1 text-sm duration-200 rounded-xl  {{ (request()-> is('dashboard/propostas?stats=recusadas')) ? 'text-white bg-desicon-blue hover:bg-opacity-50' : 'text-desicon-natural5 hover:bg-slate-100' }}"
+                href="/dashboard/propostas?stats=recusadas">
                 Propostas Recusadas
             </a>
 

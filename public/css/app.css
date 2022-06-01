@@ -848,6 +848,14 @@ input:invalid, textarea:invalid, select:invalid {
   --tw-border-opacity: 1;
   border-color: rgb(229 231 235 / var(--tw-border-opacity));
 }
+.border-slate-400 {
+  --tw-border-opacity: 1;
+  border-color: rgb(148 163 184 / var(--tw-border-opacity));
+}
+.border-slate-300 {
+  --tw-border-opacity: 1;
+  border-color: rgb(203 213 225 / var(--tw-border-opacity));
+}
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity));
@@ -916,6 +924,18 @@ input:invalid, textarea:invalid, select:invalid {
   --tw-bg-opacity: 1;
   background-color: rgb(240 253 244 / var(--tw-bg-opacity));
 }
+.bg-gray-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+.bg-gray-800 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+.bg-gray-300 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity));
+}
 .bg-opacity-80 {
   --tw-bg-opacity: 0.8;
 }
@@ -981,8 +1001,19 @@ input:invalid, textarea:invalid, select:invalid {
   padding-left: 1.75rem;
   padding-right: 1.75rem;
 }
+.py-4 {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
 .pr-3 {
   padding-right: 0.75rem;
+}
+.pb-1 {
+  padding-bottom: 0.25rem;
 }
 .text-center {
   text-align: center;
@@ -1009,6 +1040,10 @@ input:invalid, textarea:invalid, select:invalid {
   font-size: 0.75rem;
   line-height: 1rem;
 }
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
 .font-medium {
   font-weight: 500;
 }
@@ -1026,6 +1061,9 @@ input:invalid, textarea:invalid, select:invalid {
 }
 .font-bold {
   font-weight: 700;
+}
+.font-normal {
+  font-weight: 400;
 }
 .uppercase {
   text-transform: uppercase;
@@ -1214,6 +1252,12 @@ input:invalid, textarea:invalid, select:invalid {
 .hover\:text-gray-400:hover {
   --tw-text-opacity: 1;
   color: rgb(156 163 175 / var(--tw-text-opacity));
+}
+.hover\:opacity-90:hover {
+  opacity: 0.9;
+}
+.hover\:opacity-80:hover {
+  opacity: 0.8;
 }
 .focus\:z-10:focus {
   z-index: 10;

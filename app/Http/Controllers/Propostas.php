@@ -16,19 +16,22 @@ class Propostas extends Controller
     {
         switch ($request->stats) {
             case 'aceitas':
-                $propostas = Proposta::all();
+                $status = 'aceitas';
+                $propostas = Proposta::all()->where('status', 'aceita');
                 break;
 
             case 'pendentes':
-                $propostas = Proposta::all();
+                $status = 'pendentes';
+                $propostas = Proposta::all()->where('status', 'pendente');
                 break;
 
             case 'recusadas':
-                $propostas = Proposta::all();
+                $status = 'recusadas';
+                $propostas = Proposta::all()->where('status', 'recusada');
                 break;
         }
 
-        return view('livewire.pages.proposta.show', compact('propostas'));
+        return view('livewire.pages.proposta.show', compact('propostas', 'status'));
     }
 
     /**
