@@ -9,7 +9,7 @@ class Produtos extends Component
 {
     public function render()
     {
-        $produtos = Produto::all();
+        $produtos = Produto::simplePaginate(16);
         return view('livewire.pages.produtos', compact('produtos'));
     }
 }

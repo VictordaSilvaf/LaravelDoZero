@@ -42,8 +42,8 @@
                     <div class="flex">
                         <h2 class="whitespace-nowrap font-medium">Análise mensal</h2>
                     </div>
-                    <div class="flex justify-end w-full">
-                        <div>a</div>
+                    <div class="flex justify-end w-full pr-2">
+                        <div>{{ now()->year }}</div>
                     </div>
                 </div>
 

@@ -2,17 +2,21 @@
 
 namespace App\Http\Livewire\Pages;
 
+use App\Models\Proposta;
 use Livewire\Component;
 
 class Home extends Component
 {
     public function render()
     {
-        $chartjs = $this->grafico();
-        return view('livewire.pages.home', compact('chartjs'));
+        $dadosMeses = $this->contagemPorMeses(now()->year);
+        $dados = $this->montarDadosPorMeses($dadosMeses);
+        $chartjs = $this->grafico($dados);
+
+        return view('livewire.pages.home', compact('chartjs', 'dadosMeses'));
     }
 
-    public function grafico()
+    public function grafico($dados)
     {
         $chartjs = app()->chartjs
             ->name('barChartTest')
@@ -32,26 +36,67 @@ class Home extends Component
                 'Novembro',
                 'Dezembro'
             ])
-
             ->datasets([
                 [
                     "label" => "Propostas Aceitas",
                     'backgroundColor' => ['rgba(56, 203, 137, 0.6)'],
-                    'data' => [15, 5, 8, 2, 7, 4, 6, 8, 8, 3, 1, 7]
+                    'data' => $dados[0][0]
                 ],
                 [
                     "label" => "Propostas Pendentes",
                     'backgroundColor' => ['rgba(255, 166, 0, 0.6)'],
-                    'data' => [11, 12, 6, 8, 8, 3, 1, 5, 2, 2, 7, 6]
+                    'data' => $dados[0][2]
                 ],
                 [
                     "label" => "Propostas Recusadas",
                     'backgroundColor' => ['rgba(255, 86, 48, 0.6)'],
-                    'data' => [2, 12, 8, 3, 1, 11, 12, 6, 5, 8, 1, 3]
+                    'data' => $dados[0][1]
                 ]
             ])
             ->options([]);
 
         return $chartjs;
+    }
+
+    public function contagemPorMeses($ano)
+    {
+        $dadosMeses = array();
+
+
+        for ($i = 0; $i <= 12; $i++) {
+            $dados = Proposta::whereYear('created_at', '=', $ano)->whereMonth('created_at', '=', $i)->get();
+            if (count($dados) == 0)
+                array_push($dadosMeses, 0);
+            else {
+                array_push($dadosMeses, $dados);
+            }
+        }
+
+        return $dadosMeses;
+        // dd($dadosMeses[6]->where('status', 'pendente'));
+    }
+
+    public function montarDadosPorMeses($dadosMeses)
+    {
+        $dados = array();
+
+        $aceitas = array();
+        $pendentes = array();
+        $recusadas = array();
+
+        foreach ($dadosMeses as $dadosMes) {
+            if ($dadosMes === 0) {
+                array_push($aceitas, 0);
+                array_push($pendentes, 0);
+                array_push($recusadas, 0);
+            } else {
+                array_push($aceitas, count($dadosMes->where('status', 'aceita')));
+                array_push($pendentes, count($dadosMes->where('status', 'pendente')));
+                array_push($recusadas, count($dadosMes->where('status', 'recusada')));
+            }
+        }
+        array_push($dados, [$aceitas, $recusadas, $pendentes]);
+
+        return $dados;
     }
 }
