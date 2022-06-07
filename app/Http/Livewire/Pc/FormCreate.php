@@ -134,25 +134,23 @@ class FormCreate extends Component
     public function storeProdutos($pc, $produtos)
     {
         try {
-
             $produtoProposta = new PropostaProduto();
-
             foreach ($produtos as $produto) {
 
-                $produtoProposta->create([
+                $pdt = $produtoProposta->create([
                     'propostas_id' => $pc['id'],
-                    'produtos_id' => strval(Produto::all()->find($produto['0']['id'])->id),
+                    'produtos_id' => $produto['0']['id'],
                     'users_id' => auth()->user()->id,
                     'quantidade' => $produto['1'],
                 ]);
 
-                $produtoProposta->save();
+                $pdt->save();
             }
 
             Cache::forget('produtos_user_id_produtos');
             Cache::forget('produtos_user_id_cliente');
             Cache::forget('produtos_user_id_pagamento');
-            return redirect()->route('propostaComercial.index')->with('msg', 'Proposta salva com sucesso!');
+            return redirect("/dashboard/propostas?stats=pendentes")->with('msg', 'Proposta salva com sucesso!');
         } catch (\Throwable $th) {
             throw $th;
         }

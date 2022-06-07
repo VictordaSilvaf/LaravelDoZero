@@ -76,9 +76,14 @@
                     </tr>
                 @endforeach
             @endisset
-
+            
         </tbody>
     </table>
+
+    <div class="flex items-center justify-center mt-4">
+        {{ $propostas->appends(['stats' => $status])->onEachSide(1)->links() }}
+    </div>
+    
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
     <script src={{ asset('js/proposta/pendentes.js') }}></script>
     <script src={{ asset('js/scripts/masks.js') }}></script>
