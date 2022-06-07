@@ -9,7 +9,7 @@
             <div class="flex p-3 font-light bg-desicon-white rounded-xl">
                 <div class="flex flex-col w-2/3 flex-nowrap">
                     <h2 class="text-[.8rem]">Propostas Aceitas</h2>
-                    <p class="text-desicon-natural">5672</p>
+                    <p class="text-desicon-natural">{{ $propostas->where('status', 'aceita')->count() }}</p>
                     <p class="text-[.8rem] text-desicon-natural">+14% Inc</p>
                 </div>
                 <div class="flex items-center justify-center w-1/3">
@@ -18,8 +18,10 @@
             </div>
             <div class="flex p-3 font-light bg-desicon-white rounded-xl">
                 <div class="flex flex-col w-2/3 flex-nowrap">
-                    <h2 class="text-[.8rem]">Propostas Aceitas</h2>
-                    <p class="text-desicon-natural">5672</p>
+                    <h2 class="text-[.8rem]">Propostas Pendentes</h2>
+                    <p class="text-desicon-natural">
+                        {{ $propostas->where('status', 'pendente')->count() }}
+                    </p>
                     <p class="text-[.8rem] text-desicon-natural">+14% Inc</p>
                 </div>
                 <div class="flex items-center justify-center w-1/3">
@@ -28,8 +30,10 @@
             </div>
             <div class="flex p-3 font-light bg-desicon-white rounded-xl">
                 <div class="flex flex-col w-2/3 flex-nowrap">
-                    <h2 class="text-[.8rem] whitespace-nowrap">Propostas Aceitas</h2>
-                    <p class="text-desicon-natural">5672</p>
+                    <h2 class="text-[.8rem] whitespace-nowrap">Propostas Recusadas</h2>
+                    <p class="text-desicon-natural">
+                        {{ $propostas->where('status', 'recusada')->count() }}
+                    </p>
                     <p class="text-[.8rem] text-desicon-natural">+14% Inc</p>
                 </div>
                 <div class="flex items-center justify-center w-1/3">
@@ -40,21 +44,21 @@
             <div class="flex flex-col col-span-3 p-3 mt-3 mb-3 font-light bg-desicon-white rounded-xl ">
                 <div class="flex flex-row">
                     <div class="flex">
-                        <h2 class="whitespace-nowrap font-medium">Análise mensal</h2>
+                        <h2 class="font-medium whitespace-nowrap">Análise mensal</h2>
                     </div>
                     <div class="flex justify-end w-full pr-2">
                         <div>{{ now()->year }}</div>
                     </div>
                 </div>
 
-                <div class="mt-4 w-full">
+                <div class="w-full mt-4">
                     {!! $chartjs->render() !!}
                 </div>
 
             </div>
 
             <div class="flex flex-col col-span-2 p-3 mr-2 font-light bg-desicon-white rounded-xl">
-                <h2 class="whitespace-nowrap font-medium">Atividades recentes</h2>
+                <h2 class="font-medium whitespace-nowrap">Atividades recentes</h2>
                 <a href="#"
                     class="flex flex-row items-center p-1 mt-2 rounded hover:bg-desicon-natural7 hover:bg-opacity-50">
                     <div class="">
@@ -95,7 +99,7 @@
             </div>
 
             <div class="flex flex-col p-3 font-light bg-desicon-white rounded-xl">
-                <h2 class="whitespace-nowrap font-medium">Útimos descontos</h2>
+                <h2 class="font-medium whitespace-nowrap">Útimos descontos</h2>
                 <a href="#" class="flex flex-col p-1 mt-2 rounded hover:bg-desicon-natural7 hover:bg-opacity-50">
                     <div class="flex flex-col w-full ">
                         <h2 class="text-sm font-extralight">Rodízios</h2>

@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '731a77f3d3a4f55a25540a312bb2377258a7e3cc',
+        'reference' => '98e7c675f00a0eb6a4670550e886a6fe1a78c6e3',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -57,6 +57,15 @@
             'replaced' => array(
                 0 => '*',
             ),
+        ),
+        'davidhsianturi/blade-bootstrap-icons' => array(
+            'pretty_version' => 'v1.3.0',
+            'version' => '1.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../davidhsianturi/blade-bootstrap-icons',
+            'aliases' => array(),
+            'reference' => 'cb45e8ac37b3a646ba342ab396921dcdb22390a8',
+            'dev_requirement' => false,
         ),
         'dflydev/dot-access-data' => array(
             'pretty_version' => 'v3.0.1',
@@ -433,7 +442,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '731a77f3d3a4f55a25540a312bb2377258a7e3cc',
+            'reference' => '98e7c675f00a0eb6a4670550e886a6fe1a78c6e3',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(

@@ -12,8 +12,8 @@ class Home extends Component
         $dadosMeses = $this->contagemPorMeses(now()->year);
         $dados = $this->montarDadosPorMeses($dadosMeses);
         $chartjs = $this->grafico($dados);
-
-        return view('livewire.pages.home', compact('chartjs', 'dadosMeses'));
+        $propostas = Proposta::all();
+        return view('livewire.pages.home', compact('chartjs', 'propostas'));
     }
 
     public function grafico($dados)

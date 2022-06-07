@@ -26,12 +26,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    {{-- Flowbit --}}
 </head>
 
 <body>
     @yield('body')
 
     @livewireScripts
+    <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
 </body>
 
 </html>
