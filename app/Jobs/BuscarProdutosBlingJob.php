@@ -43,7 +43,6 @@ class BuscarProdutosBlingJob implements ShouldQueue
                 $list_produtos = json_decode($request, true);
                 $list_produtos = array_shift($list_produtos);
                 $list_produtos = array_shift($list_produtos);
-
                 if (!isset(array_shift($list_produtos[0])['cod'])) {
                     /* Chamando o worker para cadastrar os produtos no banco */
                     SalvarProdutoNoBancoJob::dispatch($list_produtos);
@@ -53,6 +52,7 @@ class BuscarProdutosBlingJob implements ShouldQueue
                     $finalizado = true;
                 }
             } catch (\Throwable $th) {
+                continue;
             }
         } while ($finalizado == false);
     }

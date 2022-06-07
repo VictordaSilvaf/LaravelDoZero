@@ -39,18 +39,12 @@ class BuscarPagamentosBling implements ShouldQueue
 
             $request = Http::get("https://bling.com.br/Api/v2/formaspagamento/json&apikey=" . env('API_KEY_BLING'));
 
+
             $forma_pagamento = json_decode($request, true);
             $forma_pagamento = array_shift($forma_pagamento);
             $forma_pagamento = array_shift($forma_pagamento);
-            if (!isset($formasPagamento['erro'])) {
-                SalvarPagamentosBling::dispatch($forma_pagamento);
-                ++$count;
-            } else {
-                /* Deu erro */
-                $finalizado = true;
-            }
+            SalvarPagamentosBling::dispatch($forma_pagamento);
         } catch (\Throwable $th) {
-            dd($th);
         }
     }
 }

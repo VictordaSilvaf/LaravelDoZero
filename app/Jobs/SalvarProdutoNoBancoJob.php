@@ -73,7 +73,8 @@ class SalvarProdutoNoBancoJob implements ShouldQueue
                 $listarProdutos->idFabricante = intval($produto['produto']['idFabricante']);
                 $listarProdutos->categoria = json_encode($produto['produto']['categoria']);
                 $listarProdutos->pesoLiq = floatval($produto['produto']['pesoLiq']);
-                $listarProdutos->pesoBruto = floatval($produto['produto']['estoqueMinimo']);
+                $listarProdutos->pesoBruto = floatval($produto['produto']['pesoBruto']);
+                $listarProdutos->estoqueAtual = floatval($produto['produto']['estoqueAtual']);
                 $listarProdutos->estoqueMinimo = floatval($produto['produto']['estoqueMinimo']);
                 $listarProdutos->estoqueMaximo = floatval($produto['produto']['estoqueMaximo']);
                 $listarProdutos->gtin = intval($produto['produto']['gtin']);
@@ -97,7 +98,7 @@ class SalvarProdutoNoBancoJob implements ShouldQueue
                 } else {
                 }
             } catch (\Throwable $th) {
-                array_push($produtos_com_erro, $produto['produto']['id']);
+                continue;
             }
 
             /* Feature: Enviar por email produtos que estão com problema de preenchimento */

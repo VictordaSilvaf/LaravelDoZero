@@ -42,7 +42,7 @@ class BuscarClientesBlingJob implements ShouldQueue
                 $lista_clientes = json_decode($request, true);
                 $lista_clientes = array_shift($lista_clientes);
                 $lista_clientes = array_shift($lista_clientes);
-                if (!isset(array_shift($lista_clientes[0])['cod'])) {
+                if (!isset($lista_clientes[0]['cod'])) {
                     /* Chamando o worker para cadastrar os cliente no banco */
                     SalvarClienteNoBancoJob::dispatch($lista_clientes);
                     ++$count;
@@ -51,6 +51,7 @@ class BuscarClientesBlingJob implements ShouldQueue
                     $finalizado = true;
                 }
             } catch (\Throwable $th) {
+                dd($th);
             }
         } while ($finalizado == false);
     }

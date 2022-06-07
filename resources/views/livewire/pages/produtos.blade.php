@@ -30,16 +30,20 @@
                             {{ mb_strimwidth($produto->codigo, 0, 14, '...') }}
                         </td>
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300" maxlength="10">
-                            {{ mb_strimwidth($produto->descricao, 0, 50, '...') }}
+                            {{ mb_strimwidth($produto->descricao, 0, 40, '...') }}
                         </td>
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
                             {{ $produto->estoqueAtual }}
                         </td>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300 text-center">
+                        <td class="px-2 py-1 font-light text-center text-gray-600 truncate border border-slate-300">
                             R$ {{ number_format($produto->preco, 2, ',', '.') }}
                         </td>
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            arrumar
+                            {{-- @isset(count($produtos->first()->descontos))
+                                <a href="#" class="p-1 rounded-lg bg-desicon-blue">
+                                    Desconto
+                                </a>
+                            @endisset --}}
                         </td>
                     </tr>
                 @endforeach
@@ -47,7 +51,8 @@
 
         </tbody>
     </table>
-    <div class="flex justify-center items-center mt-4">
+    <div class="flex items-center justify-center mt-4">
         {{ $produtos->onEachSide(1)->links() }}
     </div>
 @endsection
+{{ dd($produtos->first()) }}

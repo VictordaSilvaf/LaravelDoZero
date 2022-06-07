@@ -46,6 +46,7 @@ return new class extends Migration
             $table->float('pesoBruto', 8, 2)->nullable();
             $table->float('estoqueMinimo', 8, 2)->nullable();
             $table->float('estoqueMaximo', 8, 2)->nullable();
+            $table->float('estoqueAtual', 8, 2)->nullable();
             $table->bigInteger('gtin')->nullable();
             $table->bigInteger('gtinEmbalagem')->nullable();
             $table->float('larguraProduto', 8, 2)->nullable();

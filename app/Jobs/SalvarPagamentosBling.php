@@ -33,14 +33,12 @@ class SalvarPagamentosBling implements ShouldQueue
      */
     public function handle()
     {
-        $pagamentos_com_erro = array();
         unset($this->pagamentos[0]);
 
         foreach ($this->pagamentos as $pagamento) {
             try {
-
-                if (Pagamento::find($pagamento['formapagamento']['id'])) {
-                    $listarPagamentos = Pagamento::findOrFail($pagamento['formapagamento']['id'])->first();
+                if (Pagamento::where('id_bling', $pagamento['formapagamento']['id_bling'])->count() >= 1) {
+                    $listarPagamentos = Pagamento::find($pagamento['formapagamento']['id'])->first();
                 } else {
                     $listarPagamentos = new Pagamento();
                 }
@@ -58,8 +56,7 @@ class SalvarPagamentosBling implements ShouldQueue
                     print_r("erro, ");
                 }
             } catch (\Throwable $th) {
-                return "finalizou";
-                array_push($pagamentos_com_erro, $pagamento['contato']['id']);
+                continue;
             }
         }
     }

@@ -14,17 +14,17 @@ class Produto extends Model
         'estrutura' => 'array',
     ];
 
-    public function pagamento()
+    public function pagamentos()
     {
         return $this->belongsTo(Pagamento::class);
     }
 
-    public function desconto()
+    public function descontos()
     {
         return $this->hasOne(Desconto::class);
     }
 
-    public function propostaProduto()
+    public function propostaProdutos()
     {
         return $this->belongsTo(PropostaProduto::class);
     }

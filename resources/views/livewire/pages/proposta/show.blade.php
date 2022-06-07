@@ -33,16 +33,16 @@
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
                             {{ $proposta->id }}
                         </td>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            {{ $proposta->users_id }}
+                        <td class="px-2 py-1 font-light text-center text-gray-600 truncate border border-slate-300 ">
+                            {{ $proposta->users->name }}
                         </td>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            {{ $proposta->clientes_id }}
+                        <td class="px-2 py-1 font-light text-gray-600 truncate border border-slate-300">
+                            {{ $proposta->clientes->cnpj }}
                         </td>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
+                        <td class="px-2 py-1 font-light text-center text-gray-600 border border-slate-300">
                             {{ $proposta->total }}
                         </td>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
+                        <td class="px-2 py-1 font-light text-center text-gray-600 border border-slate-300">
                             {{ $proposta->updated_at }}
                         </td>
                         <td class="px-2 py-1 font-light text-center text-gray-600 duration-150 border border-slate-300 hover:opacity-80">
@@ -81,5 +81,6 @@
     </table>
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
     <script src={{ asset('js/proposta/pendentes.js') }}></script>
+    <script src={{ asset('js/scripts/masks.js') }}></script>
 @endsection
 
