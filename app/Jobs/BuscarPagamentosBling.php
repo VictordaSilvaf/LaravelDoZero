@@ -37,7 +37,7 @@ class BuscarPagamentosBling implements ShouldQueue
 
         try {
 
-            $request = Http::get("https://bling.com.br/Api/v2/formaspagamento/json&apikey=9e9423b85ebb62aac022e74a212a2fa643dd9704753fdfebe07457803cc475c0c78211b2");
+            $request = Http::get("https://bling.com.br/Api/v2/formaspagamento/json&apikey=" . env('API_KEY_BLING'));
 
             $forma_pagamento = json_decode($request, true);
             $forma_pagamento = array_shift($forma_pagamento);

@@ -98,5 +98,8 @@ return array(
     'Cron\\' => array($vendorDir . '/dragonmantank/cron-expression/src/Cron'),
     'Carbon\\' => array($vendorDir . '/nesbot/carbon/src/Carbon'),
     'Brick\\Math\\' => array($vendorDir . '/brick/math/src'),
+    'BladeUI\\Icons\\' => array($vendorDir . '/blade-ui-kit/blade-icons/src'),
+    'BladeUI\\Heroicons\\' => array($vendorDir . '/blade-ui-kit/blade-heroicons/src'),
     'App\\' => array($baseDir . '/app'),
+    'AndreiIonita\\BladeRemixIcon\\' => array($vendorDir . '/andreiio/blade-remix-icon/src'),
 );

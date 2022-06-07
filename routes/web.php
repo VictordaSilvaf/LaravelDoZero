@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\FormaPagamentoController;
 use App\Http\Controllers\Propostas;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
@@ -15,22 +14,10 @@ use App\Http\Livewire\Pages\Descontos;
 use App\Http\Livewire\Pages\Home;
 use App\Http\Livewire\Pages\Produtos;
 use App\Http\Livewire\Pages\Proposta\PropostaCreate;
-use App\Http\Livewire\Pages\Proposta\PropostaShow;
 use App\Models\Cliente;
 use App\Models\Pagamento;
 use App\Models\Produto;
 use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::get('/', SplashScreen::class)->name('home');
 
@@ -77,12 +64,12 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard/descontos', Descontos::class)
         ->name('dashboard.descontos');
 
+    Route::get('dashboard/descontos', Descontos::class)
+        ->name('dashboard.descontos');
+
     Route::get('dashboard/proposta/cadastrar', PropostaCreate::class)->name('proposta.create');
 
     Route::resource('dashboard/propostas', Propostas::class);
-
-    /* FormasPagamento */
-    Route::get('/atualizarPagamento', [FormaPagamentoController::class, 'getFormasPagamentoBling'])->middleware('auth')->name('formaPagamento.getFormasPagamentoBling');
 });
 
 Route::get('produtos', function () {

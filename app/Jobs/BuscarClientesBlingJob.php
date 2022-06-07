@@ -37,7 +37,7 @@ class BuscarClientesBlingJob implements ShouldQueue
         do {
             try {
 
-                $request = Http::get("https://bling.com.br/Api/v2/contatos/page=$count/json/&apikey=9e9423b85ebb62aac022e74a212a2fa643dd9704753fdfebe07457803cc475c0c78211b2&loja=203345790%22");
+                $request = Http::get("https://bling.com.br/Api/v2/contatos/page=$count/json/&apikey=" . env('API_KEY_BLING'));
 
                 $lista_clientes = json_decode($request, true);
                 $lista_clientes = array_shift($lista_clientes);

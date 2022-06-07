@@ -48,10 +48,15 @@
             <input type="text" placeholder="Buscar desconto" class="w-full rounded" name="busca" id="busca">
         @endif
 
-        <button type="submit" class="button bg-desicon-blue rounded p-2 text-desicon-white hover:opacity-80 duration-100">
-            {{-- <x-heroicon-o-search class="h-5 w-5" /> --}}
-            Buscar
+        <button type="submit" class="button bg-desicon-blue rounded p-1.5 text-desicon-white hover:opacity-80 duration-100">
+            <x-heroicon-o-search class="h-6 w-6" />
         </button>
+        {{-- @can('admin') --}}
+        <a href='#' class="button bg-desicon-blue rounded p-1.5 text-desicon-white hover:opacity-80 duration-100"
+            id='adicionarDesconto'>
+            <x-ri-add-fill class="h-6 w-6" />
+        </a>
+        {{-- @endcan --}}
     </form>
 
     <table class="w-full mt-2 border table-auto border-slate-400 bg-desicon-white">
@@ -62,11 +67,7 @@
                 <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">Descrição</th>
                 <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">Descontos</th>
                 <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
-                    @can('admin')
-                        <a href={{ route('desconto.create') }} class="btn btn-primary" id='adicionarDesconto'>
-                            {{-- <x-ri-add-fill class="h-5 w-5" /> --}}
-                        </a>
-                    @endcan
+
                 </th>
             </tr>
         </thead>
