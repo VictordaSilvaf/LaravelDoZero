@@ -33,8 +33,8 @@ class AtualizarTudo extends Command
     {
         Bus::batch([
             new BuscarPagamentosBling,
-            new BuscarProdutosBlingJob,
-            new BuscarClientesBlingJob,
+            /* new BuscarProdutosBlingJob,
+            new BuscarClientesBlingJob, */
         ])->name('Batch_Att_All')->dispatch();
     }
 }

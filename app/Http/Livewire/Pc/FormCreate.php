@@ -15,7 +15,7 @@ use function PHPSTORM_META\type;
 
 class FormCreate extends Component
 {
-    public  $selecaoPagamento;
+    public $selecaoPagamento;
     public $descontoVendedor;
     public $selecaoParcelas = 1;
     public $observacaoVendedor;

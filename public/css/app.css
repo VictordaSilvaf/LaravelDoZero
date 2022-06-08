@@ -1033,9 +1033,6 @@ input:invalid, textarea:invalid, select:invalid {
 .h-4 {
   height: 1rem;
 }
-.h-6 {
-  height: 1.5rem;
-}
 .h-\[150px\] {
   height: 150px;
 }
@@ -1047,6 +1044,9 @@ input:invalid, textarea:invalid, select:invalid {
 }
 .h-auto {
   height: auto;
+}
+.h-6 {
+  height: 1.5rem;
 }
 .h-12 {
   height: 3rem;
@@ -1075,9 +1075,6 @@ input:invalid, textarea:invalid, select:invalid {
 .w-4 {
   width: 1rem;
 }
-.w-6 {
-  width: 1.5rem;
-}
 .w-\[150px\] {
   width: 150px;
 }
@@ -1089,6 +1086,9 @@ input:invalid, textarea:invalid, select:invalid {
 }
 .w-48 {
   width: 12rem;
+}
+.w-6 {
+  width: 1.5rem;
 }
 .w-2\/3 {
   width: 66.666667%;
@@ -1366,6 +1366,14 @@ input:invalid, textarea:invalid, select:invalid {
   --tw-bg-opacity: 1;
   background-color: rgb(0 126 184 / var(--tw-bg-opacity));
 }
+.bg-desicon-natural5 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(196 196 196 / var(--tw-bg-opacity));
+}
+.bg-desicon-natural {
+  --tw-bg-opacity: 1;
+  background-color: rgb(111 118 126 / var(--tw-bg-opacity));
+}
 .bg-desicon-natural7 {
   --tw-bg-opacity: 1;
   background-color: rgb(239 239 239 / var(--tw-bg-opacity));
@@ -1444,14 +1452,14 @@ input:invalid, textarea:invalid, select:invalid {
 .p-2 {
   padding: 0.5rem;
 }
-.p-5 {
-  padding: 1.25rem;
-}
 .p-1\.5 {
   padding: 0.375rem;
 }
 .p-1 {
   padding: 0.25rem;
+}
+.p-5 {
+  padding: 1.25rem;
 }
 .p-3 {
   padding: 0.75rem;
@@ -1461,6 +1469,12 @@ input:invalid, textarea:invalid, select:invalid {
 }
 .p-2\.5 {
   padding: 0.625rem;
+}
+.p-0\.5 {
+  padding: 0.125rem;
+}
+.p-0 {
+  padding: 0px;
 }
 .py-12 {
   padding-top: 3rem;
@@ -1513,6 +1527,10 @@ input:invalid, textarea:invalid, select:invalid {
 .py-2\.5 {
   padding-top: 0.625rem;
   padding-bottom: 0.625rem;
+}
+.px-2\.5 {
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
 }
 .pr-3 {
   padding-right: 0.75rem;
@@ -1701,6 +1719,18 @@ input:invalid, textarea:invalid, select:invalid {
 .opacity-100 {
   opacity: 1;
 }
+.opacity-80 {
+  opacity: 0.8;
+}
+.opacity-70 {
+  opacity: 0.7;
+}
+.opacity-50 {
+  opacity: 0.5;
+}
+.opacity-75 {
+  opacity: 0.75;
+}
 .shadow {
   --tw-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
@@ -1842,6 +1872,15 @@ input:invalid, textarea:invalid, select:invalid {
 }
 .hover\:opacity-80:hover {
   opacity: 0.8;
+}
+.hover\:opacity-100:hover {
+  opacity: 1;
+}
+.hover\:opacity-70:hover {
+  opacity: 0.7;
+}
+.hover\:opacity-95:hover {
+  opacity: 0.95;
 }
 .focus\:z-10:focus {
   z-index: 10;

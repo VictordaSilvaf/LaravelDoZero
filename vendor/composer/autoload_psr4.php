@@ -58,6 +58,8 @@ return array(
     'Pest\\Livewire\\' => array($vendorDir . '/pestphp/pest-plugin-livewire/src'),
     'Pest\\Laravel\\' => array($vendorDir . '/pestphp/pest-plugin-laravel/src'),
     'Pest\\' => array($vendorDir . '/pestphp/pest/src'),
+    'OwenVoke\\BladeFontAwesome\\' => array($vendorDir . '/owenvoke/blade-fontawesome/src'),
+    'OwenVoke\\BladeEntypo\\' => array($vendorDir . '/owenvoke/blade-entypo/src'),
     'NunoMaduro\\Collision\\' => array($vendorDir . '/nunomaduro/collision/src'),
     'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
     'Livewire\\' => array($vendorDir . '/livewire/livewire/src'),

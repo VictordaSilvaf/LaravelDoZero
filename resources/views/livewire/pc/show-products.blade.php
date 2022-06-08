@@ -40,37 +40,38 @@
                 <table id="tableProdID" class="table-auto w-full my-3">
                     <thead class="bg-gray-700 text-desicon-white font-thin">
                         <tr class="font-thin text-center">
-                            <th class="font-light py-2">SKU</th>
-                            <th class="font-light py-2">Nome do Produto</th>
-                            <th class="font-light py-2">Quantidade</th>
-                            <th class="font-light py-2">Valor UN</th>
-                            <th class="font-light py-2">Desconto</th>
-                            <th class="font-light py-2">Desc Esc.</th>
-                            <th class="font-light py-2">Desc Pg.</th>
-                            <th class="font-light py-2">Total</th>
-                            <th class="font-light py-2"></th>
+                            <th class="font-light py-2 truncate px-2">SKU</th>
+                            <th class="font-light py-2 truncate px-2">Nome do Produto</th>
+                            <th class="font-light py-2 truncate px-2">Quant.</th>
+                            <th class="font-light py-2 truncate px-2">Valor UN</th>
+                            <th class="font-light py-2 truncate px-2">Total</th>
+                            <th class="font-light py-2 truncate px-2"></th>
                         </tr>
                     </thead>
                     <tbody id="" class="bg-desicon-white">
                         @if ($produtos)
                             @foreach ($produtos as $produto)
                                 <tr class="">
-                                    <td class="">
+                                    <td class="p-2">
                                         {{ $produto[0]->codigo ?? '' }}
                                     </td>
-                                    <td class="">
-                                        {{ $produto[0]->descricao ?? '' }}
+                                    <td class="p-0.5 text-center">
+                                        {{ mb_strimwidth($produto[0]->descricao, 0, 64, '...') }}
                                     </td>
-                                    <td class="">
-                                        {{ $produto[1] }}
+                                    <td class="p-2 text-center truncate">
+                                        {{ $produto[1] }} un
                                     </td>
-                                    <td class="">Valor UN</td>
-                                    <td class="">Desconto</td>
-                                    <td class="">Desc Esc.</td>
-                                    <td class="">Desc Pg.</td>
-                                    <td class="">Valor Total</td>
-                                    <td class="">
-
+                                    <td class="p-2 text-center truncate">R$
+                                        {{ number_format($produto[0]->preco, 2, ',', '.') }}
+                                    </td>
+                                    <td class="p-2 text-center truncate">
+                                        aaaaa
+                                    </td>
+                                    <td class="p-2 text-center">
+                                        <a href="#" class="">
+                                            <x-heroicon-s-trash
+                                                class="w-6 h-6 text-red-600 opacity-75 hover:opacity-95 duration-100" />
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach

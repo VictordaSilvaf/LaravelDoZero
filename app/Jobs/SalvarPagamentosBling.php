@@ -37,7 +37,7 @@ class SalvarPagamentosBling implements ShouldQueue
 
         foreach ($this->pagamentos as $pagamento) {
             try {
-                if (Pagamento::where('id_bling', $pagamento['formapagamento']['id_bling'])->count() >= 1) {
+                if (Pagamento::where('id_bling', $pagamento['formapagamento']['id'])->count() >= 1) {
                     $listarPagamentos = Pagamento::find($pagamento['formapagamento']['id'])->first();
                 } else {
                     $listarPagamentos = new Pagamento();

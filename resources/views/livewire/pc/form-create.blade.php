@@ -139,7 +139,8 @@
             <select id="clienteConsumoRevenda" name="clienteConsumoRevenda"
                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 bg-desicon-white border rounded appearance-none focus:outline-none focus:bg-white"
                 wire:model='clienteConsumoRevenda'>
-                <option id="inpConsumo" value="consumo" selected>
+                <option selected>Tipo de venda...</option>
+                <option id="inpConsumo" value="consumo">
                     Consumo
                 </option>
                 <option id="inpRevenda" value="revenda">Revenda</option>

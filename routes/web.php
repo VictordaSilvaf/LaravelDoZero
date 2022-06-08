@@ -70,14 +70,17 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard/proposta/cadastrar', PropostaCreate::class)->name('proposta.create');
 
     Route::resource('dashboard/propostas', Propostas::class);
+
+    Route::get('dashboard/propostas/estado/{id}/{estado}', [Propostas::class, 'mudarEstadoPC'])
+        ->name('proposta.estado');
 });
 
 Route::get('produtos', function () {
-    dd(Produto::all());
+    dd(Produto::all()->get(6004));
 });
 
 Route::get('clientes', function () {
-    dd(Cliente::all());
+    dd(Cliente::all()->get(6004));
 });
 
 Route::get('pagamentos', function () {

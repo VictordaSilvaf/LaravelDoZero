@@ -1,14 +1,17 @@
 <div class="p-2">
     {{-- top menu --}}
     <div class="flex justify-end w-full gap-3 pr-3">
-        <a href="#" class="flex items-center justify-center w-6 h-6 rounded-full bg-desicon-blue">
-            <span></span>
+        <a href="#"
+            class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 hover:opacity-100 duration-100">
+            <x-entypo-help-with-circle class="w-4 h-4" />
         </a>
-        <a href="#" class="flex items-center justify-center w-6 h-6 rounded-full bg-desicon-blue">
-            <span></span>
+        <a href="#"
+            class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 hover:opacity-100 duration-100">
+            <x-fas-bell class="w-4 h-4" />
         </a>
-        <a href="#" class="flex items-center justify-center w-6 h-6 rounded-full bg-desicon-blue">
-            <span></span>
+        <a href="#"
+            class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 hover:opacity-100 duration-100">
+            <x-fas-user class="w-4 h-4" />
         </a>
     </div>
 
@@ -32,11 +35,11 @@
 
                     </div>
                     <div class="ml-3">
-                        <h3 class="text-sm">
-                            {{ $proposta->clientes_id }}
+                        <h3 class="text-sm truncate">
+                            {{ mb_strimwidth($proposta->clientes->nome, 0, 20, '...') }}
                         </h3>
-                        <p class="text-sm font-extralight">
-                            R$ {{ $proposta->total }}
+                        <p class="text-sm font-extralight ">
+                            R$ {{ number_format($proposta->total, 2, ',', '.') }}
                         </p>
 
                     </div>
