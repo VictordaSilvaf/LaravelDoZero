@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('proposta_produtos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('propostas_id')->constrained('propostas');
+            $table->foreignId('proposta_id')->constrained('propostas');
             $table->foreignId('produtos_id')->constrained('produtos');
             $table->foreignId('users_id')->constrained('users');
             $table->float('quantidade');

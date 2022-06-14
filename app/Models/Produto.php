@@ -26,6 +26,6 @@ class Produto extends Model
 
     public function propostaProdutos()
     {
-        return $this->belongsTo(PropostaProduto::class);
+        return $this->hasOne(PropostaProduto::class);
     }
 }

@@ -31,7 +31,7 @@ class Propostas extends Controller
                 break;
         }
 
-        return view('livewire.pages.proposta.show', compact('propostas', 'status'));
+        return view('livewire.pages.proposta.index  ', compact('propostas', 'status'));
     }
 
     /**

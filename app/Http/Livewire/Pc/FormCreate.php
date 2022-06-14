@@ -138,7 +138,7 @@ class FormCreate extends Component
             foreach ($produtos as $produto) {
 
                 $pdt = $produtoProposta->create([
-                    'propostas_id' => $pc['id'],
+                    'proposta_id' => $pc['id'],
                     'produtos_id' => $produto['0']['id'],
                     'users_id' => auth()->user()->id,
                     'quantidade' => $produto['1'],

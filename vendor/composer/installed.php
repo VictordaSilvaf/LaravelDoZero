@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'c73d88053ad30335ba36861ee85caf512f2f18ab',
+        'reference' => '82d3bef580e5677edfe4178feb2caa84ccd940d9',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -403,6 +403,15 @@
                 0 => 'v9.13.0',
             ),
         ),
+        'khatabwedaa/blade-css-icons' => array(
+            'pretty_version' => '1.1.0',
+            'version' => '1.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../khatabwedaa/blade-css-icons',
+            'aliases' => array(),
+            'reference' => 'a1a3288d972767ce02fcf8bab2ea0a9254fe187f',
+            'dev_requirement' => false,
+        ),
         'kodova/hamcrest-php' => array(
             'dev_requirement' => true,
             'replaced' => array(
@@ -442,7 +451,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'c73d88053ad30335ba36861ee85caf512f2f18ab',
+            'reference' => '82d3bef580e5677edfe4178feb2caa84ccd940d9',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(

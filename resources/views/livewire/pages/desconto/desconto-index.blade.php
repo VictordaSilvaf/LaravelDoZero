@@ -52,7 +52,8 @@
             <x-heroicon-o-search class="h-6 w-6" />
         </button>
         {{-- @can('admin') --}}
-        <a href='#' class="button bg-desicon-blue rounded p-1.5 text-desicon-white hover:opacity-80 duration-100"
+        <a href={{ route('descontos.create') }}
+            class="button bg-desicon-blue rounded p-1.5 text-desicon-white hover:opacity-80 duration-100"
             id='adicionarDesconto'>
             <x-ri-add-fill class="h-6 w-6" />
         </a>
@@ -144,19 +145,3 @@
         @endisset
     </div>
 @endsection
-<script>
-    var popUp = document.getElementById('popUp')
-    var popover = new bootstrap.Popover(popUp, options)
-
-    var popover = new bootstrap.Popover(element, {
-        popperConfig: function(defaultBsPopperConfig) {
-            // var newPopperConfig = {...}
-            // use defaultBsPopperConfig if needed...
-            return newPopperConfig
-        }
-    })
-
-    popUp.addEventListener('mauseover', function() {
-        myPopover.show()
-    })
-</script>

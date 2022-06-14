@@ -10,10 +10,12 @@ use App\Http\Livewire\Auth\Passwords\Reset;
 use App\Http\Livewire\Auth\Register;
 use App\Http\Livewire\Auth\Verify;
 use App\Http\Livewire\Components\SplashScreen;
-use App\Http\Livewire\Pages\Descontos;
+use App\Http\Livewire\Pages\Desconto\DescontoCreate;
+use App\Http\Livewire\Pages\Desconto\DescontoIndex;
 use App\Http\Livewire\Pages\Home;
 use App\Http\Livewire\Pages\Produtos;
 use App\Http\Livewire\Pages\Proposta\PropostaCreate;
+use App\Http\Livewire\Pages\Proposta\Show;
 use App\Models\Cliente;
 use App\Models\Pagamento;
 use App\Models\Produto;
@@ -53,26 +55,37 @@ Route::middleware('auth')->group(function () {
         ->name('logout');
 });
 
-/* My routes */
+/* Dashboard Geral */
 Route::middleware('auth')->group(function () {
     Route::get('dashboard/home', Home::class)
         ->name('dashboard.home');
 
     Route::get('dashboard/produtos', Produtos::class)
         ->name('dashboard.produtos');
+});
 
-    Route::get('dashboard/descontos', Descontos::class)
-        ->name('dashboard.descontos');
+/* Desconto */
+Route::middleware('auth')->group(function () {
+    Route::get('dashboard/descontos', DescontoIndex::class)
+        ->name('descontos.index');
 
-    Route::get('dashboard/descontos', Descontos::class)
-        ->name('dashboard.descontos');
+    Route::get('dashboard/descontos/create', DescontoCreate::class)
+        ->name('descontos.create');
+
+    Route::post('dashboard/descontos/store', [DescontoCreate::class, 'store'])
+        ->name('descontos.store');
+});
+
+/* Proposta */
+Route::middleware('auth')->group(function () {
+    Route::resource('dashboard/propostas', Propostas::class);
 
     Route::get('dashboard/proposta/cadastrar', PropostaCreate::class)->name('proposta.create');
 
-    Route::resource('dashboard/propostas', Propostas::class);
-
     Route::get('dashboard/propostas/estado/{id}/{estado}', [Propostas::class, 'mudarEstadoPC'])
         ->name('proposta.estado');
+
+    Route::get('dashboard/proposta/{id}', Show::class)->name('proposta.show');
 });
 
 Route::get('produtos', function () {

@@ -146,6 +146,10 @@ class ComposerStaticInit9fee26c5c3b5fb10627c01ee2fc9331b
             'LaravelLegends\\PtBrValidator\\' => 29,
             'LaravelFrontendPresets\\Tall\\' => 28,
         ),
+        'K' => 
+        array (
+            'Khatabwedaa\\BladeCssIcons\\' => 26,
+        ),
         'I' => 
         array (
             'Illuminate\\Support\\' => 19,
@@ -488,6 +492,10 @@ class ComposerStaticInit9fee26c5c3b5fb10627c01ee2fc9331b
         array (
             0 => __DIR__ . '/..' . '/laravel-frontend-presets/tall/src',
         ),
+        'Khatabwedaa\\BladeCssIcons\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/khatabwedaa/blade-css-icons/src',
+        ),
         'Illuminate\\Support\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Macroable',
@@ -636,11 +644,12 @@ class ComposerStaticInit9fee26c5c3b5fb10627c01ee2fc9331b
         'App\\Http\\Livewire\\Components\\RightMenu' => __DIR__ . '/../..' . '/app/Http/Livewire/Components/RightMenu.php',
         'App\\Http\\Livewire\\Components\\SplashScreen' => __DIR__ . '/../..' . '/app/Http/Livewire/Components/SplashScreen.php',
         'App\\Http\\Livewire\\Layouts\\DashboardLayout' => __DIR__ . '/../..' . '/app/Http/Livewire/Layouts/DashboardLayout.php',
-        'App\\Http\\Livewire\\Pages\\Descontos' => __DIR__ . '/../..' . '/app/Http/Livewire/Pages/Descontos.php',
+        'App\\Http\\Livewire\\Pages\\Desconto\\DescontoCreate' => __DIR__ . '/../..' . '/app/Http/Livewire/Pages/Desconto/DescontoCreate.php',
+        'App\\Http\\Livewire\\Pages\\Desconto\\DescontoIndex' => __DIR__ . '/../..' . '/app/Http/Livewire/Pages/Desconto/DescontoIndex.php',
         'App\\Http\\Livewire\\Pages\\Home' => __DIR__ . '/../..' . '/app/Http/Livewire/Pages/Home.php',
         'App\\Http\\Livewire\\Pages\\Produtos' => __DIR__ . '/../..' . '/app/Http/Livewire/Pages/Produtos.php',
         'App\\Http\\Livewire\\Pages\\Proposta\\PropostaCreate' => __DIR__ . '/../..' . '/app/Http/Livewire/Pages/Proposta/PropostaCreate.php',
-        'App\\Http\\Livewire\\Pages\\Proposta\\PropostaShow' => __DIR__ . '/../..' . '/app/Http/Livewire/Pages/Proposta/PropostaShow.php',
+        'App\\Http\\Livewire\\Pages\\Proposta\\Show' => __DIR__ . '/../..' . '/app/Http/Livewire/Pages/Proposta/Show.php',
         'App\\Http\\Livewire\\Pages\\Propostas' => __DIR__ . '/../..' . '/app/Http/Livewire/Pages/Propostas.php',
         'App\\Http\\Livewire\\Pc\\Components\\SelectPayments' => __DIR__ . '/../..' . '/app/Http/Livewire/Pc/Components/SelectPayments.php',
         'App\\Http\\Livewire\\Pc\\FormCreate' => __DIR__ . '/../..' . '/app/Http/Livewire/Pc/FormCreate.php',
@@ -2740,6 +2749,7 @@ class ComposerStaticInit9fee26c5c3b5fb10627c01ee2fc9331b
         'Illuminate\\View\\ViewFinderInterface' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewFinderInterface.php',
         'Illuminate\\View\\ViewName' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewName.php',
         'Illuminate\\View\\ViewServiceProvider' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/View/ViewServiceProvider.php',
+        'Khatabwedaa\\BladeCssIcons\\BladeCssIconsServiceProvider' => __DIR__ . '/..' . '/khatabwedaa/blade-css-icons/src/BladeCssIconsServiceProvider.php',
         'LaravelFrontendPresets\\Tall\\TallPreset' => __DIR__ . '/..' . '/laravel-frontend-presets/tall/src/TallPreset.php',
         'LaravelFrontendPresets\\Tall\\TallServiceProvider' => __DIR__ . '/..' . '/laravel-frontend-presets/tall/src/TallServiceProvider.php',
         'LaravelLegends\\PtBrValidator\\Rules\\Celular' => __DIR__ . '/..' . '/laravellegends/pt-br-validator/src/pt-br-validator/Rules/Celular.php',

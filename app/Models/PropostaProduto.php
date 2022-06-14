@@ -10,7 +10,7 @@ class PropostaProduto extends Model
     use HasFactory;
 
     protected $fillable = [
-        'propostas_id', 'quantidade', 'users_id', 'produtos_id'
+        'proposta_id', 'quantidade', 'users_id', 'produtos_id'
     ];
 
     public function users()
@@ -20,7 +20,7 @@ class PropostaProduto extends Model
 
     public function produtos()
     {
-        return $this->hasOne(Produto::class);
+        return $this->belongsTo(Produto::class);
     }
 
     public function propostaProdutos()

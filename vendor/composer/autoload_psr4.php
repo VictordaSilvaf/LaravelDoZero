@@ -77,6 +77,7 @@ return array(
     'Laravel\\Horizon\\' => array($vendorDir . '/laravel/horizon/src'),
     'LaravelLegends\\PtBrValidator\\' => array($vendorDir . '/laravellegends/pt-br-validator/src/pt-br-validator'),
     'LaravelFrontendPresets\\Tall\\' => array($vendorDir . '/laravel-frontend-presets/tall/src'),
+    'Khatabwedaa\\BladeCssIcons\\' => array($vendorDir . '/khatabwedaa/blade-css-icons/src'),
     'Illuminate\\Support\\' => array($vendorDir . '/laravel/framework/src/Illuminate/Macroable', $vendorDir . '/laravel/framework/src/Illuminate/Collections', $vendorDir . '/laravel/framework/src/Illuminate/Conditionable'),
     'Illuminate\\Foundation\\Auth\\' => array($vendorDir . '/laravel/ui/auth-backend'),
     'Illuminate\\' => array($vendorDir . '/laravel/framework/src/Illuminate'),
