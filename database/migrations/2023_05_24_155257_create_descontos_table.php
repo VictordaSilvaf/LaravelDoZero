@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('descontos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->constrained();
-            $table->string('sku_produto');
+            $table->foreignId('user_id')->constrained('users');
+            $table->foreignId('produto_id')->constrained('produtos');
             $table->json('dados');
             $table->timestamps();
         });

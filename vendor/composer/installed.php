@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => '82d3bef580e5677edfe4178feb2caa84ccd940d9',
+        'reference' => '6e5bd6e6877908abe035a7e627f97811fc6f0b1b',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -44,6 +44,15 @@
             'install_path' => __DIR__ . '/../brick/math',
             'aliases' => array(),
             'reference' => 'ca57d18f028f84f777b2168cd1911b0dee2343ae',
+            'dev_requirement' => false,
+        ),
+        'brunocfalcao/blade-feather-icons' => array(
+            'pretty_version' => 'v2.1.0',
+            'version' => '2.1.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../brunocfalcao/blade-feather-icons',
+            'aliases' => array(),
+            'reference' => '8996efa45baab09ca32217a783ec24de7f116f94',
             'dev_requirement' => false,
         ),
         'cordoval/hamcrest-php' => array(
@@ -451,7 +460,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => '82d3bef580e5677edfe4178feb2caa84ccd940d9',
+            'reference' => '6e5bd6e6877908abe035a7e627f97811fc6f0b1b',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -967,6 +976,15 @@
             'replaced' => array(
                 0 => '4.3.1',
             ),
+        ),
+        'ryangjchandler/blade-tabler-icons' => array(
+            'pretty_version' => 'v1.3.0',
+            'version' => '1.3.0.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ryangjchandler/blade-tabler-icons',
+            'aliases' => array(),
+            'reference' => '83bb61759c0e258e7653d7b7c86d13e13562a99f',
+            'dev_requirement' => false,
         ),
         'sebastian/cli-parser' => array(
             'pretty_version' => '1.0.1',

@@ -74,72 +74,55 @@
         </thead>
 
         <tbody>
-            @isset($descotos)
+            @isset($descontos)
                 @foreach ($descontos as $item)
+                    {{-- {{ dd($item->produto) }} --}}
+
                     <tr>
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
                             {{ $item->id }}</td>
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            {{ $item->sku_produto }}</td>
+                            {{ $item->produto->codigo }}</td>
 
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            <a href="{{ route('desconto.show', $item->id) }}" data-bs-toggle="popover"
-                                data-bs-trigger="hover focus" data-bs-content="Disabled popover" id="popUp">
-                                {{ mb_strimwidth($produtos->find($item->sku_produto)->descricao, 0, 50, '...') }}
+                            <a href="{{-- {{ route('desconto.show', $item->id) }} --}}#" data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                data-bs-content="Disabled popover" id="popUp">
+                                {{ mb_strimwidth($item->produto->descricao, 0, 35, '...') }}
                             </a>
                         </td>
+                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300 flex flex-row">
+                            @for ($cont2 = 0; $cont2 < 5; ++$cont2)
+                                <div class="flex flex-col px-4 text-center">
+                                    @isset($item->dados[0]['quantidade' . $cont2])
+                                        <p>{{ $item->dados[0]['quantidade' . $cont2] }}</p>
+                                        <p>{{ $item->dados[0]['porcentagem' . $cont2] }}%</p>
+                                    @endisset
+
+                                </div>
+                            @endfor
+                        </td>
 
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            <p>{{ $item->quantidade_produto1 }}</p>
-                            <hr>
-                            <p>{{ $item->porcentagem_desconto_produto1 }}%
-                            </p>
-                        </td>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            <p>{{ $item->quantidade_produto2 }}</p>
-                            <hr>
-                            <p>{{ $item->porcentagem_desconto_produto2 }}%
-                            </p>
-                        </td>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            <p>{{ $item->quantidade_produto3 }}</p>
-                            <hr>
-                            <p>{{ $item->porcentagem_desconto_produto3 }}%
-                            </p>
-                        </td>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            <p>{{ $item->quantidade_produto4 }}</p>
-                            <hr>
-                            <p>{{ $item->porcentagem_desconto_produto4 }}%
-                            </p>
-                        </td>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            <p>{{ $item->quantidade_produto5 }}</p>
-                            <hr>
-                            <p>{{ $item->porcentagem_desconto_produto5 }}%
-                            </p>
-                        </td>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            @can('admin')
-                                <a href={{ route('desconto.edit', $item->id) }} class="btn btn-primary" id='adicionarDesconto'>
-                                    {{-- <x-feathericon-edit class="w-5 h-5" /> --}}
+                            <div class="flex">
+                                <a href="#" {{-- {{ route('descontos.edit', $item->id) }} --}} class="hover:opacity-50 duration-100" id='adicionarDesconto'>
+                                    <x-feathericon-edit class="w-5 h-5" />
                                 </a>
 
-                                <form action="{{ route('desconto.destroy', $item->id) }}" method="POST" class="ml-4">
+                                <form action="#{{-- {{ route('descontos.destroy', $item->id) }} --}}" method="POST" class="ml-4">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="btn btn-danger">
-                                        {{-- <x-heroicon-o-trash class="w-5 h-5" /> --}}
+                                    <button type="submit" class="hover:opacity-50 duration-100">
+                                        <x-heroicon-o-trash class="w-5 h-5" />
                                     </button>
                                 </form>
-                            @endcan
+                            </div>
                         </td>
                     </tr>
                 @endforeach
             @endisset
         </tbody>
     </table>
-    <div class="container d-flex justify-content-center">
+    <div class="w-full">
         @isset($descontos)
             {{ $descontos->onEachSide(1)->links() }}
         @endisset

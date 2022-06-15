@@ -30,11 +30,11 @@
 
                     <div class="font-extralight grid grid-cols-2 gap-2">
                         <div class="">
-                            <label class="" for="quantidadeProduto">Quantidade para desconto</label>
+                            <label class="" for="quantidade">Quantidade para desconto</label>
                         </div>
 
                         <div class="">
-                            <label class="" for="porcentagemDesconto">Porcentagem de desconto(%)</label>
+                            <label class="" for="porcentagem">Porcentagem de desconto(%)</label>
                         </div>
                     </div>
 

@@ -3,15 +3,10 @@
 namespace App\Http\Livewire\Pc;
 
 use App\Models\Pagamento;
-use App\Models\Produto;
-use App\Models\ProdutoProposta;
 use App\Models\Proposta;
-use App\Models\PropostaComercial;
 use App\Models\PropostaProduto;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
-
-use function PHPSTORM_META\type;
 
 class FormCreate extends Component
 {

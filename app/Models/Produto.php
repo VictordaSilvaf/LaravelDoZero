@@ -19,9 +19,9 @@ class Produto extends Model
         return $this->belongsTo(Pagamento::class);
     }
 
-    public function descontos()
+    public function desconto()
     {
-        return $this->hasOne(Desconto::class);
+        return $this->belongsTo(Desconto::class, 'id', 'produto_id');
     }
 
     public function propostaProdutos()

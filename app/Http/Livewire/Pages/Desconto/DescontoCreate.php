@@ -2,7 +2,9 @@
 
 namespace App\Http\Livewire\Pages\Desconto;
 
+use App\Http\Livewire\Pages\Produtos;
 use App\Models\Desconto;
+use App\Models\Produto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
@@ -33,45 +35,41 @@ class DescontoCreate extends Component
         $formData = array();
         //função para impedir cadastrar 2 skus iguais
         $verificar_sku_duplicado = $this->verificarSkuDuplicado($request->identificacaoProduto);
-
+        // dd($request->all());
         if ($verificar_sku_duplicado === 0) {
+            array_push($formData, [
+                'quantidade0' => $request->get('quantidadeProduto0'),
+                'porcentagem0' => $request->get('porcentagemDesconto0'),
+                'quantidade1' => $request->get('quantidadeProduto1'),
+                'porcentagem1' => $request->get('porcentagemDesconto1'),
+                'quantidade2' => $request->get('quantidadeProduto2'),
+                'porcentagem2' => $request->get('porcentagemDesconto2'),
+                'quantidade3' => $request->get('quantidadeProduto3'),
+                'porcentagem3' => $request->get('porcentagemDesconto3'),
+                'quantidade4' => $request->get('quantidadeProduto4'),
+                'porcentagem4' => $request->get('porcentagemDesconto4'),
+            ]);
+
             $desconto = new Desconto();
-            array_push($formData, ['sku' => $request->get('identificacaoProduto')]);
-            for ($i = 0; $i < 5; $i++) {
-                array_push($formData, [
-                    'quantidade' . $i => $request->get('quantidade' . $i),
-                    'porcentagem' . $i => $request->get('porcentagem' . $i)
-                ]);
-            }
-
-            dd($formData);
-
-
-            $desconto->usuario_id = Auth::id();
-            $desconto->sku_produto = $request->identificacaoProduto;
-
-            $desconto->quantidade_produto1 = $dadosOrganizados[0][0];
-            $desconto->porcentagem_desconto_produto1 = $dadosOrganizados[1][0];
-            $desconto->quantidade_produto2 = $dadosOrganizados[0][1];
-            $desconto->porcentagem_desconto_produto2 = $dadosOrganizados[1][1];
-            $desconto->quantidade_produto3 = $dadosOrganizados[0][2];
-            $desconto->porcentagem_desconto_produto3 = $dadosOrganizados[1][2];
-            $desconto->quantidade_produto4 = $dadosOrganizados[0][3];
-            $desconto->porcentagem_desconto_produto4 = $dadosOrganizados[1][3];
-            $desconto->quantidade_produto5 = $dadosOrganizados[0][4];
-            $desconto->porcentagem_desconto_produto5 = $dadosOrganizados[1][4];
-
+            $produto = Produto::all()->where('codigo', $request->get('identificacaoProduto'))->first();
+            $salvarDesconto = $desconto->create([
+                'user_id' => Auth::id(),
+                'produto_id' => $produto->id,
+                'dados' => $formData,
+            ]);
 
             try {
-                $desconto->save();
-                return redirect()->route('desconto.index')->with('msg', 'Desconto adicionado com sucesso!');
+                if ($salvarDesconto->save()) {
+                    return redirect()->route('descontos.index')->with('msg',  'Desconto adicionado com sucesso!');
+                } else {
+                    return redirect()->route('descontos.index')->with('msg', 'Não foi possivel adicionar o desconto');
+                }
             } catch (\Throwable $th) {
-                dd($th);
-                return redirect()->route('desconto.index')->with('msgErro', 'Não foi possivel adicionar o desconto');
+                return redirect()->route('descontos.index')->with('msg', 'Não foi possivel adicionar o desconto');
             }
         } else {
 
-            return redirect()->route('desconto.index')->with('msgErro', 'Esse produto já está cadastrado');
+            return redirect()->route('descontos.index')->dangerBanner('Esse produto já está cadastrado');
         }
     }
 

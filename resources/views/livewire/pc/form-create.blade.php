@@ -156,6 +156,37 @@
                 placeholder="Adicione alguma observação se necessário." wire:model='observacaoVendedor'>
         </div>
 
+        <div class="border rounded px-3 py-2 bg-desicon-white border-gray-500">
+            <h2 class="text-center">Dados proposta</h2>
+            <div class="font-extralight text-center gap-4 flex justify-between px-5 mt-2">
+                <div>
+                    <p>Desconto</p>
+                    <p>R$ 00,00</p>
+                </div>
+
+                <div>
+                    <p>Primeira compra</p>
+                    <p>Sim</p>
+                </div>
+
+                <div>
+                    <p>Frete</p>
+                    <p>R$ 00,00</p>
+                </div>
+
+                <div>
+                    <p>Desconto</p>
+                    <p>R$ 00,00</p>
+                </div>
+
+                <div>
+                    <p>Total</p>
+                    <p>R$ 00,00</p>
+                </div>
+
+
+            </div>
+        </div>
     </section>
 
     {{-- BTN cadastrar proposta --}}

@@ -17,17 +17,17 @@ class Propostas extends Controller
         switch ($request->stats) {
             case 'aceitas':
                 $status = 'aceitas';
-                $propostas = Proposta::where('status', 'aceita')->simplePaginate(10);
+                $propostas = Proposta::where('status', 'aceita')->paginate(10);
                 break;
 
             case 'pendentes':
                 $status = 'pendentes';
-                $propostas = Proposta::where('status', 'pendente')->simplePaginate(10);
+                $propostas = Proposta::where('status', 'pendente')->paginate(10);
                 break;
 
             case 'recusadas':
                 $status = 'recusadas';
-                $propostas = Proposta::where('status', 'recusada')->simplePaginate(10);
+                $propostas = Proposta::where('status', 'recusada')->paginate(10);
                 break;
         }
 

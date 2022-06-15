@@ -88,9 +88,10 @@
 
         </tbody>
     </table>
-
-    <div class="flex items-center justify-center mt-4">
-        {{ $propostas->appends(['stats' => $status])->onEachSide(1)->links() }}
+    <div class="w-full">
+        @isset($propostas)
+            {{ $propostas->appends(['stats' => $status])->onEachSide(1)->links() }}
+        @endisset
     </div>
 
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
