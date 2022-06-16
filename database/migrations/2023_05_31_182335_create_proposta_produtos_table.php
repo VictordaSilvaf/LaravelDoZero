@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('proposta_id')->constrained('propostas');
             $table->foreignId('produtos_id')->constrained('produtos');
             $table->foreignId('users_id')->constrained('users');
+            $table->double('descontoFiscal')->default(0);
             $table->float('quantidade');
             $table->timestamps();
         });

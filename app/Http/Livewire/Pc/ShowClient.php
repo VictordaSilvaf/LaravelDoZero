@@ -10,12 +10,13 @@ use Illuminate\Support\Facades\Cache;
 class ShowClient extends Component
 {
     public $identificacaoCliente = '146.005.437-77';
+    public $clienteConsumoRevenda;
+    public $clienteNota = false;
 
     public function render()
     {
         $key_cache = 'produtos_user_id_cliente' . auth()->user()->id;
         $cliente = Cache::get($key_cache);
-
         return view('livewire.pc.show-client', compact('cliente'));
     }
 
@@ -31,7 +32,7 @@ class ShowClient extends Component
                     Cache::forget($key_cache);
                 }
 
-                Cache::add($key_cache, $cliente, 1200);
+                Cache::add($key_cache, [$cliente, $this->clienteConsumoRevenda, $this->clienteNota], 1200);
             } else {
                 $this->addError('identificacaoCliente', 'Cliente não encontado.');
             }

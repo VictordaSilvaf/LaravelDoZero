@@ -86,6 +86,12 @@ class FormCreate extends Component
     public $parcelaDescricao12;
     public $parcelaFormaPagamento12;
 
+    public $total = 0.00;
+    public $totalDesc = 0.00;
+    public $totalDescEsc = 0.00;
+    public $totalFrete = 0.00;
+
+
     protected $rules = [
         'descontoVendedor' => 'nullable|max:100|min:0',
         'selecaoParcelas' => 'nullable|max:12'
@@ -93,8 +99,31 @@ class FormCreate extends Component
 
     public function render()
     {
+
         $this->formaPagamento = Pagamento::all()->whereIn('id_bling', ['50972', '69590', '777279', '777565', '787855', '789959', '789960', '797755', '947074', '947314', '1302911']);
+        $produtos = Cache::get('produtos_user_id_produtos' . auth()->user()->id);
+        if (isset($produtos)) {
+            $this->total = $this->calcTotal($produtos);
+        }
+        /* dd($produtos[1]); */
         return view('livewire.pc.form-create');
+    }
+
+    public function calcTotal($produtos)
+    {
+        $total = 0;
+        foreach ($produtos as $produto) {
+            $total += doubleval($produto[0]->preco) * doubleval($produto[1]);
+        }
+
+        $total += $this->totalFrete;
+        return $total;
+    }
+
+    public function calcDesconto($valor, $porcentagem)
+    {
+
+        return 0;
     }
 
     public function submit()
@@ -121,6 +150,7 @@ class FormCreate extends Component
             'desconto_total' => (float) $this->descontoVendedor, // Calcular o desconto total
             'total' => (float) $this->descontoVendedor, // Calcular o desconto total
         ]);
+        /* dd($this->descontoVendedor()); */
 
         $this->storeProdutos($pc, $produtos);
     }
@@ -228,5 +258,32 @@ class FormCreate extends Component
                 'forma_pagamento' => $this->parcelaFormaPagamento11,
             ]
         ];
+    }
+
+    // Calcular desconto
+    public function descontoVendedor(/* $valor = $this->total, $porcentagemDesconto = $this->descontoVendedor */)
+    {
+        $total = $this->total / (intval($this->descontoVendedor) * 100);
+        dd(intval($this->descontoVendedor));
+        return $total;
+    }
+
+    
+
+    public function verificarTipoCliente($cliente)
+    {
+        switch ($cliente->contribuinte) {
+            case '1':
+                return false;
+                break;
+
+            case '2' || '9':
+                return true;
+                break;
+
+            default:
+                return null;
+                break;
+        }
     }
 }

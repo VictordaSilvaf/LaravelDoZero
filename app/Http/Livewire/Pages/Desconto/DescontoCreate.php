@@ -51,12 +51,14 @@ class DescontoCreate extends Component
             ]);
 
             $desconto = new Desconto();
+
             $produto = Produto::all()->where('codigo', $request->get('identificacaoProduto'))->first();
             $salvarDesconto = $desconto->create([
                 'user_id' => Auth::id(),
                 'produto_id' => $produto->id,
                 'dados' => $formData,
             ]);
+
 
             try {
                 if ($salvarDesconto->save()) {

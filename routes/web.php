@@ -89,11 +89,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('produtos', function () {
-    dd(Produto::all());
+    dd(Produto::all()->where('grupoProduto', 'Importado')->get(206));
 });
 
 Route::get('clientes', function () {
-    dd(Cliente::all());
+    dd(Cliente::all()->where('contribuinte', '1')->where('uf', 'SP')->get(26));
 });
 
 Route::get('pagamentos', function () {
