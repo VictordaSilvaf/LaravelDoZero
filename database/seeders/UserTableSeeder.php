@@ -17,7 +17,7 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
-        // Reset cached roles and permissions
+        /* // Reset cached roles and permissions
         app()[PermissionRegistrar::class]->forgetCachedPermissions();
 
         Permission::create(['name' => 'user']);
@@ -66,12 +66,12 @@ class UserTableSeeder extends Seeder
             'email' => 'robson.admin@gmail.com',
             'password' => bcrypt('padmin123'),
         ])->givePermissionTo('admin');
-        $user->assignRole($role2);
+        $user->assignRole($role2); */
 
         /*
         *  Usuarios Padrões 
         */
-
+        /* 
         $user = User::create([
             'name' => 'Eduarda Cliente',
             'email' => 'eduarda.cliente@gmail.com',
@@ -84,6 +84,6 @@ class UserTableSeeder extends Seeder
             'email' => 'anderson.cliente@gmail.com',
             'password' => bcrypt('password'),
         ])->givePermissionTo('user');
-        $user->assignRole($role1);
+        $user->assignRole($role1); */
     }
 }

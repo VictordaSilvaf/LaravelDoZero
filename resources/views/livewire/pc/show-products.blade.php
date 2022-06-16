@@ -35,15 +35,17 @@
         @enderror
 
         {{-- Tabela de produtos --}}
-        <section class="">
+        <section class="max-w-full">
             @if ($produtos)
-                <table id="tableProdID" class="w-full my-3 table-auto">
+                <table id="tableProdID" class="w-full max-w-full my-3 table-auto">
                     <thead class="font-thin bg-gray-700 text-desicon-white">
                         <tr class="font-thin text-center">
                             <th class="px-2 py-2 font-light truncate">SKU</th>
                             <th class="px-2 py-2 font-light truncate">Nome do Produto</th>
                             <th class="px-2 py-2 font-light truncate">Quant.</th>
                             <th class="px-2 py-2 font-light truncate">Valor UN</th>
+                            <th class="px-2 py-2 font-light truncate">D. Fisc.</th>
+                            <th class="px-2 py-2 font-light truncate">D. Esc.</th>
                             <th class="px-2 py-2 font-light truncate">Total</th>
                             <th class="px-2 py-2 font-light truncate"></th>
                         </tr>
@@ -56,13 +58,20 @@
                                         {{ $produto[0]->codigo ?? '' }}
                                     </td>
                                     <td class="p-0.5 text-center">
-                                        {{ mb_strimwidth($produto[0]->descricao, 0, 64, '...') }}
+                                        {{ mb_strimwidth($produto[0]->descricao, 0, 30, '...') }}
                                     </td>
                                     <td class="p-2 text-center truncate">
                                         {{ $produto[1] }} un
                                     </td>
                                     <td class="p-2 text-center truncate">R$
                                         {{ number_format($produto[0]->preco, 2, ',', '.') }}
+                                    </td>
+                                    <td class="p-2 text-center truncate">
+                                        {{ $produto[2] . "%" }}
+                                    </td>
+                                    <td class="p-2 text-center truncate">
+                                        {{-- {{ dd($produto[0]) }} --}}
+                                        {{ $this->definirPorcentagem($produto[1], $produto[0]->desconto->dados[0]) . "%" }}
                                     </td>
                                     <td class="p-2 text-center truncate">
                                         aaaaa

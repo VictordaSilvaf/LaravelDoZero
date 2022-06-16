@@ -36,7 +36,6 @@ class ShowProducts extends Component
             $key_cache = 'produtos_user_id_produtos' . auth()->user()->id;
 
             $descontoFiscal = $this->descontoFiscal($produto);
-            dd($descontoFiscal);
 
             if (Cache::has($key_cache)) {
                 $produtos = Cache::get($key_cache);
@@ -69,7 +68,7 @@ class ShowProducts extends Component
             /* Verifica se o cliente é de são paulo */
             if ($cliente->uf == "SP") {
                 /* Verifica se o cliente quer ou não nota */
-                if (!$clienteNota) {
+                if ($clienteNota == 'false') {
                     /* Pega os produtos que não são ST */
                     if (!strpos($produto->grupoProduto, 'ST')) {
                         return 12;
@@ -87,7 +86,7 @@ class ShowProducts extends Component
             if ($tipoVenda == 'consumo') {
                 return $this->descontoUF($produto, $cliente, $clienteNota);
             } elseif ($tipoVenda == 'revenda') {
-                if (strpos($produto->grupoProduto, 'ST')) {
+                if (strpos($produto->grupoProduto, 'ST') != 'null') {
                     dd("Verificar produto!");
                 } else {
                     return $this->descontoUF($produto, $cliente, $clienteNota);
@@ -120,7 +119,7 @@ class ShowProducts extends Component
     {
         if ($cliente->uf == "SP") {
             /* Verifica se o cliente quer ou não nota */
-            if (!$clienteNota) {
+            if ($clienteNota == 'false') {
                 /* Pega os produtos que não são ST */
                 if (!strpos($produto->grupoProduto, 'ST')) {
                     return 12;
@@ -146,6 +145,23 @@ class ShowProducts extends Component
                     return 11;
                 }
             }
+        }
+    }
+
+    public function definirPorcentagem($quantidadeProduto, $descontoEscalonado)
+    {
+        if (intval($quantidadeProduto) <= $descontoEscalonado['quantidade0']) {
+            return $descontoEscalonado['porcentagem0'];
+        } elseif (intval($quantidadeProduto) <= $descontoEscalonado['quantidade1'] && $descontoEscalonado['quantidade1'] != 0) {
+            return $descontoEscalonado['porcentagem1'];
+        } elseif (intval($quantidadeProduto) <= $descontoEscalonado['quantidade2'] && $descontoEscalonado['quantidade2'] != 0) {
+            return $descontoEscalonado['porcentagem2'];
+        } elseif (intval($quantidadeProduto) <= $descontoEscalonado['quantidade3'] && $descontoEscalonado['quantidade3'] != 0) {
+            return $descontoEscalonado['porcentagem3'];
+        } elseif (intval($quantidadeProduto) <= $descontoEscalonado['quantidade4'] && $descontoEscalonado['quantidade4'] != 0) {
+            return $descontoEscalonado['porcentagem4'];
+        } else {
+            return 0;
         }
     }
 }

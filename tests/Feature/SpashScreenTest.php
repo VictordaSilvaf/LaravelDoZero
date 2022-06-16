@@ -2,7 +2,7 @@
 
 
 it('check if home page is working')
-    ->get('/eunpego')
+    ->get('/')
     ->assertOk();
 
 it('check if SpashScreen Component was rendered', function () {
