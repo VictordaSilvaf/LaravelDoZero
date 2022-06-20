@@ -9,6 +9,10 @@
             <h2>Cadastro proposta comercial</h2>
         </div>
 
+        @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+        @endforeach
+
         {{-- Mesagens de erro --}}
         @if (session('msgErro'))
             <div class="alert alert-danger">

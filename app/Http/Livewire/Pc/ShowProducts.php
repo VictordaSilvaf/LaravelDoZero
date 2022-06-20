@@ -3,8 +3,6 @@
 namespace App\Http\Livewire\Pc;
 
 use App\Models\Produto;
-use App\Models\Produtos;
-use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Illuminate\Support\Facades\Cache;
 
@@ -14,6 +12,11 @@ class ShowProducts extends Component
     public $quantidadeProduto;
     public $seconds = 10;
     public $listaProdutos = array();
+
+    protected $rules = [
+        'quantidadeProduto' => 'required',
+        'identificacaoProduto' => 'required',
+    ];
 
     public function render()
     {
@@ -33,25 +36,42 @@ class ShowProducts extends Component
         if (Produto::where('codigo', $this->identificacaoProduto)->first() != null) {
             $quantidade = $this->quantidadeProduto;
             $produto = Produto::where('codigo', $this->identificacaoProduto)->first();
+
+            $totalDescontoEscalonado = $this->calcDescontoEscalonado($produto, $quantidade);
+
             $key_cache = 'produtos_user_id_produtos' . auth()->user()->id;
 
-            $descontoFiscal = $this->descontoFiscal($produto);
+            if (!$this->verificarProdutoExisteNaLista($this->identificacaoProduto, $key_cache)) {
+                $descontoFiscal = $this->descontoFiscal($produto);
 
-            if (Cache::has($key_cache)) {
-                $produtos = Cache::get($key_cache);
-                Cache::forget($key_cache);
+                if (Cache::has($key_cache)) {
+                    $produtos = Cache::get($key_cache);
+                    Cache::forget($key_cache);
+                }
 
-                array_push($produtos, [$produto, $quantidade, $descontoFiscal]);
+                array_push($produtos, [$produto, $quantidade, $descontoFiscal, $totalDescontoEscalonado]);
+
+                Cache::add($key_cache, $produtos, 1200);
             } else {
-                array_push($produtos, [$produto, $quantidade, $descontoFiscal]);
+                $this->addError('buscaProduto', 'Produto já existe na lista.');
             }
-
-            Cache::add($key_cache, $produtos, 1200);
         } else {
             $this->addError('buscaProduto', 'Produto não encontado.');
         }
+    }
 
-        /* dd($this->listaProdutos); */
+    public function verificarProdutoExisteNaLista($id, $key)
+    {
+        $produtos = Cache::get($key);
+        if ($produtos) {
+            foreach ($produtos as $produto) {
+                if ($produto[0]->codigo == $id) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public function descontoFiscal($produto)
@@ -163,5 +183,30 @@ class ShowProducts extends Component
         } else {
             return 0;
         }
+    }
+
+    /* Função para remover item do cache baseado no arrey index do loop da view */
+    public function removerProdutoLista($id)
+    {
+        $key_cache = 'produtos_user_id_produtos' . auth()->user()->id;
+        $produtos = Cache::get($key_cache);
+
+        Cache::pull($key_cache);
+        unset($produtos[$id]);
+        Cache::add($key_cache, $produtos, 1200);
+    }
+
+    public function calcDescontoEscalonado($produto, $quantidade)
+    {
+        $total = $produto->preco * $quantidade;
+        $desconto = $produto->desconto->dados[0];
+
+        for ($i = 0; $i < 5; $i++) {
+            if ($quantidade >= $desconto['quantidade' . $i]) {
+                $total -= ($total * $desconto['porcentagem' . $i]) / 100;
+            }
+        }
+
+        return ($produto->preco * $quantidade - $total);
     }
 }

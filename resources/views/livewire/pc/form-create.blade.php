@@ -8,7 +8,7 @@
                 <select
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                     id="clienteTransportadora" name="clienteTransportadora" wire:model='clienteTransportadora' required>
-                    <option selected>Nome da transportadora...</option>
+                    <option selected value="">Nome da transportadora...</option>
                     <option value="JADLOG.COM">JADLOG.COM</option>
                     <option value="JADLOG.PACKAGE">JADLOG.PACKAGE</option>
                     <option value="SEDEX - EXPRESSO CORREIOS">SEDEX - EXPRESSO CORREIOS</option>
@@ -20,13 +20,14 @@
                 </select>
             </div>
             <div class="pc--sessaoInput pc--sessaoInput1">
-                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="clienteEnvio">Modo
+                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
+                    for="clienteEnvio">Modo
                     de
                     envio</label>
                 <select
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                     id="clienteEnvio" name="clienteEnvio" wire:model='clienteEnvio' required>
-                    <option selected>Modo de envio...</option>
+                    <option selected value="">Modo de envio...</option>
                     <option value="R">Contratação do Frete por conta do Remetente (CIF)</option>
                     <option value="D">Contratação do Frete por conta do Destinatário (FOB)</option>
                     <option value="T">Contratação do Frete por conta de Terceiros</option>
@@ -83,49 +84,54 @@
             <div class="pc--sessaoInput">
                 <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
                     for="selecaoParcelas">Parcelas</label>
-                <input
-                    class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
-                    wire:model='selecaoParcelas' type="number" min="1" max="12" name="selecaoParcelas"
-                    id="selecaoParcelas" placeholder="Quantidade de parcelas (padrão 1)" required>
 
+                <select
+                    class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
+                    id="selecaoParcelas" name="selecaoParcelas" wire:model='selecaoParcelas' required>
+                    <option selected value="">Quantidade de parcelas...</option>
+                    @for ($i = 1; $i <= 12; $i++)
+                        <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+
+                </select>
             </div>
         </div>
 
         <table class="w-full">
             @if ($this->selecaoParcelas > 0 && $this->selecaoParcelas <= 12)
                 @for ($c = 0; $c < $this->selecaoParcelas; $c++)
-                    <div class="flex flex-row justify-between">
-                        <div class="p-1 ">
+                    <div class="grid grid-cols-4 gap-2 truncate">
+                        <div class="truncate">
                             <input
                                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                                 wire:model={{ 'parcelaDia' . $c }} type="number" name={{ 'parcelaDia' . $c }}
                                 id={{ 'parcelaDia' . $c }} placeholder="Dias" required>
                         </div>
 
-                        <div class="p-1">
+                        <div class="truncate">
                             <input
                                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                                 wire:model={{ 'parcelaValor' . $c }} type="number" name={{ 'parcelaValor' . $c }}
                                 id={{ 'parcelaValor' . $c }} placeholder="Valor da parcela" required>
                         </div>
-                        <div class="p-1">
+                        <div class="truncate">
                             <select
                                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                                 id={{ 'parcelaFormaPagamento' . $c }}name="{{ 'parcelaFormaPagamento' . $c }}"
                                 wire:model={{ 'parcelaFormaPagamento' . $c }} class="formaPagamento">
-                                <option selected>Forma de pagamento</option>
+                                <option selected class="text-gray-500" value="">Forma de pag...</option>
                                 @foreach ($this->formaPagamento as $pagamento)
                                     <option value="{{ $pagamento->id_bling }}">{{ $pagamento->descricao }}
                                     </option>
                                 @endforeach
                             </select>
                         </div>
-                        <div class="p-1">
+                        <div class="truncate">
                             <input
                                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                                 wire:model={{ 'parcelaDescricao' . $c }} type="text"
                                 name={{ 'parcelaDescricao' . $c }} id={{ 'parcelaDescricao' . $c }}
-                                placeholder="Descrição parcela" required>
+                                placeholder="Descrição parcela">
                         </div>
                     </div>
                 @endfor
@@ -154,7 +160,7 @@
                     <p class="truncate">Sim</p>
                 </div>
 
-                {{--<div>
+                {{-- <div>
                     <p class="truncate">Frete</p>
                     <p class="truncate">R$ 00,00</p>
                 </div> --}}
@@ -174,9 +180,14 @@
         </div>
     </section>
 
+    @if ($errors->any())
+        {!! implode('', $errors->all('<div>:message</div>')) !!}
+    @endif
+
     {{-- BTN cadastrar proposta --}}
     <section class="grid w-full px-5 py-3 pc--dados">
-        <button type="submit" class="px-4 py-2 font-light text-white duration-150 bg-blue-700 rounded hover:bg-blue-500"
+        <button type="submit"
+            class="px-4 py-2 font-light text-white duration-150 bg-blue-700 rounded hover:bg-blue-500 @error('title') is-invalid @enderror"
             id="enviardados">Cadastrar proposta</button>
     </section>
 </form>

@@ -30,7 +30,8 @@
 
         @isset($propostas)
             @foreach ($propostas as $proposta)
-                <a href="#" class="flex items-center p-2 mt-2 rounded-lg bg-opacity-80 bg-desicon-natural7">
+                <a href={{ route('proposta.show', ['id' => $proposta->id]) }}
+                    class="flex items-center p-2 mt-2 rounded-lg bg-opacity-80 bg-desicon-natural7">
                     <div class="p-5 ml-1 rounded-full bg-slate-400">
 
                     </div>
@@ -41,7 +42,6 @@
                         <p class="text-sm font-extralight ">
                             R$ {{ number_format($proposta->total, 2, ',', '.') }}
                         </p>
-
                     </div>
                     <div class=" w-full flex justify-end pr-4">
                         @if ($proposta->status == 'aceita')

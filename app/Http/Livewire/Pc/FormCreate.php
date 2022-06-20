@@ -103,26 +103,29 @@ class FormCreate extends Component
         $this->formaPagamento = Pagamento::all()->whereIn('id_bling', ['50972', '69590', '777279', '777565', '787855', '789959', '789960', '797755', '947074', '947314', '1302911']);
         $produtos = Cache::get('produtos_user_id_produtos' . auth()->user()->id);
         if (isset($produtos)) {
-            $this->total = $this->calcTotal($produtos);
+            $this->total = $this->calcTotalSemDesconto($produtos);
         }
         /* dd($produtos[1]); */
         return view('livewire.pc.form-create');
     }
 
-    public function calcTotal($produtos)
+    public function calcTotalSemDesconto($produtos)
     {
         $total = 0;
         foreach ($produtos as $produto) {
             $total += doubleval($produto[0]->preco) * doubleval($produto[1]);
         }
-
-        $total += $this->totalFrete;
+        if ($this->totalFrete != null) {
+            $total += $this->totalFrete;
+        } else {
+            $total += 0;
+        }
         return $total;
     }
 
-    public function calcDesconto($valor, $porcentagem)
+    public function calcDescontoEscalonado($produto)
     {
-
+        dd($produto);
         return 0;
     }
 
@@ -132,33 +135,38 @@ class FormCreate extends Component
         $produtos = Cache::get('produtos_user_id_produtos' . auth()->user()->id);
         $cliente = Cache::get('produtos_user_id_cliente' . auth()->user()->id);
         $id_formaPagamento = Cache::get('produtos_user_id_pagamento' . auth()->user()->id);
-
         $parcelas = $this->buildParcels();
-        $pc = Proposta::create([
-            'users_id' => auth()->user()->id,
-            'clientes_id' => $cliente->id,
-            'pagamentos_id' => $id_formaPagamento,
 
-            'consumo_revenda' => $this->clienteConsumoRevenda,
-            'observacaoVendedor' => $this->observacaoVendedor,
-            'transportadora' => $this->clienteTransportadora,
-            'modo_envio' => $this->clienteEnvio,
-            'frete' => (float) $this->clienteFrete,
-            'peso_total' => (float) $this->pesoTotal,
-            'parcelas' => $parcelas,
-            'desconto_vendedor' => (float) $this->descontoVendedor,
-            'desconto_total' => (float) $this->descontoVendedor, // Calcular o desconto total
-            'total' => (float) $this->descontoVendedor, // Calcular o desconto total
-        ]);
-        /* dd($this->descontoVendedor()); */
+        if ($produtos) {
+            $pc = Proposta::create([
+                'users_id' => auth()->user()->id,
+                'clientes_id' => $cliente[0]->id,
+                'pagamentos_id' => $id_formaPagamento,
 
-        $this->storeProdutos($pc, $produtos);
+                'consumo_revenda' => $cliente[1],
+                'observacaoVendedor' => $this->observacaoVendedor,
+                'transportadora' => $this->clienteTransportadora,
+                'modo_envio' => $this->clienteEnvio,
+                'frete' => (float) $this->clienteFrete,
+                'peso_total' => (float) $this->pesoTotal,
+                'parcelas' => $parcelas,
+                'desconto_vendedor' => (float) $this->descontoVendedor,
+                'desconto_total' => (float) $this->descontoVendedor, // Calcular o desconto total
+                'total' => (float) $this->descontoVendedor, // Calcular o desconto total
+            ]);
+            /* dd($this->descontoVendedor()); */
+
+            $this->storeProdutos($pc, $produtos);
+        } else {
+            return redirect()->with('error', 'Adicione produtos a lista para cadastrar a proposta.');
+        }
     }
 
     // Salvar os produtos na tabela many-to-many 
     public function storeProdutos($pc, $produtos)
     {
         try {
+
             $produtoProposta = new PropostaProduto();
             foreach ($produtos as $produto) {
 
@@ -177,7 +185,7 @@ class FormCreate extends Component
             Cache::forget('produtos_user_id_pagamento');
             return redirect("/dashboard/propostas?stats=pendentes")->with('msg', 'Proposta salva com sucesso!');
         } catch (\Throwable $th) {
-            throw $th;
+            return back()->with('msgError', 'Erro ao cadastrar o(s) produto(s).');
         }
     }
 
@@ -268,7 +276,7 @@ class FormCreate extends Component
         return $total;
     }
 
-    
+
 
     public function verificarTipoCliente($cliente)
     {
