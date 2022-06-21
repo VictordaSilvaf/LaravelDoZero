@@ -1,17 +1,17 @@
 @extends('.livewire.layouts.dashboard-layout')
 @section('content')
     @if (session('msgErro'))
-        <div class="alert alert-danger">
+        <div class="w-full p-3 rounded-lg bg-desicon-red text-desicon-white">
             <p class="msg" style="text-align: center;">{{ session('msgErro') }}</p>
         </div>
     @endif
     @if (session('msg'))
-        <div class="alert alert-success">
+        <div class="w-full p-3 rounded-lg bg-desicon-green text-desicon-white">
             <p class="msg" style="text-align: center;">{{ session('msg') }}</p>
         </div>
     @endif
 
-    <div class="col-lg-12 flex">
+    <div class="flex col-lg-12">
 
         <div class="w-full">
             <h2>Descontos</h2>
@@ -39,7 +39,7 @@
     </div>
 
     {{-- <form action="{{ route('desconto.search') }}" method="post" class="d-flex"> --}}
-    <form action="#" method="post" class="flex w-full items-center mt-2 gap-4">
+    <form action="#" method="post" class="flex items-center w-full gap-4 mt-2">
         @csrf
 
         @if (isset($filters) && $filters['busca'] != '')
@@ -49,13 +49,13 @@
         @endif
 
         <button type="submit" class="button bg-desicon-blue rounded p-1.5 text-desicon-white hover:opacity-80 duration-100">
-            <x-heroicon-o-search class="h-6 w-6" />
+            <x-heroicon-o-search class="w-6 h-6" />
         </button>
         {{-- @can('admin') --}}
         <a href={{ route('descontos.create') }}
             class="button bg-desicon-blue rounded p-1.5 text-desicon-white hover:opacity-80 duration-100"
             id='adicionarDesconto'>
-            <x-ri-add-fill class="h-6 w-6" />
+            <x-ri-add-fill class="w-6 h-6" />
         </a>
         {{-- @endcan --}}
     </form>
@@ -75,7 +75,8 @@
 
         <tbody>
             @isset($descontos)
-                @foreach ($descontos as $item)
+
+                @foreach ($descontos as $id => $item)
                     {{-- {{ dd($item->produto) }} --}}
 
                     <tr>
@@ -90,28 +91,29 @@
                                 {{ mb_strimwidth($item->produto->descricao, 0, 35, '...') }}
                             </a>
                         </td>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300 flex flex-row">
-                            @for ($cont2 = 0; $cont2 < 5; ++$cont2)
-                                <div class="flex flex-col px-4 text-center">
-                                    @isset($item->dados[0]['quantidade' . $cont2])
-                                        <p>{{ $item->dados[0]['quantidade' . $cont2] }}</p>
-                                        <p>{{ $item->dados[0]['porcentagem' . $cont2] }}%</p>
-                                    @endisset
-
-                                </div>
-                            @endfor
+                        <td class="font-light text-gray-600 border border-slate-300">
+                            <div class="grid grid-cols-5">
+                                @for ($cont2 = 0; $cont2 < 5; ++$cont2)
+                                    <div class="flex flex-col px-2 text-center">
+                                        @isset($item->dados[0]['quantidade' . $cont2])
+                                            <p>{{ $item->dados[0]['quantidade' . $cont2] }}</p>
+                                            <p>{{ $item->dados[0]['porcentagem' . $cont2] }}%</p>
+                                        @endisset
+                                    </div>
+                                @endfor
+                            </div>
                         </td>
 
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
                             <div class="flex">
-                                <a href="#" {{-- {{ route('descontos.edit', $item->id) }} --}} class="hover:opacity-50 duration-100" id='adicionarDesconto'>
+                                <a href="#" {{-- {{ route('descontos.edit', $item->id) }} --}} class="duration-100 hover:opacity-50" id='adicionarDesconto'>
                                     <x-feathericon-edit class="w-5 h-5" />
                                 </a>
 
-                                <form action="#{{-- {{ route('descontos.destroy', $item->id) }} --}}" method="POST" class="ml-4">
+                                <form action="{{ route('descontos.destroy', $item->id) }}" method="POST" class="ml-4">
                                     @csrf
                                     @method('DELETE')
-                                    <button type="submit" class="hover:opacity-50 duration-100">
+                                    <button type="submit" class="duration-100 hover:opacity-50">
                                         <x-heroicon-o-trash class="w-5 h-5" />
                                     </button>
                                 </form>

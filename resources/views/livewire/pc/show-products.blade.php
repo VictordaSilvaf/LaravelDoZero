@@ -2,8 +2,8 @@
     {{-- Buscar produto --}}
     <form action="" method="POST" class="grid px-5 mt-4" wire:submit.prevent='search'>
         @csrf
-        <div class="gap-2 grid grid-cols-5">
-            <div class="w-full pc--sessaoInput col-span-4">
+        <div class="grid grid-cols-5 gap-2">
+            <div class="w-full col-span-4 pc--sessaoInput">
                 <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
                     for="identificacaoProduto">
                     Identificação do produto
@@ -42,7 +42,7 @@
 
 
         {{-- Tabela de produtos --}}
-        <section class="max-w-full">
+        <section class="max-w-full overflow-x-scroll">
             @if ($produtos)
                 <table id="tableProdID" class="w-full max-w-full my-3 table-auto">
                     <thead class="font-thin bg-gray-700 text-desicon-white">
@@ -51,7 +51,7 @@
                             <th class="px-2 py-2 font-light truncate">Nome do Produto</th>
                             <th class="px-2 py-2 font-light truncate">Quant.</th>
                             <th class="px-2 py-2 font-light truncate">Valor UN</th>
-                            <th class="px-2 py-2 font-light truncate">D. Fisc.</th>
+                            <th class="px-2 py-2 font-light truncate">Difal</th>
                             <th class="px-2 py-2 font-light truncate">D. Esc.</th>
                             <th class="px-2 py-2 font-light truncate">Total</th>
                             <th class="px-2 py-2 font-light truncate"></th>
@@ -75,14 +75,19 @@
                                     </td>
                                     <td class="p-2 text-center truncate border">
                                         {{-- Porcentagem desconto vendedor --}}
-                                        {{ $produto[2] . '%' }}
+                                        <div class="flex flex-col">
+                                            <span>{{ $produto[2] . '%' }}</span>
+                                        </div>
                                     </td>
                                     <td class="p-2 text-center truncate border">
                                         {{-- Total desconto escalonado --}}
-                                        R$ {{ number_format($produto[3], 2, ',', '.') }}
+                                        <div class="flex flex-col">
+                                            <p>R$ {{ number_format($produto[3][0], 2, ',', '.') }}</p>
+                                            <span>{{ number_format($produto[3][1], 2, '.') }}%</span>
+                                        </div>
                                     </td>
                                     <td class="p-2 text-center truncate border">
-                                        aaaaa
+                                        <p>R$ {{ number_format(($produto[3][0] - (($produto[3][0] * $produto[2]) / 100)) *  $produto[1], 2, ',', '.') }}</p>
                                     </td>
                                     <td class="p-2 text-center border"
                                         wire:click="removerProdutoLista({{ $id }})">

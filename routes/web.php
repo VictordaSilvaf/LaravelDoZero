@@ -74,6 +74,9 @@ Route::middleware('auth')->group(function () {
 
     Route::post('dashboard/descontos/store', [DescontoCreate::class, 'store'])
         ->name('descontos.store');
+
+    Route::delete('dashboard/descontos/destroy/{id}', [DescontoIndex::class, 'destroy'])
+        ->name('descontos.destroy');
 });
 
 /* Proposta */

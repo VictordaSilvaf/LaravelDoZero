@@ -86,4 +86,9 @@ class DescontoCreate extends Component
 
         return $retorno;
     }
+
+    public function buscarProduto()
+    {
+        dd('oi');
+    }
 }

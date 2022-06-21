@@ -52,7 +52,7 @@
                     for="totalFrete">Frete</label>
                 <input
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
-                    type="text" name="totalFrete" id="totalFrete" placeholder="Frete"
+                    type="number" name="totalFrete" id="totalFrete" placeholder="Frete"
                     onchange="this.value = this.value.replace(/,/g, '.')" wire:model='totalFrete' required>
             </div>
 
@@ -65,9 +65,6 @@
     </div>
 
     <section class="w-full px-5 pc--dados">
-
-        {{-- Modo de Pagamento --}}
-        <livewire:pc.components.select-payments />
 
         <div class="pc--dadosLinha">
             {{-- Porcentagem de desconto --}}
@@ -86,9 +83,11 @@
                     for="selecaoParcelas">Parcelas</label>
 
                 <select
-                    class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
+                    class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white" 
+                    @if ($this->podeParcelar != true) disabled @else  @endif
+                    {{-- {{ $this->podeParcelar == true ? '': 'disabled'     }} --}}
                     id="selecaoParcelas" name="selecaoParcelas" wire:model='selecaoParcelas' required>
-                    <option selected value="">Quantidade de parcelas...</option>
+                    <option selected value=""></option>
                     @for ($i = 1; $i <= 12; $i++)
                         <option value="{{ $i }}">{{ $i }}</option>
                     @endfor
@@ -117,8 +116,8 @@
                         <div class="truncate">
                             <select
                                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
-                                id={{ 'parcelaFormaPagamento' . $c }}name="{{ 'parcelaFormaPagamento' . $c }}"
-                                wire:model={{ 'parcelaFormaPagamento' . $c }} class="formaPagamento">
+                                id={{ 'parcelaFormaPagamento' . $c }} name="{{ 'parcelaFormaPagamento' . $c }}"
+                                wire:model={{ 'parcelaFormaPagamento' . $c }} class="formaPagamento" wire:change='mudarFormaPagamento'>
                                 <option selected class="text-gray-500" value="">Forma de pag...</option>
                                 @foreach ($this->formaPagamento as $pagamento)
                                     <option value="{{ $pagamento->id_bling }}">{{ $pagamento->descricao }}
@@ -138,9 +137,10 @@
             @endif
         </table>
 
+
         <div class="pc--sessaoInput w-100 ">
             <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
-                for="clienteFrete ml-2">Observação</label>
+                for="observacaoVendedor ml-2">Observação</label>
             <input
                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                 type="text" name="observacaoVendedor" id="observacaoVendedor"
@@ -151,31 +151,31 @@
             <h2 class="text-center">Dados proposta</h2>
             <div class="flex justify-between gap-4 px-5 mt-2 text-center font-extralight">
                 <div>
-                    <p class="truncate">Total S/Desc</p>
-                    <p class="truncate">R$ {{ number_format($total, 2, '.', '') }}</p>
+                    <p class="truncate">Total Bruto</p>
+                    <p class="truncate">R$ {{ number_format($this->calcTotalSemDesconto($produtos), 2, '.', '') }}</p>
                 </div>
 
                 <div>
-                    <p class="truncate">Primeira compra</p>
-                    <p class="truncate">Sim</p>
+                    <p class="truncate">Desc. Vend.</p>
+                    <p class="truncate">{{ $this->descontoVendedor == null ? 0 : $this->descontoVendedor }}%</p>
                 </div>
 
-                {{-- <div>
+                <div>
                     <p class="truncate">Frete</p>
-                    <p class="truncate">R$ 00,00</p>
-                </div> --}}
+                    <p class="truncate">R$ {{ $this->totalFrete }}</p>
+                </div>
 
                 <div>
-                    <p class="truncate">Desconto</p>
-                    <p class="truncate">R$ 00,00</p>
+                    <p class="truncate">Desc. Pagm.</p>
+                    <p class="truncate">{{ $this->mudarFormaPagamento() }}%</p>
                 </div>
 
                 <div>
                     <p class="truncate">Total</p>
-                    <p class="truncate">R$ 00,00</p>
+                    <p class="truncate">{{ number_format($this->calcTotal($produtos, $this->descontoVendedor), 2, ',', '.') }}</p>
                 </div>
 
-
+                
             </div>
         </div>
     </section>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Desconto;
 use App\Models\Proposta;
 use Illuminate\Http\Request;
 
@@ -97,7 +98,6 @@ class Propostas extends Controller
      */
     public function destroy($id)
     {
-        //
     }
 
     /**

@@ -19,7 +19,7 @@
                     Total
                 </th>
                 <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
-                    data
+                    Data
                 </th>
                 <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
 
@@ -34,13 +34,14 @@
                             {{ $proposta->id }}
                         </td>
                         <td class="px-2 py-1 font-light text-center text-gray-600 truncate border border-slate-300 ">
-                            {{ $proposta->users->name }}
+                            
+                            {{ mb_strimwidth($proposta->users->name, 0, 20, '...') }}
                         </td>
                         <td class="px-2 py-1 font-light text-gray-600 truncate border border-slate-300">
                             {{ $proposta->clientes->cnpj }}
                         </td>
-                        <td class="px-2 py-1 font-light text-center text-gray-600 border border-slate-300">
-                            {{ $proposta->total }}
+                        <td class="px-2 py-1 font-light text-center text-gray-600 truncate border border-slate-300">
+                           R$ {{ $proposta->total }}
                         </td>
                         <td class="px-2 py-1 font-light text-center text-gray-600 border border-slate-300">
                             {{ $proposta->updated_at }}

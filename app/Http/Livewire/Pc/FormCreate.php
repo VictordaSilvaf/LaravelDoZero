@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Pc;
 
 use App\Models\Pagamento;
+use App\Models\Produto;
 use App\Models\Proposta;
 use App\Models\PropostaProduto;
 use Illuminate\Support\Facades\Cache;
@@ -11,9 +12,13 @@ use Livewire\Component;
 class FormCreate extends Component
 {
     public $selecaoPagamento;
-    public $descontoVendedor;
+    public $descontoVendedor = 0;
     public $selecaoParcelas = 1;
     public $observacaoVendedor;
+    public $formaPagamento = 0;
+    public $formaPagamento2;
+
+    public $podeParcelar = false;
 
     public $clienteTransportadora;
     public $clienteEnvio;
@@ -99,49 +104,96 @@ class FormCreate extends Component
 
     public function render()
     {
+        $produtos = Cache::get('produtos_user_id_produtos' . auth()->user()->id);
+
 
         $this->formaPagamento = Pagamento::all()->whereIn('id_bling', ['50972', '69590', '777279', '777565', '787855', '789959', '789960', '797755', '947074', '947314', '1302911']);
-        $produtos = Cache::get('produtos_user_id_produtos' . auth()->user()->id);
-        if (isset($produtos)) {
-            $this->total = $this->calcTotalSemDesconto($produtos);
-        }
+
+        $this->formaPagamento2 = Pagamento::all()->whereIn('id_bling', ['50972', '777565']);
+
         /* dd($produtos[1]); */
-        return view('livewire.pc.form-create');
+        return view('livewire.pc.form-create', compact('produtos'));
+    }
+
+    public function mudarFormaPagamento()
+    {
+
+        if ($this->parcelaFormaPagamento0 !=  null) {
+            /* Selecionando formas de pagamento que podem parcelar */
+            $items = ['787855', '69590', '789959'];
+
+
+            foreach ($items as $item) {
+
+                if ($item == $this->parcelaFormaPagamento0) {
+                    $this->podeParcelar = 1;
+                    break;
+                } else {
+                    $this->podeParcelar = 0;
+                    $this->selecaoParcelas = 1;
+                }
+            }
+
+            /* 3% de desconto do pix */
+            if ($this->parcelaFormaPagamento0 === '1302911') {
+                return 3;
+            } else {
+                return 0;
+            }
+        }
     }
 
     public function calcTotalSemDesconto($produtos)
     {
-        $total = 0;
-        foreach ($produtos as $produto) {
-            $total += doubleval($produto[0]->preco) * doubleval($produto[1]);
-        }
-        if ($this->totalFrete != null) {
-            $total += $this->totalFrete;
+        if (isset($produtos)) {
+            $total = 0;
+            foreach ($produtos as $produto) {
+
+                $total += doubleval($produto[0]->preco) * doubleval($produto[1]);
+            }
+            /* 
+            if ($this->totalFrete != null) {
+                $total += $this->totalFrete;
+            } */
+
+            return $total;
         } else {
-            $total += 0;
+            return 0;
         }
-        return $total;
     }
 
-    public function calcDescontoEscalonado($produto)
+    public function calcTotal($produtos, $descontoVendedor = 0)
     {
-        dd($produto);
-        return 0;
+        $total = 0;
+        if (isset($produtos)) {
+
+            foreach ($produtos as $id => $produto) {
+                $total += $produto[3][0] * $produto[1];
+            }
+            if (isset($descontoVendedor)) {
+                $total -= ($total * $descontoVendedor) / 100;
+            }
+            /* 3% é o desconto caso o modo de pagamento for pix */
+            if ($this->selecaoPagamento == 20) {
+                $total -= ($total * 3) / 100;
+            }
+        }
+
+        return $total;
     }
 
     public function submit()
     {
-        // $this->validate();
+        $this->validate();
+
         $produtos = Cache::get('produtos_user_id_produtos' . auth()->user()->id);
         $cliente = Cache::get('produtos_user_id_cliente' . auth()->user()->id);
-        $id_formaPagamento = Cache::get('produtos_user_id_pagamento' . auth()->user()->id);
         $parcelas = $this->buildParcels();
 
         if ($produtos) {
             $pc = Proposta::create([
                 'users_id' => auth()->user()->id,
                 'clientes_id' => $cliente[0]->id,
-                'pagamentos_id' => $id_formaPagamento,
 
                 'consumo_revenda' => $cliente[1],
                 'observacaoVendedor' => $this->observacaoVendedor,
@@ -152,9 +204,8 @@ class FormCreate extends Component
                 'parcelas' => $parcelas,
                 'desconto_vendedor' => (float) $this->descontoVendedor,
                 'desconto_total' => (float) $this->descontoVendedor, // Calcular o desconto total
-                'total' => (float) $this->descontoVendedor, // Calcular o desconto total
+                'total' => (float) $this->calcTotal($produtos, $this->descontoVendedor),
             ]);
-            /* dd($this->descontoVendedor()); */
 
             $this->storeProdutos($pc, $produtos);
         } else {
@@ -268,16 +319,6 @@ class FormCreate extends Component
         ];
     }
 
-    // Calcular desconto
-    public function descontoVendedor(/* $valor = $this->total, $porcentagemDesconto = $this->descontoVendedor */)
-    {
-        $total = $this->total / (intval($this->descontoVendedor) * 100);
-        dd(intval($this->descontoVendedor));
-        return $total;
-    }
-
-
-
     public function verificarTipoCliente($cliente)
     {
         switch ($cliente->contribuinte) {
@@ -293,5 +334,14 @@ class FormCreate extends Component
                 return null;
                 break;
         }
+    }
+
+    public function descontoPagamento()
+    {
+        $key_cache = 'produtos_user_id_pagamento' . auth()->user()->id;
+
+        $formaPagamento = Cache::get($key_cache);
+
+        return $formaPagamento;
     }
 }

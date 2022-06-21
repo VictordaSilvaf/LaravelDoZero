@@ -106,7 +106,8 @@ class ShowProducts extends Component
             if ($tipoVenda == 'consumo') {
                 return $this->descontoUF($produto, $cliente, $clienteNota);
             } elseif ($tipoVenda == 'revenda') {
-                if (strpos($produto->grupoProduto, 'ST') != 'null') {
+                // dd(strpos($produto->grupoProduto, 'ST'));
+                if (strpos($produto->grupoProduto, 'ST') !== false) {
                     dd("Verificar produto!");
                 } else {
                     return $this->descontoUF($produto, $cliente, $clienteNota);
@@ -198,15 +199,21 @@ class ShowProducts extends Component
 
     public function calcDescontoEscalonado($produto, $quantidade)
     {
-        $total = $produto->preco * $quantidade;
-        $desconto = $produto->desconto->dados[0];
+        $valorProduto =  $produto->preco;
+        if (isset($produto->desconto->dados[0])) {
+            $desconto = $produto->desconto->dados[0];
 
-        for ($i = 0; $i < 5; $i++) {
-            if ($quantidade >= $desconto['quantidade' . $i]) {
-                $total -= ($total * $desconto['porcentagem' . $i]) / 100;
+            for ($i = 0; $i < 5; $i++) {
+                if ($quantidade >= $desconto['quantidade' . $i]) {
+                    $valorProduto -= ($valorProduto * $desconto['porcentagem' . $i]) / 100;
+                }
             }
-        }
 
-        return ($produto->preco * $quantidade - $total);
+            $porcentagemDesconto = (($produto->preco - $valorProduto) * 100) / $produto->preco;
+
+            return [$valorProduto, $porcentagemDesconto];
+        } else {
+            return [$valorProduto, 0];
+        }
     }
 }

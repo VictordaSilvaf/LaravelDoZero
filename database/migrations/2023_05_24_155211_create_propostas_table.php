@@ -18,7 +18,6 @@ return new class extends Migration
 
             $table->foreignId('users_id')->constrained();
             $table->foreignId('clientes_id')->constrained();
-            $table->foreignId('pagamentos_id')->constrained();
 
             $table->string('consumo_revenda');
             $table->string('observacaoVendedor');

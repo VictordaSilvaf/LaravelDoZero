@@ -12,4 +12,10 @@ class DescontoIndex extends Component
         $descontos = Desconto::paginate(8);
         return view('livewire.pages.desconto.desconto-index', compact('descontos'));
     }
+
+    public function destroy(Desconto $id)
+    {
+        $id->delete();
+        return back()->with('msg', 'Desconto deletado com sucesso.');
+    }
 }
