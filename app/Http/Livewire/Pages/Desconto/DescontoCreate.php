@@ -2,7 +2,6 @@
 
 namespace App\Http\Livewire\Pages\Desconto;
 
-use App\Http\Livewire\Pages\Produtos;
 use App\Models\Desconto;
 use App\Models\Produto;
 use Illuminate\Http\Request;
@@ -14,6 +13,7 @@ class DescontoCreate extends Component
     public $quantidadeParcelas = 5;
 
     public $identificacaoProduto;
+
     public $quantidadeProduto0;
     public $porcentagemProduto0;
     public $quantidadeProduto1;
@@ -25,8 +25,21 @@ class DescontoCreate extends Component
     public $quantidadeProduto4;
     public $porcentagemProduto4;
 
-    public function render()
+    public function render(Request $request)
     {
+        if (isset($request->identificacaoProduto)) {
+            $busca = $request->identificacaoProduto;
+            if (count(Produto::all()->where('codigo', $request->identificacaoProduto)) == 1) {
+                $produto = Produto::all()->where('codigo', $request->identificacaoProduto)->first();
+                return view('livewire.pages.desconto.desconto-create', compact('produto', 'busca'));
+            } else {
+                $produtos = Produto::where('codigo', "LIKE",  "%" . $request->identificacaoProduto . "%")->paginate(6);
+                return view('livewire.pages.desconto.desconto-create', compact('produtos', 'busca'));
+            }
+
+            return view('livewire.pages.desconto.desconto-create');
+        }
+
         return view('livewire.pages.desconto.desconto-create');
     }
 
@@ -59,7 +72,6 @@ class DescontoCreate extends Component
                 'dados' => $formData,
             ]);
 
-
             try {
                 if ($salvarDesconto->save()) {
                     return redirect()->route('descontos.index')->with('msg',  'Desconto adicionado com sucesso!');
@@ -71,7 +83,7 @@ class DescontoCreate extends Component
             }
         } else {
 
-            return redirect()->route('descontos.index')->dangerBanner('Esse produto já está cadastrado');
+            return redirect()->route('descontos.index')->with('Esse produto já está cadastrado');
         }
     }
 
@@ -89,6 +101,8 @@ class DescontoCreate extends Component
 
     public function buscarProduto()
     {
-        dd('oi');
+        if ($this->identificacaoProduto != null) {
+            return dd($this->identificacaoProduto);
+        }
     }
 }

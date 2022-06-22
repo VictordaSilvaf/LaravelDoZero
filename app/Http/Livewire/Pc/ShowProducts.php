@@ -131,7 +131,7 @@ class ShowProducts extends Component
                 break;
 
             default:
-                return 'n encontro';
+                return 'Não encontrou';
                 break;
         }
     }

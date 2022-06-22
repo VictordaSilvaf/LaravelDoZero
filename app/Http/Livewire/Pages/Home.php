@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pages;
 
+use App\Models\Desconto;
 use App\Models\Proposta;
 use Livewire\Component;
 
@@ -13,7 +14,8 @@ class Home extends Component
         $dados = $this->montarDadosPorMeses($dadosMeses);
         $chartjs = $this->grafico($dados);
         $propostas = Proposta::all();
-        return view('livewire.pages.home', compact('chartjs', 'propostas'));
+        $descontos = Desconto::orderBy('updated_at', 'asc')->paginate(2);
+        return view('livewire.pages.home', compact('chartjs', 'propostas', 'descontos'));
     }
 
     public function grafico($dados)

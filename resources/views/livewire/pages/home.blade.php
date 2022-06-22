@@ -100,19 +100,14 @@
 
             <div class="flex flex-col p-3 font-light bg-desicon-white rounded-xl">
                 <h2 class="font-medium whitespace-nowrap">Útimos descontos</h2>
-                <a href="#" class="flex flex-col p-1 mt-2 rounded hover:bg-desicon-natural7 hover:bg-opacity-50">
-                    <div class="flex flex-col w-full ">
-                        <h2 class="text-sm font-extralight">Rodízios</h2>
-                        <p class="text-xs font-thin">10 mins ago</p>
-                    </div>
-                </a>
-
-                <a href="#" class="flex flex-col p-1 mt-2 rounded hover:bg-desicon-natural7 hover:bg-opacity-50">
-                    <div class="flex flex-col w-full ">
-                        <h2 class="text-sm font-extralight">Prolongador</h2>
-                        <p class="text-xs font-thin">25 mins ago</p>
-                    </div>
-                </a>
+                @foreach ($descontos as $desconto)
+                    <a href="#" class="flex flex-col p-1 mt-2 rounded hover:bg-desicon-natural7 hover:bg-opacity-50">
+                        <div class="flex flex-col w-full ">
+                            <h2 class="text-sm font-extralight">{{ $descontos->first()->produto->descricao }}</h2>
+                            <p class="text-xs font-thin">10 mins ago</p>
+                        </div>
+                    </a>
+                @endforeach
             </div>
 
         </div>
