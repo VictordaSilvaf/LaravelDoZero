@@ -13,6 +13,8 @@ class DescontoIndex extends Component
         return view('livewire.pages.desconto.desconto-index', compact('descontos'));
     }
 
+    
+
     public function destroy(Desconto $id)
     {
         $id->delete();

@@ -27,15 +27,28 @@ class DescontoCreate extends Component
 
     public function render(Request $request)
     {
+
         if (isset($request->identificacaoProduto)) {
             $busca = $request->identificacaoProduto;
             if (count(Produto::all()->where('codigo', $request->identificacaoProduto)) == 1) {
+
                 $produto = Produto::all()->where('codigo', $request->identificacaoProduto)->first();
-                return view('livewire.pages.desconto.desconto-create', compact('produto', 'busca'));
+                if (count(Desconto::all()->where('produto_id', $produto->id)) != 1) {
+                    return view('livewire.pages.desconto.desconto-create', compact('produto', 'busca'));
+                } else {
+                    $erro = "Produto já tem desconto cadastrado.";
+                    return view('livewire.pages.desconto.desconto-create', compact('erro'));
+                }
             } else {
                 $produtos = Produto::where('codigo', "LIKE",  "%" . $request->identificacaoProduto . "%")->paginate(6);
-                return view('livewire.pages.desconto.desconto-create', compact('produtos', 'busca'));
+                if (count($produtos) > 0) {
+                    return view('livewire.pages.desconto.desconto-create', compact('produtos', 'busca'));
+                } else {
+                    $erro = "Produto Não encontrado.";
+                    return view('livewire.pages.desconto.desconto-create', compact('erro'));
+                }
             }
+
 
             return view('livewire.pages.desconto.desconto-create');
         }

@@ -12,6 +12,7 @@ use App\Http\Livewire\Auth\Verify;
 use App\Http\Livewire\Components\SplashScreen;
 use App\Http\Livewire\Pages\Desconto\DescontoCreate;
 use App\Http\Livewire\Pages\Desconto\DescontoIndex;
+use App\Http\Livewire\Pages\Desconto\DescontoUpdate;
 use App\Http\Livewire\Pages\Home;
 use App\Http\Livewire\Pages\Produtos;
 use App\Http\Livewire\Pages\Proposta\PropostaCreate;
@@ -62,6 +63,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('dashboard/produtos', Produtos::class)
         ->name('dashboard.produtos');
+
+    Route::post('dashboard/produtos/adicionar', [Produtos::class, 'adicionarProduto'])
+        ->name('dashboard.produtos.adicionar');
 });
 
 /* Desconto */
@@ -71,6 +75,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('dashboard/descontos/create', DescontoCreate::class)
         ->name('descontos.create');
+
+    Route::get('dashboard/descontos/update/{id}', DescontoUpdate::class)
+        ->name('descontos.update');
+
+    Route::post('dashboard/descontos/store2', [DescontoUpdate::class, 'update'])
+        ->name('descontos.update2');
 
     Route::post('dashboard/descontos/store', [DescontoCreate::class, 'store'])
         ->name('descontos.store');

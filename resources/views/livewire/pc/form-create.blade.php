@@ -44,7 +44,7 @@
                     do Produto</label>
                 <input
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
-                    type="number" name="pesoTotal" id="pesoTotal" placeholder="Peso" wire:model='pesoTotal' required>
+                    type="number" name="pesoTotal" id="pesoTotal" placeholder="Peso" wire:model='pesoTotal' required disabled value="">
             </div>
 
             <div class="pc--sessaoInput pc--sessaoInput1">
@@ -53,7 +53,7 @@
                 <input
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                     type="number" name="totalFrete" id="totalFrete" placeholder="Frete"
-                    onchange="this.value = this.value.replace(/,/g, '.')" wire:model='totalFrete' required>
+                    wire:model='totalFrete' required>
             </div>
 
         </div>
@@ -85,7 +85,6 @@
                 <select
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white" 
                     @if ($this->podeParcelar != true) disabled @else  @endif
-                    {{-- {{ $this->podeParcelar == true ? '': 'disabled'     }} --}}
                     id="selecaoParcelas" name="selecaoParcelas" wire:model='selecaoParcelas' required>
                     <option selected value=""></option>
                     @for ($i = 1; $i <= 12; $i++)
@@ -106,7 +105,6 @@
                                 wire:model={{ 'parcelaDia' . $c }} type="number" name={{ 'parcelaDia' . $c }}
                                 id={{ 'parcelaDia' . $c }} placeholder="Dias" required>
                         </div>
-
                         <div class="truncate">
                             <input
                                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"

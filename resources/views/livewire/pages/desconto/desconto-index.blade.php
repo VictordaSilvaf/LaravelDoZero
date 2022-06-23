@@ -86,10 +86,10 @@
                             {{ $item->produto->codigo }}</td>
 
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            <a href="{{-- {{ route('desconto.show', $item->id) }} --}}#" data-bs-toggle="popover" data-bs-trigger="hover focus"
+                            <p data-bs-toggle="popover" data-bs-trigger="hover focus"
                                 data-bs-content="Disabled popover" id="popUp">
                                 {{ mb_strimwidth($item->produto->descricao, 0, 35, '...') }}
-                            </a>
+                            </p>
                         </td>
                         <td class="font-light text-gray-600 border border-slate-300">
                             <div class="grid grid-cols-5">
@@ -106,7 +106,7 @@
 
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
                             <div class="flex">
-                                <a href="#" {{-- {{ route('descontos.edit', $item->id) }} --}} class="duration-100 hover:opacity-50" id='adicionarDesconto'>
+                                <a href="{{ route('descontos.update', $item->id) }}" class="duration-100 hover:opacity-50" id='adicionarDesconto'>
                                     <x-feathericon-edit class="w-5 h-5" />
                                 </a>
 

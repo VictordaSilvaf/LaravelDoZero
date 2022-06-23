@@ -13,7 +13,7 @@ class FormCreate extends Component
 {
     public $selecaoPagamento;
     public $descontoVendedor = 0;
-    public $selecaoParcelas = 1;
+    public $selecaoParcelas;
     public $observacaoVendedor;
     public $formaPagamento = 0;
     public $formaPagamento2;
@@ -22,7 +22,7 @@ class FormCreate extends Component
 
     public $clienteTransportadora;
     public $clienteEnvio;
-    public $pesoTotal;
+    public $pesoTotal = 0;
     public $clienteConsumoRevenda;
     public $clienteFrete;
 
@@ -111,8 +111,38 @@ class FormCreate extends Component
 
         $this->formaPagamento2 = Pagamento::all()->whereIn('id_bling', ['50972', '777565']);
 
-        /* dd($produtos[1]); */
-        return view('livewire.pc.form-create', compact('produtos'));
+        $this->pesoTotal = $this->calcularPesoTotal($produtos);
+
+        if ($this->selecaoParcelas == null) {
+            $this->selecaoParcelas = 1;
+        }
+
+        $valorParcelas = $this->dividirValorDasParcelas($this->calcTotal($produtos, $this->descontoVendedor));
+        return view('livewire.pc.form-create', compact('produtos', 'valorParcelas'));
+    }
+
+    private function dividirValorDasParcelas($total)
+    {
+        $parcelas = array();
+
+        for ($i = 0; $i < $this->selecaoParcelas; $i++) {
+            array_push($parcelas, ($total / $this->selecaoParcelas));
+        };
+
+        return $parcelas;
+    }
+
+    private function calcularPesoTotal($produtos)
+    {
+        $peso = 0;
+
+        if (isset($produtos)) {
+            foreach ($produtos as $produto) {
+                $peso += ($produto[0]->pesoBruto * $produto[1]);
+            }
+        }
+
+        return $peso;
     }
 
     public function mudarFormaPagamento()
@@ -137,10 +167,9 @@ class FormCreate extends Component
             /* 3% de desconto do pix */
             if ($this->parcelaFormaPagamento0 === '1302911') {
                 return 3;
-            } else {
-                return 0;
             }
         }
+        return '0';
     }
 
     public function calcTotalSemDesconto($produtos)

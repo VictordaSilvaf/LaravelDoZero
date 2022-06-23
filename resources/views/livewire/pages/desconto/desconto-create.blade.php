@@ -6,14 +6,19 @@
             <div class="">
                 <div class="mb-2 text-lg font-light">
                     <h2>
-                        {{ isset($item) ? 'Editar' : 'Cadastrar' }} desconto
+                        {{ isset($produto) ? 'Editar' : 'Cadastrar' }} desconto
                     </h2>
                 </div>
                 
                     <div>
-                        @if (session()->has('message'))
-                            <div class="alert alert-success">
-                                {{ session('message') }}
+                        @if (session('msgErro'))
+                            <div class="w-full p-3 rounded-lg bg-desicon-red text-desicon-white">
+                                <p class="msg" style="text-align: center;">{{ session('msgErro') }}</p>
+                            </div>
+                        @endif
+                        @if (session('msg'))
+                            <div class="w-full p-3 rounded-lg bg-desicon-green text-desicon-white">
+                                <p class="msg" style="text-align: center;">{{ session('msg') }}</p>
                             </div>
                         @endif
                     </div>
@@ -23,9 +28,14 @@
                         <label class="" for="identificacaoProduto">Nome ou SKU do produto</label>
                         <input type="text" id="identificacaoProduto" name="identificacaoProduto" class="w-full rounded-lg"
                             placeholder="Buscar produto" wire:model='identificacaoProduto' 
-                            @isset($busca) value="{{  $busca }}" @endisset />
+                            @isset($busca) value="{{  $busca }}" @endisset @if (isset($identificacaoProduto))
+                                value="{{ $produto->codigo }}"
+                            @endif />
                     </div>
-                    {{ $this->identificacaoProduto }}
+                    <div class="w-full text-center text-red-600 font-extralight">
+                        <span>{{ isset($erro) ? $erro : "" }}</span>
+                    </div>
+                    
                     @if (isset($produtos))
                         <div class="w-full border rounded-lg shadow-md bg-desicon-white">
                             <td>
@@ -45,14 +55,19 @@
                     </button>
                 </form>
             </div>
-                        
-            <form action={{ route('descontos.store') }} method="POST" wire:submit.prevent='submit' class="" 
+           
+            @if (isset($produto)) 
+                <form action={{ route('descontos.update2', ['id' => $desconto->id]) }} method="POST" wire:submit.prevent='submit' class="" >
+            @else
+                <form action={{ route('descontos.store') }} method="POST" wire:submit.prevent='submit' class="" >
+            @endif
+
             @if (!isset($produto)) 
             hidden
             @endif
-            >
+            
                 @csrf
-                <input type="text" wire:model='identificacaoProduto' id="identificacaoProduto" name="identificacaoProduto" hidden value='{{ $produto->codigo }}'>
+                <input type="text" wire:model='identificacaoProduto' id="identificacaoProduto" name="identificacaoProduto" hidden value='{{ isset($produto->codigo ) ? $produto->codigo : "" }}'>
                 <div class="grid grid-cols-2 gap-2 font-extralight">
                     <div class="">
                         <label class="" for="quantidade">Quantidade para desconto</label>
@@ -71,7 +86,9 @@
                                 name={{ 'quantidadeProduto' . $item }} class="w-full rounded-lg"
                                 @if (isset($item)) placeholder="Quantidade" @endif
                                 wire:model={{ 'quantidadeProduto' . $item }}
-                                @if ($item == 0) required @endif />
+                                @if ($item == 0) required @endif value=
+                                "{{ isset($desconto) ? $desconto->dados[0]['quantidade'.$item] : '' }}"
+                                />
                         </div>
 
                         <div class="">
@@ -81,7 +98,10 @@
                                 wire:model={{ 'porcentagemProduto' . $item }}
                                 @if (isset($item)) placeholder="Quantidade" @endif
                                 wire:model={{ 'quantidadeProduto' . $item }}
-                                @if ($item == 0) required @endif />
+                                @if ($item == 0) required @endif
+                                value=
+                                "{{ isset($desconto) ? $desconto->dados[0]['porcentagem'.$item] : '' }}"
+                                />
                         </div>
                     </div>
                 @endfor
