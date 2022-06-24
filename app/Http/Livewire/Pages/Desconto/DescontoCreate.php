@@ -63,7 +63,13 @@ class DescontoCreate extends Component
         $verificar_sku_duplicado = $this->verificarSkuDuplicado($request->identificacaoProduto);
         // dd($request->all());
         if ($verificar_sku_duplicado === 0) {
-            array_push($formData, [
+            $desconto = new Desconto();
+            $produto = Produto::all()->where('codigo', $request->get('identificacaoProduto'))->first();
+
+            $salvarDesconto = $desconto->create([
+                'user_id' => Auth::id(),
+                'produto_id' => $produto->id,
+                'dados' => $formData,
                 'quantidade0' => $request->get('quantidadeProduto0'),
                 'porcentagem0' => $request->get('porcentagemDesconto0'),
                 'quantidade1' => $request->get('quantidadeProduto1'),
@@ -74,15 +80,6 @@ class DescontoCreate extends Component
                 'porcentagem3' => $request->get('porcentagemDesconto3'),
                 'quantidade4' => $request->get('quantidadeProduto4'),
                 'porcentagem4' => $request->get('porcentagemDesconto4'),
-            ]);
-
-            $desconto = new Desconto();
-
-            $produto = Produto::all()->where('codigo', $request->get('identificacaoProduto'))->first();
-            $salvarDesconto = $desconto->create([
-                'user_id' => Auth::id(),
-                'produto_id' => $produto->id,
-                'dados' => $formData,
             ]);
 
             try {

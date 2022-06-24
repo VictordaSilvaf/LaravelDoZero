@@ -93,14 +93,36 @@
                         </td>
                         <td class="font-light text-gray-600 border border-slate-300">
                             <div class="grid grid-cols-5">
-                                @for ($cont2 = 0; $cont2 < 5; ++$cont2)
-                                    <div class="flex flex-col px-2 text-center">
-                                        @isset($item->dados[0]['quantidade' . $cont2])
-                                            <p>{{ $item->dados[0]['quantidade' . $cont2] }}</p>
-                                            <p>{{ $item->dados[0]['porcentagem' . $cont2] }}%</p>
-                                        @endisset
-                                    </div>
-                                @endfor
+                                <div class="flex flex-col px-2 text-center">
+                                    @isset($item->quantidade0)
+                                        <p>{{ $item->quantidade0 }}</p>
+                                        <p>{{ $item->porcentagem0 }}%</p>
+                                    @endisset
+                                </div>
+                                <div class="flex flex-col px-2 text-center">
+                                    @isset($item->quantidade1)
+                                        <p>{{ $item->quantidade1 }}</p>
+                                        <p>{{ $item->porcentagem1 }}%</p>
+                                    @endisset
+                                </div>
+                                <div class="flex flex-col px-2 text-center">
+                                    @isset($item->quantidade2)
+                                        <p>{{ $item->quantidade2 }}</p>
+                                        <p>{{ $item->porcentagem2 }}%</p>
+                                    @endisset
+                                </div>
+                                <div class="flex flex-col px-2 text-center">
+                                    @isset($item->quantidade3)
+                                        <p>{{ $item->quantidade3 }}</p>
+                                        <p>{{ $item->porcentagem3 }}%</p>
+                                    @endisset
+                                </div>
+                                <div class="flex flex-col px-2 text-center">
+                                    @isset($item->quantidade4)
+                                        <p>{{ $item->quantidade4}}</p>
+                                        <p>{{ $item->porcentagem4}}%</p>
+                                    @endisset
+                                </div>
                             </div>
                         </td>
 

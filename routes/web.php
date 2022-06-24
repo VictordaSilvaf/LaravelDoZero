@@ -87,6 +87,8 @@ Route::middleware('auth')->group(function () {
 
     Route::delete('dashboard/descontos/destroy/{id}', [DescontoIndex::class, 'destroy'])
         ->name('descontos.destroy');
+
+    Route::get('dashboard/descontos/export/', [DescontoIndex::class, 'export']);
 });
 
 /* Proposta */
