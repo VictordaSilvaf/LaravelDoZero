@@ -9,11 +9,21 @@ class Desconto extends Model
 {
     use HasFactory;
 
-    protected $casts = [
-        'dados' => 'array', // Will convarted to (Array)
+    protected $fillable = [
+        'user_id',
+        'produto_id',
+        'dados',
+        'quantidade0',
+        'porcentagem0',
+        'quantidade1',
+        'porcentagem1',
+        'quantidade2',
+        'porcentagem2',
+        'quantidade3',
+        'porcentagem3',
+        'quantidade4',
+        'porcentagem4',
     ];
-
-    protected $fillable = ['user_id', 'produto_id', 'dados'];
 
     public function produto()
     {
