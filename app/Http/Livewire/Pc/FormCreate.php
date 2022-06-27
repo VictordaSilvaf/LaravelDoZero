@@ -180,10 +180,6 @@ class FormCreate extends Component
 
                 $total += doubleval($produto[0]->preco) * doubleval($produto[1]);
             }
-            /* 
-            if ($this->totalFrete != null) {
-                $total += $this->totalFrete;
-            } */
 
             return $total;
         } else {

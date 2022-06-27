@@ -18,6 +18,11 @@ class PropostaProduto extends Model
         return $this->hasOne(User::class);
     }
 
+    public function cliente()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function produtos()
     {
         return $this->belongsTo(Produto::class);

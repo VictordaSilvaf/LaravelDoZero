@@ -200,13 +200,27 @@ class ShowProducts extends Component
     public function calcDescontoEscalonado($produto, $quantidade)
     {
         $valorProduto =  $produto->preco;
-        if (isset($produto->desconto->dados[0])) {
-            $desconto = $produto->desconto->dados[0];
+        if (isset($produto->desconto)) {
+            $desconto = $produto->desconto;
 
-            for ($i = 0; $i < 5; $i++) {
-                if ($quantidade >= $desconto['quantidade' . $i]) {
-                    $valorProduto -= ($valorProduto * $desconto['porcentagem' . $i]) / 100;
-                }
+            if ($quantidade >= $desconto->quantidade0) {
+                $valorProduto -= ($valorProduto * $desconto->porcentagem0) / 100;
+            }
+
+            if ($quantidade >= $desconto->quantidade1) {
+                $valorProduto -= ($valorProduto * $desconto->porcentagem1) / 100;
+            }
+
+            if ($quantidade >= $desconto->quantidade2) {
+                $valorProduto -= ($valorProduto * $desconto->porcentagem2) / 100;
+            }
+
+            if ($quantidade >= $desconto->quantidade3) {
+                $valorProduto -= ($valorProduto * $desconto->porcentagem3) / 100;
+            }
+
+            if ($quantidade >= $desconto->quantidade4) {
+                $valorProduto -= ($valorProduto * $desconto->porcentagem4) / 100;
             }
 
             $porcentagemDesconto = (($produto->preco - $valorProduto) * 100) / $produto->preco;

@@ -2,9 +2,12 @@
 
 namespace App\Http\Livewire\Pages;
 
+use App\Exports\ProdutosExport;
+use App\Imports\ProdutosImport;
 use App\Models\Produto;
 use Illuminate\Http\Request;
 use Livewire\Component;
+use Maatwebsite\Excel\Facades\Excel;
 
 class Produtos extends Component
 {
@@ -27,8 +30,24 @@ class Produtos extends Component
         return view('livewire.pages.produtos', compact('produtos'));
     }
 
-    public function search()
+    public function export()
     {
+        return Excel::download(new ProdutosExport, 'produtos.xlsx');
+    }
+
+    public function import(Request $request)
+    {
+        Excel::import(new ProdutosImport, $request->file_input);
+        return redirect()->back()->with('msg', 'Produtos adicionados com sucesso!');
+    }
+
+    public function removerAnuncio($id)
+    {
+        $produto = Produto::find($id);
+        $produto->anuncio = true;
+        $produto->save();
+
+        return redirect()->back()->with('msg', 'Produto removido com sucesso!');
     }
 
     public function adicionarProduto(Request $request)

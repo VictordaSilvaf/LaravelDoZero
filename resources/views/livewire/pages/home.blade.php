@@ -59,43 +59,27 @@
 
             <div class="flex flex-col col-span-2 p-3 mr-2 font-light bg-desicon-white rounded-xl">
                 <h2 class="font-medium whitespace-nowrap">Atividades recentes</h2>
-                <a href="#"
-                    class="flex flex-row items-center p-1 mt-2 rounded hover:bg-desicon-natural7 hover:bg-opacity-50">
-                    <div class="">
-                        <div class="w-8 h-8 bg-gray-500 rounded-full"></div>
-                    </div>
-
-                    <div class="flex flex-col w-full px-2">
-                        <h2 class="text-sm font-extralight">Marvin McKinney aceitou a proposta de Arthur Freitas</h2>
-                        <p class="mt-1 text-xs font-thin">10 mins ago</p>
-                    </div>
-
-                    <div class="">
-                        <div
-                            class="flex items-center justify-center w-8 h-8 rounded-lg bg-opacity-30 bg-desicon-green text-desicon-green">
-                            +
+                @foreach ($paginacaoPropostas as $p)
+                    <a href="{{ route('proposta.show', $p->id) }}"
+                        class="flex flex-row items-center p-1 mt-2 rounded hover:bg-desicon-natural7 hover:bg-opacity-50">
+                        <div class="">
+                            <div class="w-8 h-8 bg-gray-500 rounded-full"></div>
                         </div>
-                    </div>
-                </a>
 
-                <a href="#"
-                    class="flex flex-row items-center p-1 mt-2 rounded hover:bg-desicon-natural7 hover:bg-opacity-50">
-                    <div class="">
-                        <div class="w-8 h-8 bg-gray-500 rounded-full"></div>
-                    </div>
-
-                    <div class="flex flex-col w-full px-2">
-                        <h2 class="text-sm font-extralight">Thiago recusou a proposta de Edinaldo</h2>
-                        <p class="mt-1 text-xs font-thin">10 mins ago</p>
-                    </div>
-
-                    <div class="">
-                        <div
-                            class="flex items-center justify-center w-8 h-8 rounded-lg bg-opacity-30 bg-desicon-red text-desicon-red">
-                            -
+                        <div class="flex flex-col w-full px-2">
+                            <h2 class="text-sm font-extralight">{{ $p->users->name }}
+                                aceitou a proposta de {{ $p->clientes->nome }}</h2>
+                            <p class="mt-1 text-xs font-thin">10 mins ago</p>
                         </div>
-                    </div>
-                </a>
+
+                        <div class="">
+                            <div
+                                class="flex items-center justify-center w-8 h-8 rounded-lg bg-opacity-30 bg-desicon-green text-desicon-green">
+                                +
+                            </div>
+                        </div>
+                    </a>
+                @endforeach
             </div>
 
             <div class="flex flex-col p-3 font-light bg-desicon-white rounded-xl">
@@ -103,8 +87,9 @@
                 @foreach ($descontos as $desconto)
                     <a href="#" class="flex flex-col p-1 mt-2 rounded hover:bg-desicon-natural7 hover:bg-opacity-50">
                         <div class="flex flex-col w-full ">
-                            <h2 class="text-sm font-extralight">{{ $descontos->first()->produto->descricao }}</h2>
-                            <p class="text-xs font-thin">10 mins ago</p>
+                            <h2 class="text-sm font-extralight">
+                                {{ mb_strimwidth($descontos->first()->produto->descricao, 0, 30, '...') }}</h2>
+                            <p class="text-xs font-thin">{{ $descontos->first()->produto->updated_at }}</p>
                         </div>
                     </a>
                 @endforeach

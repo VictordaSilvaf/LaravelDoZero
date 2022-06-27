@@ -11,30 +11,33 @@
         </div>
     @endif
 
-    <div class="flex col-lg-12">
+    <div class="flex mt-4">
 
-        <div class="w-full">
-            <h2>Descontos</h2>
+        <div class="items-center w-1/3">
+            <h2 class="items-center">Descontos</h2>
         </div>
-        @can('admin')
-            <div class="col-lg-2">
-                <form action="{{ route('exportModeloDescontoEsc') }}" method="GET">
-                    @csrf
-                    <button type="submit" class="btn btn-success"> Modelo Excel</button>
-                </form>
-            </div>
 
-            <div class="col-lg-2">
-                <form action="{{ route('importDescontoEsc') }}" method="POST" id="formImporteDescontoEsc"
-                    enctype="multipart/form-data">
-                    @csrf
-                    <label for="fileDescontoEsc" class="btn" style="background: #198754; color:#fff">
-                        Importar dados </label>
-                    <input type='file' id="fileDescontoEsc" accept=".xlsx" name="fileDescontoEsc"
-                        onchange="document.getElementById('formImporteDescontoEsc').submit();" style="visibility:hidden;">
-                </form>
-            </div>
-        @endcan
+        <div class="flex flex-row">
+            <form action="{{ route('descontos.importar') }}" method="POST" class="flex" enctype="multipart/form-data">
+                @csrf
+                <input
+                    class="block w-full pr-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+                    id="file_input" name="file_input" type="file" required>
+
+                @error('file_input')
+                    <span class="error">{{ $message }}</span>
+                @enderror
+
+                <button type="submit"
+                    class="h-full px-2 ml-2 rounded-lg bg-desicon-blue text-desicon-white">Importar</button>
+            </form>
+
+            <form action="{{ route('descontos.exportar') }}" method="GET">
+                @csrf
+                <button type="submit"
+                    class="h-full px-2 ml-4 rounded-lg bg-desicon-blue text-desicon-white ">Exportar</button>
+            </form>
+        </div>
 
     </div>
 
@@ -43,12 +46,15 @@
         @csrf
 
         @if (isset($filters) && $filters['busca'] != '')
-            <input type="text" placeholder="{{ $filters['busca'] }}" class="w-full rounded" name="busca" id="busca">
+            <input type="text" placeholder="{{ $filters['busca'] }}" class="w-full rounded" name="busca"
+                id="busca" required>
         @else
-            <input type="text" placeholder="Buscar desconto" class="w-full rounded" name="busca" id="busca">
+            <input type="text" placeholder="Buscar desconto" class="w-full rounded" name="busca" id="busca"
+                required>
         @endif
 
-        <button type="submit" class="button bg-desicon-blue rounded p-1.5 text-desicon-white hover:opacity-80 duration-100">
+        <button type="submit"
+            class="button bg-desicon-blue rounded p-1.5 text-desicon-white hover:opacity-80 duration-100">
             <x-heroicon-o-search class="w-6 h-6" />
         </button>
         {{-- @can('admin') --}}
@@ -75,7 +81,6 @@
 
         <tbody>
             @isset($descontos)
-
                 @foreach ($descontos as $id => $item)
                     {{-- {{ dd($item->produto) }} --}}
 
@@ -86,8 +91,8 @@
                             {{ $item->produto->codigo }}</td>
 
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            <p data-bs-toggle="popover" data-bs-trigger="hover focus"
-                                data-bs-content="Disabled popover" id="popUp">
+                            <p data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover"
+                                id="popUp">
                                 {{ mb_strimwidth($item->produto->descricao, 0, 35, '...') }}
                             </p>
                         </td>
@@ -119,16 +124,17 @@
                                 </div>
                                 <div class="flex flex-col px-2 text-center">
                                     @isset($item->quantidade4)
-                                        <p>{{ $item->quantidade4}}</p>
-                                        <p>{{ $item->porcentagem4}}%</p>
+                                        <p>{{ $item->quantidade4 }}</p>
+                                        <p>{{ $item->porcentagem4 }}%</p>
                                     @endisset
                                 </div>
                             </div>
                         </td>
 
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            <div class="flex">
-                                <a href="{{ route('descontos.update', $item->id) }}" class="duration-100 hover:opacity-50" id='adicionarDesconto'>
+                        <td class="justify-center px-2 py-1 font-light text-gray-600 border border-slate-300">
+                            <div class="flex justify-center">
+                                <a href="{{ route('descontos.update', $item->id) }}" class="duration-100 hover:opacity-50"
+                                    id='adicionarDesconto'>
                                     <x-feathericon-edit class="w-5 h-5" />
                                 </a>
 

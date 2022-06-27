@@ -66,6 +66,11 @@ Route::middleware('auth')->group(function () {
 
     Route::post('dashboard/produtos/adicionar', [Produtos::class, 'adicionarProduto'])
         ->name('dashboard.produtos.adicionar');
+
+    Route::get('dashboard/produtos/remover/{id}', [Produtos::class, 'removerAnuncio'])->name('produtos.remover');
+
+    Route::get('dashboard/produtos/export', [Produtos::class, 'export'])->name('produtos.exportar');
+    Route::post('dashboard/produtos/import', [Produtos::class, 'import'])->name('produtos.importar');
 });
 
 /* Desconto */
@@ -88,7 +93,8 @@ Route::middleware('auth')->group(function () {
     Route::delete('dashboard/descontos/destroy/{id}', [DescontoIndex::class, 'destroy'])
         ->name('descontos.destroy');
 
-    Route::get('dashboard/descontos/export/', [DescontoIndex::class, 'export']);
+    Route::get('dashboard/descontos/export', [DescontoIndex::class, 'export'])->name('descontos.exportar');
+    Route::post('dashboard/descontos/import', [DescontoIndex::class, 'import'])->name('descontos.importar');
 });
 
 /* Proposta */
