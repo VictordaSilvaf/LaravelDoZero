@@ -42,7 +42,7 @@ class SalvarProdutoNoBancoJob implements ShouldQueue
                     $listarProdutos = Produto::findOrFail($produto['produto']['id'])->first();
                 } else {
                     $listarProdutos = new Produto();
-                    $listarProdutos->id = $produto['produto']['id'];
+                    $listarProdutos->id = $produto['produto']['idProduto'];
                 }
 
                 $listarProdutos->codigo = $produto['produto']['codigo'];

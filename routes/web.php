@@ -110,7 +110,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('produtos', function () {
-    dd(Produto::all()->where('grupoProduto', 'Nacional')->first());
+    dd(Produto::all()->count());
 });
 
 Route::get('clientes', function () {
