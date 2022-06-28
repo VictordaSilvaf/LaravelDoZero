@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('clientes_id')->constrained();
 
             $table->string('consumo_revenda');
-            $table->string('observacaoVendedor');
+            $table->string('observacaoVendedor')->nullable();
             $table->string('transportadora');
             $table->string('modo_envio');
             $table->float('frete');

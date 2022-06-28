@@ -33,7 +33,6 @@ class SalvarProdutoNoBancoJob implements ShouldQueue
      */
     public function handle()
     {
-        $produtos_com_erro = array();
         unset($this->produtos[0]);
 
         foreach ($this->produtos as $produto) {
@@ -42,9 +41,9 @@ class SalvarProdutoNoBancoJob implements ShouldQueue
                     $listarProdutos = Produto::findOrFail($produto['produto']['id'])->first();
                 } else {
                     $listarProdutos = new Produto();
-                    $listarProdutos->id = $produto['produto']['idProduto'];
                 }
 
+                $listarProdutos->idProduto = $produto['produto']['id'];
                 $listarProdutos->codigo = $produto['produto']['codigo'];
                 $listarProdutos->descricao = $produto['produto']['descricao'];
                 $listarProdutos->tipo = $produto['produto']['tipo'];

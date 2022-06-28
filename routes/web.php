@@ -110,11 +110,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('produtos', function () {
-    dd(Produto::all()->count());
+    dd(Produto::all());
 });
 
 Route::get('clientes', function () {
-    dd(Cliente::all()->where('contribuinte', '1')->where('uf', 'RJ')->first()->cnpj);
+    dd(Cliente::all());
 });
 
 Route::get('pagamentos', function () {

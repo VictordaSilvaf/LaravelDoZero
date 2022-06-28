@@ -1,3 +1,5 @@
+{{ dd($this->faker->unique()) }}
+
 @extends('.livewire.layouts.dashboard-layout')
 @section('content')
     @if (session('msgErro'))
@@ -66,16 +68,14 @@
         {{-- @endcan --}}
     </form>
 
-    <table class="w-full mt-2 border table-auto border-slate-400 bg-desicon-white">
+    <table class="w-full mt-2 text-sm border table-auto border-slate-400 bg-desicon-white">
         <thead class="">
             <tr class="">
                 <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">ID</th>
                 <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">SKU</th>
                 <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">Descrição</th>
                 <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">Descontos</th>
-                <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
-
-                </th>
+                <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300"></th>
             </tr>
         </thead>
 
@@ -84,7 +84,7 @@
                 @foreach ($descontos as $id => $item)
                     {{-- {{ dd($item->produto) }} --}}
 
-                    <tr>
+                    <tr class="">
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
                             {{ $item->id }}</td>
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
@@ -93,36 +93,36 @@
                         <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
                             <p data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover"
                                 id="popUp">
-                                {{ mb_strimwidth($item->produto->descricao, 0, 35, '...') }}
+                                {{ mb_strimwidth($item->produto->descricao, 0, 20, '...') }}
                             </p>
                         </td>
-                        <td class="font-light text-gray-600 border border-slate-300">
+                        <td class="text-gray-600 border font-extralight border-slate-300">
                             <div class="grid grid-cols-5">
-                                <div class="flex flex-col px-2 text-center">
+                                <div class="flex flex-col px-2 text-center truncate ">
                                     @isset($item->quantidade0)
                                         <p>{{ $item->quantidade0 }}</p>
                                         <p>{{ $item->porcentagem0 }}%</p>
                                     @endisset
                                 </div>
-                                <div class="flex flex-col px-2 text-center">
+                                <div class="flex flex-col px-2 text-center truncate">
                                     @isset($item->quantidade1)
                                         <p>{{ $item->quantidade1 }}</p>
                                         <p>{{ $item->porcentagem1 }}%</p>
                                     @endisset
                                 </div>
-                                <div class="flex flex-col px-2 text-center">
+                                <div class="flex flex-col px-2 text-center truncate">
                                     @isset($item->quantidade2)
                                         <p>{{ $item->quantidade2 }}</p>
                                         <p>{{ $item->porcentagem2 }}%</p>
                                     @endisset
                                 </div>
-                                <div class="flex flex-col px-2 text-center">
+                                <div class="flex flex-col px-2 text-center truncate">
                                     @isset($item->quantidade3)
                                         <p>{{ $item->quantidade3 }}</p>
                                         <p>{{ $item->porcentagem3 }}%</p>
                                     @endisset
                                 </div>
-                                <div class="flex flex-col px-2 text-center">
+                                <div class="flex flex-col px-2 text-center truncate">
                                     @isset($item->quantidade4)
                                         <p>{{ $item->quantidade4 }}</p>
                                         <p>{{ $item->porcentagem4 }}%</p>

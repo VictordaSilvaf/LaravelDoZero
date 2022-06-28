@@ -5,6 +5,7 @@ namespace App\Http\Livewire\Pages\Desconto;
 use App\Exports\DescontosExport;
 use App\Imports\DescontosImport;
 use App\Models\Desconto;
+use App\Models\Transporte;
 use Illuminate\Http\Request;
 use Livewire\Component;
 use Livewire\WithFileUploads;
@@ -18,6 +19,8 @@ class DescontoIndex extends Component
 
     public function render()
     {
+        $transportadoras = ["JADLOG.COM", "JADLOG.PACKAGE", "SEDEX - EXPRESSO CORREIOS", "PAC - ECONÔMICO CORREIOS", "JONAS VIEIRA", "PEX", "RETIRAR", "OUTROS"];
+        dd($transportadoras[array_rand($transportadoras)]);
         $descontos = Desconto::paginate(8);
         return view('livewire.pages.desconto.desconto-index', compact('descontos'));
     }

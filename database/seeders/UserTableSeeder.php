@@ -27,22 +27,22 @@ class UserTableSeeder extends Seeder
         $role2 = Role::create(['name' => 'admin']);
 
         $user = User::create([
-            'name' => 'Victor Cliente',
-            'email' => 'victor.cliente@gmail.com',
+            'name' => 'Victor Vendedor',
+            'email' => 'victor.vendedor@gmail.com',
             'password' => bcrypt('password'),
         ])->givePermissionTo('user');
         $user->assignRole($role1);
 
         $user = User::create([
-            'name' => 'Thiago Cliente',
-            'email' => 'thiago.cliente@gmail.com',
+            'name' => 'Thiago Vendedor',
+            'email' => 'thiago.vendedor@gmail.com',
             'password' => bcrypt('password'),
         ])->givePermissionTo('user');
         $user->assignRole($role1);
 
         $user = User::create([
-            'name' => 'Robson Cliente',
-            'email' => 'robson.cliente@gmail.com',
+            'name' => 'Robson Vendedor',
+            'email' => 'robson.vendedor@gmail.com',
             'password' => bcrypt('password'),
         ])->givePermissionTo('user');
         $user->assignRole($role1);
@@ -73,15 +73,15 @@ class UserTableSeeder extends Seeder
         */
 
         $user = User::create([
-            'name' => 'Eduarda Cliente',
-            'email' => 'eduarda.cliente@gmail.com',
+            'name' => 'Eduarda Vendedor',
+            'email' => 'eduarda.vendedor@gmail.com',
             'password' => bcrypt('password'),
         ])->givePermissionTo('user');
         $user->assignRole($role1);
 
         $user = User::create([
-            'name' => 'Anderson Cliente',
-            'email' => 'anderson.cliente@gmail.com',
+            'name' => 'Anderson Vendedor',
+            'email' => 'anderson.vendedor@gmail.com',
             'password' => bcrypt('password'),
         ])->givePermissionTo('user');
         $user->assignRole($role1);
