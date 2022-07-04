@@ -33,7 +33,6 @@ class SalvarClienteNoBancoJob implements ShouldQueue
      */
     public function handle()
     {
-        $clientes_com_erro = array();
         unset($this->clientes[0]);
 
         foreach ($this->clientes as $cliente) {

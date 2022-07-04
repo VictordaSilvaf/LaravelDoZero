@@ -14,10 +14,13 @@ class ProdutosImport implements ToCollection
     public function collection(Collection $collection)
     {
         foreach ($collection as $item) {
-            if (count(Produto::all()->where('codigo', $item[0])->where('anuncio', true))) {
-                $produto = Produto::where('codigo', $item[0])->first();
-                $produto->anuncio = false;
-                $produto->save();
+            if (count(Produto::all()->where('codigo', $item[0])->where('anuncio', true)) != null) {
+                try {
+                    $produto = Produto::where('codigo', $item[0])->first();
+                    $produto->anuncio = false;
+                    $produto->save();
+                } catch (\Throwable $th) {  
+                }
             }
         }
     }

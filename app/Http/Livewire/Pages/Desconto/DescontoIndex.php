@@ -20,7 +20,6 @@ class DescontoIndex extends Component
     public function render()
     {
         $transportadoras = ["JADLOG.COM", "JADLOG.PACKAGE", "SEDEX - EXPRESSO CORREIOS", "PAC - ECONÔMICO CORREIOS", "JONAS VIEIRA", "PEX", "RETIRAR", "OUTROS"];
-        dd($transportadoras[array_rand($transportadoras)]);
         $descontos = Desconto::paginate(8);
         return view('livewire.pages.desconto.desconto-index', compact('descontos'));
     }

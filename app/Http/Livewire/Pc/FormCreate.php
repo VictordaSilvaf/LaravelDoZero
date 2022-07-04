@@ -13,7 +13,7 @@ class FormCreate extends Component
 {
     public $selecaoPagamento;
     public $descontoVendedor = 0;
-    public $selecaoParcelas;
+    public $selecaoParcelas = 1;
     public $observacaoVendedor;
     public $formaPagamento = 0;
     public $formaPagamento2;
@@ -94,7 +94,7 @@ class FormCreate extends Component
     public $total = 0.00;
     public $totalDesc = 0.00;
     public $totalDescEsc = 0.00;
-    public $totalFrete = 0.00;
+    public $totalFrete;
 
 
     protected $rules = [
@@ -106,16 +106,11 @@ class FormCreate extends Component
     {
         $produtos = Cache::get('produtos_user_id_produtos' . auth()->user()->id);
 
-
         $this->formaPagamento = Pagamento::all()->whereIn('id_bling', ['50972', '69590', '777279', '777565', '787855', '789959', '789960', '797755', '947074', '947314', '1302911']);
 
         $this->formaPagamento2 = Pagamento::all()->whereIn('id_bling', ['50972', '777565']);
 
         $this->pesoTotal = $this->calcularPesoTotal($produtos);
-
-        if ($this->selecaoParcelas == null) {
-            $this->selecaoParcelas = 1;
-        }
 
         $valorParcelas = $this->dividirValorDasParcelas($this->calcTotal($produtos, $this->descontoVendedor));
         return view('livewire.pc.form-create', compact('produtos', 'valorParcelas'));
@@ -190,21 +185,34 @@ class FormCreate extends Component
     public function calcTotal($produtos, $descontoVendedor = 0)
     {
         $total = 0;
+
         if (isset($produtos)) {
 
-            foreach ($produtos as $id => $produto) {
+            foreach ($produtos as $produto) {
                 $total += $produto[3][0] * $produto[1];
             }
-            if (isset($descontoVendedor)) {
+            if (isset($descontoVendedor) && $descontoVendedor <= 15 && $descontoVendedor > 0) {
                 $total -= ($total * $descontoVendedor) / 100;
             }
             /* 3% é o desconto caso o modo de pagamento for pix */
             if ($this->selecaoPagamento == 20) {
                 $total -= ($total * 3) / 100;
             }
+
+            if ($this->totalFrete > 0) {
+                $total += floatval($this->totalFrete);
+            }
         }
 
         return $total;
+    }
+
+    public function calcTotalParcelas($total)
+    {
+        if ($this->selecaoParcelas == 1) {
+            $this->parcelaValor0 = $total;
+        } else {
+        }
     }
 
     public function submit()

@@ -36,13 +36,30 @@ class BuscarProdutosBlingJob implements ShouldQueue
         $count = 1;
 
         do {
+            $buscaFeita = false;
+            $try = 0;
+            do {
+                if ($buscaFeita == false) {
+                    try {
+                        $request = Http::get("https://bling.com.br/Api/v2/produtos/page=$count/json/&estoque=S&apikey=" . env('API_KEY_BLING'));
+
+
+
+                        $list_produtos = json_decode($request, true);
+                        $list_produtos = retry(3, array_shift($list_produtos), 1);
+                        $list_produtos = array_shift($list_produtos);
+                        $buscaFeita = true;
+                    } catch (\Throwable $th) {
+                        $try++;
+                        sleep(1);
+                    }
+                } else {
+                    break;
+                }
+            } while ($try < 3);
             try {
 
-                $request = Http::get("https://bling.com.br/Api/v2/produtos/page=$count/json/&estoque=S&apikey=" . env('API_KEY_BLING'));
 
-                $list_produtos = json_decode($request, true);
-                $list_produtos = array_shift($list_produtos);
-                $list_produtos = array_shift($list_produtos);
                 if (!isset(array_shift($list_produtos[0])['cod'])) {
                     /* Chamando o worker para cadastrar os produtos no banco */
                     SalvarProdutoNoBancoJob::dispatch($list_produtos);
@@ -52,7 +69,7 @@ class BuscarProdutosBlingJob implements ShouldQueue
                     $finalizado = true;
                 }
             } catch (\Throwable $th) {
-                continue;
+                dd($th);
             }
         } while ($finalizado == false);
     }

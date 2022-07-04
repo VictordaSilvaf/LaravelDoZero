@@ -14,7 +14,7 @@
         @if (Auth()->user()->avatar != 'default.jpg')
             src="{{ asset('storage/images/' . auth()->user()->avatar) }}"
         @else
-            src="http://lorempixel.com.br/500/500"
+            src="https://random.imagecdn.app/500/500"
         @endif
         alt="User dropdown">
 
@@ -51,7 +51,7 @@
     {{-- Profile --}}
     <div class="flex flex-col justify-center mt-5 text-center">
         <div class="w-[150px] h-[150px] rounded-full m-auto">
-            <img src="http://lorempixel.com.br/500/500" alt="" class="rounded-full">
+            <img src="https://random.imagecdn.app/500/500" alt="" class="rounded-full">
         </div>
         <p class="mt-1 font-light">{{ Auth()->User()->name }}</p>
         <p class="font-light text-desicon-natural">{{ (auth()->user()->roles[0]->name == 'admin') ? "Administrador" : "Vendedor" }}</p>

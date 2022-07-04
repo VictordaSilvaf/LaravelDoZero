@@ -79,7 +79,6 @@ class ShowProducts extends Component
         $cliente = Cache::get('produtos_user_id_cliente' . auth()->user()->id)[0];
         $tipoVenda = Cache::get('produtos_user_id_cliente' . auth()->user()->id)[1];
         $clienteNota = Cache::get('produtos_user_id_cliente' . auth()->user()->id)[2];
-        $id_formaPagamento = Cache::get('produtos_user_id_pagamento' . auth()->user()->id);
 
         $tipoCliente = $this->verificarTipoCliente($cliente);
 
@@ -199,7 +198,8 @@ class ShowProducts extends Component
 
     public function calcDescontoEscalonado($produto, $quantidade)
     {
-        $valorProduto =  $produto->preco;
+        $valorProduto = $produto->preco;
+        
         if (isset($produto->desconto)) {
             $desconto = $produto->desconto;
 

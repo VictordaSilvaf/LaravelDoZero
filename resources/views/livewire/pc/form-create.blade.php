@@ -84,11 +84,13 @@
 
                 <select
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white" 
-                    @if ($this->podeParcelar != true) disabled @else  @endif
-                    id="selecaoParcelas" name="selecaoParcelas" wire:model='selecaoParcelas' required>
-                    <option selected value=""></option>
+                    @if ($this->podeParcelar != true) disabled  @endif
+                    id="selecaoParcelas" name="selecaoParcelas" wire:model.debounce='selecaoParcelas' required >
+                    
+                    <option selected >{{ $this->selecaoParcelas }}</option>
+                    
                     @for ($i = 1; $i <= 12; $i++)
-                        <option value="{{ $i }}">{{ $i }}</option>
+                        <option value="{{ $i }}" wire:click="definirParcela({{ $i }})">{{ $i }}</option>
                     @endfor
 
                 </select>
@@ -109,7 +111,9 @@
                             <input
                                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                                 wire:model={{ 'parcelaValor' . $c }} type="number" name={{ 'parcelaValor' . $c }}
-                                id={{ 'parcelaValor' . $c }} placeholder="Valor da parcela" required>
+                                id={{ 'parcelaValor' . $c }} value="{{ $valorParcelas[$c] }}" placeholder="{{ $valorParcelas[$c] }}" @if ($this->selecaoParcelas == 1)
+                                    disabled
+                                @endif required>
                         </div>
                         <div class="truncate">
                             <select

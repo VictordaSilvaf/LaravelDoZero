@@ -52,6 +52,7 @@ class Produtos extends Component
 
     public function adicionarProduto(Request $request)
     {
+        // dd(Produto::all()->where('codigo', $request->skuProduto)->where('anuncio', true));
         if (count(Produto::all()->where('codigo', $request->skuProduto)->where('anuncio', true)) == 1) {
             $produto = Produto::all()->where('codigo', $request->skuProduto)->first();
             $produto->anuncio = false;
@@ -61,7 +62,7 @@ class Produtos extends Component
                 ->with('msg', 'Produto cadastrado com sucesso.');
         } else {
             return redirect()->route('dashboard.produtos')
-                ->with('msgErro', 'Produto já existe na lista.');
+                ->with('msgErro', 'Produto não existe ou já cadastrado na lista.');
         }
 
         Produto::all()->where('codigo', $request->skuProduto);

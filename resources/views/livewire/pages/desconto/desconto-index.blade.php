@@ -1,5 +1,3 @@
-{{ dd($this->faker->unique()) }}
-
 @extends('.livewire.layouts.dashboard-layout')
 @section('content')
     @if (session('msgErro'))
