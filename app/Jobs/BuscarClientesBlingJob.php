@@ -35,24 +35,34 @@ class BuscarClientesBlingJob implements ShouldQueue
         $count = 1;
 
         do {
-            try {
+            $finalizado = $this->buscarDadosBling($count);
+            print_r("\n Numero do contador CLIENTES $count \n");
+            $count++;
+        } while ($finalizado == false);
 
+        print_r("\n *********** Finalizado! *********** \n");
+    }
+
+    public function buscarDadosBling($count)
+    {
+        try {
+            $encontrou = false;
+
+            while ($encontrou  == false) {
                 $request = Http::get("https://bling.com.br/Api/v2/contatos/page=$count/json/&apikey=" . env('API_KEY_BLING'));
 
-                $lista_clientes = json_decode($request, true);
-                $lista_clientes = array_shift($lista_clientes);
-                $lista_clientes = array_shift($lista_clientes);
-                if (!isset($lista_clientes[0]['cod'])) {
-                    /* Chamando o worker para cadastrar os cliente no banco */
-                    SalvarClienteNoBancoJob::dispatch($lista_clientes);
-                    ++$count;
-                } else {
-                    /* Deu erro */
-                    $finalizado = true;
+                if (isset($request['retorno']['contatos'])) {
+                    $dados = $request['retorno']['contatos'];
+                    SalvarClienteNoBancoJob::dispatch($dados);
+                    break;
+                } elseif ($request['retorno']['erros'][0]['erro']['cod'] == 18) {
+                    sleep(1);
+                } elseif ($request['retorno']['erros'][0]['erro']['cod'] == 14) {
+                    return true;
                 }
-            } catch (\Throwable $th) {
-                dd($th);
             }
-        } while ($finalizado == false);
+            return false;
+        } catch (\Throwable $th) {
+        }
     }
 }

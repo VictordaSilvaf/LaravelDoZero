@@ -36,41 +36,38 @@ class BuscarProdutosBlingJob implements ShouldQueue
         $count = 1;
 
         do {
-            $buscaFeita = false;
-            $try = 0;
-            do {
-                if ($buscaFeita == false) {
-                    try {
-                        $request = Http::get("https://bling.com.br/Api/v2/produtos/page=$count/json/&estoque=S&apikey=" . env('API_KEY_BLING'));
-
-
-
-                        $list_produtos = json_decode($request, true);
-                        $list_produtos = retry(3, array_shift($list_produtos), 1);
-                        $list_produtos = array_shift($list_produtos);
-                        $buscaFeita = true;
-                    } catch (\Throwable $th) {
-                        $try++;
-                        sleep(1);
-                    }
-                } else {
-                    break;
-                }
-            } while ($try < 3);
-            try {
-
-
-                if (!isset(array_shift($list_produtos[0])['cod'])) {
-                    /* Chamando o worker para cadastrar os produtos no banco */
-                    SalvarProdutoNoBancoJob::dispatch($list_produtos);
-                    ++$count;
-                } else {
-                    /* Deu erro */
-                    $finalizado = true;
-                }
-            } catch (\Throwable $th) {
-                dd($th);
-            }
+            $finalizado = $this->buscarDadosBling($count);
+            print_r("\n Numero do contador PRODUTOS $count \n ");
+            $count++;
         } while ($finalizado == false);
+        print_r("\n *********** Finalizado! ***********");
+    }
+
+    /**
+     *   Função que busca produtos do bling, se não encontrado busca denovo 3 vezes, caso encontre retorna *   false, caso finalize a busca retorna true
+     *
+     *   @return bool
+     */
+    public function buscarDadosBling($count)
+    {
+        try {
+            $encontrou = false;
+
+            while ($encontrou  == false) {
+                $request = Http::get("https://bling.com.br/Api/v2/produtos/page=$count/json/&estoque=S&apikey=" . env('API_KEY_BLING'));
+
+                if (isset($request['retorno']['produtos'])) {
+                    $dados = $request['retorno']['produtos'];
+                    SalvarProdutoNoBancoJob::dispatch($dados);
+                    break;
+                } elseif ($request['retorno']['erros'][0]['erro']['cod'] == 18) {
+                    sleep(1);
+                } elseif ($request['retorno']['erros'][0]['erro']['cod'] == 14) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (\Throwable $th) {
+        }
     }
 }

@@ -62,7 +62,8 @@ class DescontoCreate extends Component
         $verificar_sku_duplicado = $this->verificarSkuDuplicado($request->identificacaoProduto);
         if ($verificar_sku_duplicado === 0) {
             $desconto = new Desconto();
-            $produto = Produto::all()->where('codigo', $request->get('identificacaoProduto'))->first();
+
+            $produto = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->where('codigo', $request->get('identificacaoProduto'))->first();
 
             try {
                 $salvarDesconto = $desconto->create([

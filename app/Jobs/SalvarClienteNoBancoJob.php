@@ -33,8 +33,6 @@ class SalvarClienteNoBancoJob implements ShouldQueue
      */
     public function handle()
     {
-        unset($this->clientes[0]);
-
         foreach ($this->clientes as $cliente) {
             try {
                 if (Cliente::find($cliente['contato']['id'])) {

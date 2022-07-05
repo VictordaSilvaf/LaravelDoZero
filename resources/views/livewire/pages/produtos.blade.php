@@ -89,18 +89,13 @@
                         <td class="px-2 py-1 font-light text-center text-gray-600 truncate border border-slate-300">
                             R$ {{ number_format($produto->preco, 2, ',', '.') }}
                         </td>
-                        <td class="flex flex-row justify-center font-light text-center text-gray-600 border border-slate-300">
+                        <td class="font-light text-center text-gray-600 border jstify-center border-slate-300">
                             @isset($produto->desconto)
                                 <a href="{{ route('descontos.update', ['id' => $produto->desconto->id]) }}"
                                     class="flex justify-center p-1 duration-100 rounded-lg hover:opacity-50">
                                     <x-tabler-discount-2 h='5' w='5' />
                                 </a>
                             @endisset
-
-                            <a href="{{ route('produtos.remover', ['id' => $produto->id]) }}"
-                                class="flex justify-center p-1 duration-100 rounded-lg hover:opacity-50">
-                                <x-heroicon-o-trash class="w-5 h-5" />
-                            </a>
                         </td>
 
                     </tr>

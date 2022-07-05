@@ -11,11 +11,13 @@ class Home extends Component
     public function render()
     {
         $dadosMeses = $this->contagemPorMeses(now()->year);
+
         $dados = $this->montarDadosPorMeses($dadosMeses);
         $chartjs = $this->grafico($dados);
         $propostas = Proposta::all();
         $paginacaoPropostas = Proposta::take(2)->get();
         $descontos = Desconto::orderBy('updated_at', 'asc')->paginate(2);
+
         return view('livewire.pages.home', compact('chartjs', 'propostas', 'descontos', 'paginacaoPropostas'));
     }
 
@@ -66,7 +68,7 @@ class Home extends Component
         $dadosMeses = array();
 
 
-        for ($i = 0; $i <= 12; $i++) {
+        for ($i = 1; $i <= 12; $i++) {
             $dados = Proposta::whereYear('created_at', '=', $ano)->whereMonth('created_at', '=', $i)->get();
             if (count($dados) == 0)
                 array_push($dadosMeses, 0);
@@ -76,7 +78,6 @@ class Home extends Component
         }
 
         return $dadosMeses;
-        // dd($dadosMeses[6]->where('status', 'pendente'));
     }
 
     public function montarDadosPorMeses($dadosMeses)

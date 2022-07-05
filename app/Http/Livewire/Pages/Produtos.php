@@ -15,14 +15,12 @@ class Produtos extends Component
 
     public function render()
     {
-        $produtos = Produto::where('anuncio', false)->paginate(16);
+        $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->paginate(16);
 
         if ($this->skuProduto != null) {
             $filtro = $this->skuProduto;
-            $ListaProdutos = Produtos::where('descricao', 'LIKE', "%{$filtro}%")
-                ->orWhere('id', 'LIKE', "%{$filtro}%")->paginate(6);
-
-            $produtos = Produto::where('anuncio', false)->paginate(16);
+            $ListaProdutos = $produtos->where('descricao', 'LIKE', "%{$filtro}%")
+                ->orWhere('id', 'LIKE', "%{$filtro}%")->paginate(5);
 
             return view('livewire.pages.produtos', compact('produtos', 'listaProdutos', 'filtro'));
         }

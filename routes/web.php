@@ -107,10 +107,12 @@ Route::middleware('auth')->group(function () {
         ->name('proposta.estado');
 
     Route::get('dashboard/proposta/{id}', Show::class)->name('proposta.show');
+
+    Route::get('dashboard/pdf/{id}', [Show::class, 'imprimirPDF'])->name('proposta.pdf');
 });
 
 Route::get('produtos', function () {
-    dd(Produto::all());
+    dd(Produto::all()->where('codigo', '03901100802'));
 });
 
 Route::get('clientes', function () {
