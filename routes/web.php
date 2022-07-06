@@ -101,14 +101,18 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::resource('dashboard/propostas', Propostas::class);
 
+    Route::post('dashboard/proposta', [Propostas::class, 'search'])->name('proposta.search');
+
     Route::get('dashboard/proposta/cadastrar', PropostaCreate::class)->name('proposta.create');
 
     Route::get('dashboard/propostas/estado/{id}/{estado}', [Propostas::class, 'mudarEstadoPC'])
         ->name('proposta.estado');
 
-    Route::get('dashboard/proposta/{id}', Show::class)->name('proposta.show');
+    Route::get('dashboard/proposta/visualizar/{id}', Show::class)->name('proposta.show');
 
     Route::get('dashboard/pdf/{id}', [Show::class, 'imprimirPDF'])->name('proposta.pdf');
+
+    Route::get('dashboard/pdf/enviar/{id}', [Show::class, 'enviarPDFEmail'])->name('proposta.enviarpdf');
 });
 
 Route::get('produtos', function () {

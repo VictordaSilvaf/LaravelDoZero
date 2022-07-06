@@ -40,31 +40,20 @@
         </div>
 
     </div>
+        
+        <form class="mt-2">
+            <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Buscar</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                    <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+                <input type="search" id="default-search" class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Buscar desconto..."  {{-- wire:model='search' --}} required>
+                
+                <button type="submit" class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buscar</button>
+            </div>
+        </form>
+        
 
-    {{-- <form action="{{ route('desconto.search') }}" method="post" class="d-flex"> --}}
-    <form action="#" method="post" class="flex items-center w-full gap-4 mt-2">
-        @csrf
-
-        @if (isset($filters) && $filters['busca'] != '')
-            <input type="text" placeholder="{{ $filters['busca'] }}" class="w-full rounded" name="busca"
-                id="busca" required>
-        @else
-            <input type="text" placeholder="Buscar desconto" class="w-full rounded" name="busca" id="busca"
-                required>
-        @endif
-
-        <button type="submit"
-            class="button bg-desicon-blue rounded p-1.5 text-desicon-white hover:opacity-80 duration-100">
-            <x-heroicon-o-search class="w-6 h-6" />
-        </button>
-        {{-- @can('admin') --}}
-        <a href={{ route('descontos.create') }}
-            class="button bg-desicon-blue rounded p-1.5 text-desicon-white hover:opacity-80 duration-100"
-            id='adicionarDesconto'>
-            <x-ri-add-fill class="w-6 h-6" />
-        </a>
-        {{-- @endcan --}}
-    </form>
 
     <table class="w-full mt-2 text-sm border table-auto border-slate-400 bg-desicon-white">
         <thead class="">

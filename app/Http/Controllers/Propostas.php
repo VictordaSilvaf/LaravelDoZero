@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Desconto;
+use App\Models\Cliente;
 use App\Models\Proposta;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class Propostas extends Controller
 {
@@ -32,7 +33,7 @@ class Propostas extends Controller
                 break;
         }
 
-        return view('livewire.pages.proposta.index  ', compact('propostas', 'status'));
+        return view('livewire.pages.proposta.index', compact('propostas', 'status'));
     }
 
     /**
@@ -40,64 +41,33 @@ class Propostas extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function search(Request $request)
     {
-        //
-    }
+        switch ($request->stats) {
+            case 'aceitas':
+                $status = 'aceitas';
+                $propostas = Proposta::where('status', 'aceita');
+                break;
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
+            case 'pendentes':
+                $status = 'pendentes';
+                $propostas = Proposta::where('status', 'pendente');
+                break;
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+            case 'recusadas':
+                $status = 'recusadas';
+                $propostas = Proposta::where('status', 'recusada');
+                break;
+        }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
+        if (isset($request->search)) {
+            $search = $request->search;
+            $propostas = $propostas->where('id', 'LIKE', '%' . intval($search) . '%')->paginate(10);
+            return view('livewire.pages.proposta.index  ', compact('propostas', 'status', 'search'));
+        }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
+        $propostas = $propostas->paginate(10);
+        return view('livewire.pages.proposta.index', compact('propostas', 'status'));
     }
 
     /**

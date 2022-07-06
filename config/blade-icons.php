@@ -124,8 +124,8 @@ return [
     */
 
     'attributes' => [
-        // 'width' => 50,
-        // 'height' => 50,
+        'width' => 50,
+        'height' => 50,
     ],
 
     /*

@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('body')
     <div class="grid grid-cols-5 overflow-hidden">
-        <div class="h-screen max-h-screen px-2 py-5 bg-desicon-white overflow-hidden">
+        <div class="h-screen max-h-screen px-2 py-5 overflow-hidden bg-desicon-white">
             @livewire('components.left-menu')
         </div>
 

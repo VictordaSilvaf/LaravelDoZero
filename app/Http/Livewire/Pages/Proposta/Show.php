@@ -2,13 +2,13 @@
 
 namespace App\Http\Livewire\Pages\Proposta;
 
-use App\Models\Cliente;
+use App\Mail\EnviarPDF;
 use App\Models\Proposta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use PDF;
-
 
 class Show extends Component
 {
@@ -29,21 +29,29 @@ class Show extends Component
      */
     public function imprimirPDF($id)
     {
+        $pdf = $this->gerarPDF($id);
+        return $pdf->download('proposta.pdf');
+    }
+
+    public function gerarPDF($id)
+    {
         $propostaComercial = Proposta::find($id);
 
         $pdf = PDF::loadView('pdf.proposta', compact('propostaComercial'));
-        return $pdf->download('proposta.pdf');
+
+        return $pdf;
     }
 
     public function enviarPDFEmail($id)
     {
         $pdf = $this->gerarPDF($id);
-
         $propostaComercial = Proposta::findOrFail($id);
-        $cliente = Cliente::all()->where('cnpj', '=', $propostaComercial->cpf_cnpj)->first();
-        return new \App\Mail\SendPDF($propostaComercial);
-        
-        Mail::to('victordasilvafernandes@gmail.com')->send(new \App\Mail\SendPDF($propostaComercial, $pdf, $cliente));
-        return redirect()->route('propostaComercial.index')->with('msg', 'Email enviado com sucesso!');
+        $localArquivo = 'temp/' . uniqid() . '.pdf';
+
+        Storage::put($localArquivo, $pdf->output());
+        Mail::to($propostaComercial->clientes->email)->send(new EnviarPDF($propostaComercial, $localArquivo, $pdf));
+        Storage::delete($localArquivo);
+
+        return redirect()->back()->with('msg', 'Email enviado com sucesso!');
     }
 }
