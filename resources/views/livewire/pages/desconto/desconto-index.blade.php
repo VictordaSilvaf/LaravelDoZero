@@ -38,6 +38,7 @@
                     class="h-full px-2 ml-4 rounded-lg bg-desicon-blue text-desicon-white ">Exportar</button>
             </form>
         </div>
+        <a href="{{ route('descontos.create') }}">adicionar</a>
 
     </div>
         

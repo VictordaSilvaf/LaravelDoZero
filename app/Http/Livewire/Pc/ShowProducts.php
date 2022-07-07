@@ -37,19 +37,20 @@ class ShowProducts extends Component
             $quantidade = $this->quantidadeProduto;
             $produto = Produto::where('codigo', $this->identificacaoProduto)->first();
 
-            $totalDescontoEscalonado = $this->calcDescontoEscalonado($produto, $quantidade);
+            $totalDesconto = $this->calcDescontoEscalonado($produto, $quantidade);
 
             $key_cache = 'produtos_user_id_produtos' . auth()->user()->id;
 
             if (!$this->verificarProdutoExisteNaLista($this->identificacaoProduto, $key_cache)) {
                 $descontoFiscal = $this->descontoFiscal($produto);
 
+                $totalDesconto[2] = $totalDesconto[0] - ($totalDesconto[0] * ($descontoFiscal / 100));
                 if (Cache::has($key_cache)) {
                     $produtos = Cache::get($key_cache);
                     Cache::forget($key_cache);
                 }
 
-                array_push($produtos, [$produto, $quantidade, $descontoFiscal, $totalDescontoEscalonado]);
+                array_push($produtos, [$produto, $quantidade, $descontoFiscal, $totalDesconto]);
 
                 Cache::add($key_cache, $produtos, 1200);
             } else {
@@ -86,8 +87,9 @@ class ShowProducts extends Component
 
             /* Verifica se o cliente é de são paulo */
             if ($cliente->uf == "SP") {
+
                 /* Verifica se o cliente quer ou não nota */
-                if ($clienteNota == 'false') {
+                if ($clienteNota == false) {
                     /* Pega os produtos que não são ST */
                     if (!strpos($produto->grupoProduto, 'ST')) {
                         return 12;
@@ -122,11 +124,11 @@ class ShowProducts extends Component
 
         switch ($cliente->contribuinte) {
             case '1':
-                return false;
+                return true;
                 break;
 
             case '2' || '9':
-                return true;
+                return false;
                 break;
 
             default:
@@ -199,7 +201,7 @@ class ShowProducts extends Component
     public function calcDescontoEscalonado($produto, $quantidade)
     {
         $valorProduto = $produto->preco;
-        
+
         if (isset($produto->desconto)) {
             $desconto = $produto->desconto;
 

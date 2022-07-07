@@ -9,7 +9,35 @@ class Cliente extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    
+
+    public $fillable = [
+        'id',
+        'codigo',
+        'nome',
+        'fantasia',
+        'tipo',
+        'cnpj',
+        'ie_rg',
+        'endereco',
+        'numero',
+        'bairro',
+        'cep',
+        'cidade',
+        'complemento',
+        'uf',
+        'fone',
+        'email',
+        'situacao',
+        'contribuinte',
+        'site',
+        'celular',
+        'dataAlteracao',
+        'dataInclusao',
+        'sexo',
+        'clienteDesde',
+        'limiteCredito'
+    ];
+
     protected $casts = [
         'cliente' => 'array'
     ];

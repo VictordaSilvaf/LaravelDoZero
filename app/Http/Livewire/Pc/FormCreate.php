@@ -3,10 +3,10 @@
 namespace App\Http\Livewire\Pc;
 
 use App\Models\Pagamento;
-use App\Models\Produto;
 use App\Models\Proposta;
 use App\Models\PropostaProduto;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class FormCreate extends Component
@@ -115,6 +115,7 @@ class FormCreate extends Component
         $valorParcelas = $this->dividirValorDasParcelas($this->calcTotal($produtos, $this->descontoVendedor));
         return view('livewire.pc.form-create', compact('produtos', 'valorParcelas'));
     }
+
 
     private function dividirValorDasParcelas($total)
     {

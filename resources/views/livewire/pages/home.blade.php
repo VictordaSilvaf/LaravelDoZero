@@ -1,5 +1,6 @@
 @extends('.livewire.layouts.dashboard-layout')
 @section('content')
+
     <div class="flex flex-col">
         <div class="">
             <h2 class="font-medium">Dashboard</h2>

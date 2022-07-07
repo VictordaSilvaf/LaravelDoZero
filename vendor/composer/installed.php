@@ -5,7 +5,7 @@
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
-        'reference' => 'ee09ee49f0d1d4d3108c6a35bee091d8c532cb5f',
+        'reference' => 'e11d6a26058b729b8cf86b1defecb59f8aa3a64f',
         'name' => 'laravel/laravel',
         'dev' => true,
     ),
@@ -496,7 +496,7 @@
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
-            'reference' => 'ee09ee49f0d1d4d3108c6a35bee091d8c532cb5f',
+            'reference' => 'e11d6a26058b729b8cf86b1defecb59f8aa3a64f',
             'dev_requirement' => false,
         ),
         'laravel/sail' => array(
@@ -608,12 +608,12 @@
             'dev_requirement' => false,
         ),
         'livewire/livewire' => array(
-            'pretty_version' => 'v2.10.5',
-            'version' => '2.10.5.0',
+            'pretty_version' => 'v2.10.6',
+            'version' => '2.10.6.0',
             'type' => 'library',
             'install_path' => __DIR__ . '/../livewire/livewire',
             'aliases' => array(),
-            'reference' => '9ea6237760f627b3b6a05d15137880780ac843b5',
+            'reference' => '020ad095cf1239138b097d22b584e2701ec3edfb',
             'dev_requirement' => false,
         ),
         'maatwebsite/excel' => array(

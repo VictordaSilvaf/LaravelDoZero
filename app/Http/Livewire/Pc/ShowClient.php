@@ -17,6 +17,7 @@ class ShowClient extends Component
     {
         $key_cache = 'produtos_user_id_cliente' . auth()->user()->id;
         $cliente = Cache::get($key_cache);
+
         return view('livewire.pc.show-client', compact('cliente'));
     }
 
@@ -27,14 +28,30 @@ class ShowClient extends Component
             if (Cliente::where('cnpj', $this->identificacaoCliente)->first()) {
                 $cliente = Cliente::where('cnpj', $this->identificacaoCliente)->first();
                 $key_cache = 'produtos_user_id_cliente' . auth()->user()->id;
+                $key_cache_produtos = 'produtos_user_id_produtos' . auth()->user()->id;
 
                 if (Cache::has($key_cache)) {
                     Cache::forget($key_cache);
                 }
 
+                if (Cache::has($key_cache_produtos)) {
+                    Cache::forget($key_cache_produtos);
+                }
+
                 Cache::add($key_cache, [$cliente, $this->clienteConsumoRevenda, $this->clienteNota], 1200);
             } else {
-                $this->addError('identificacaoCliente', 'Cliente não encontado.');
+                $cliente = $this->getCliente($this->identificacaoCliente);
+                if ($cliente) {
+                    $key_cache = 'produtos_user_id_cliente' . auth()->user()->id;
+
+                    if (Cache::has($key_cache)) {
+                        Cache::forget($key_cache);
+                    }
+
+                    Cache::add($key_cache, [$cliente, $this->clienteConsumoRevenda, $this->clienteNota], 1200);
+                } else {
+                    $this->addError('identificacaoCliente', 'Cliente não encontado.');
+                }
             }
         } else {
             $this->addError('identificacaoCliente', 'Digite um CPF / CNPJ valido por gentileza.');
@@ -55,24 +72,36 @@ class ShowClient extends Component
     /* Buscar cliente no bling */
     public function getCliente($clienteCPF)
     {
+        $clienteCPF = str_replace('/', '', $clienteCPF);
+
         $responseCliente = Http::get("https://bling.com.br/Api/v2/contato/" . strval($clienteCPF) . "/json&apikey=9e9423b85ebb62aac022e74a212a2fa643dd9704753fdfebe07457803cc475c0c78211b2");
+
         // Verifica de a response tem retorno 
         if ($responseCliente) {
             //adicionar retorno no banco, e percorrendo o array/json 
-            $cliente = ($responseCliente->json()['retorno']);
-            $cliente = array_pop($cliente);
-            $cliente = array_pop($cliente);
 
             //verifica se retonar erro caso não encontrado no api
             if (isset($cliente['erro']['cod'])) {
                 if ($cliente['erro']['cod'] === 14) {
                     return 0;
                 }
-            } elseif ($this->store_cliente($cliente)) {
+            } elseif (isset($responseCliente['retorno']['contatos'][0]['contato'])) {
+                $cliente = $responseCliente['retorno']['contatos'][0]['contato'];
+                $cliente = $this->store($cliente);
+
                 return $cliente;
             } else {
                 dd("Erro");
             }
+        }
+    }
+
+    public function store($dado)
+    {
+        $cliente = new Cliente($dado);
+        return $cliente;
+        if (!$cliente->save()) {
+            $this->addError('identificacaoCliente', 'Digite um CPF / CNPJ existente por gentileza.');
         }
     }
 }

@@ -8,6 +8,8 @@ use Livewire\Component;
 
 class Home extends Component
 {
+    public $teste;
+
     public function render()
     {
         $dadosMeses = $this->contagemPorMeses(now()->year);

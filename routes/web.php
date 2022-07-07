@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Auth\EmailVerificationController;
 use App\Http\Controllers\Auth\LogoutController;
-use App\Http\Controllers\Propostas;
 use App\Http\Livewire\Auth\Login;
 use App\Http\Livewire\Auth\Passwords\Confirm;
 use App\Http\Livewire\Auth\Passwords\Email;
@@ -17,6 +16,8 @@ use App\Http\Livewire\Pages\Home;
 use App\Http\Livewire\Pages\Produtos;
 use App\Http\Livewire\Pages\Proposta\PropostaCreate;
 use App\Http\Livewire\Pages\Proposta\Show;
+use App\Http\Livewire\Pages\Propostas;
+use App\Http\Livewire\Pc\ShowClient;
 use App\Models\Cliente;
 use App\Models\Pagamento;
 use App\Models\Produto;
@@ -99,11 +100,13 @@ Route::middleware('auth')->group(function () {
 
 /* Proposta */
 Route::middleware('auth')->group(function () {
-    Route::resource('dashboard/propostas', Propostas::class);
+    Route::get('dashboard/propostas', Propostas::class)->name('propostas.index');
 
-    Route::post('dashboard/proposta', [Propostas::class, 'search'])->name('proposta.search');
+    Route::post('dashboard/proposta', Propostas::class)->name('proposta.search');
 
     Route::get('dashboard/proposta/cadastrar', PropostaCreate::class)->name('proposta.create');
+
+    Route::post('dashboard/proposta/buscar', [ShowClient::class, 'buscarClienteBling'])->name('proposta.buscarBling');
 
     Route::get('dashboard/propostas/estado/{id}/{estado}', [Propostas::class, 'mudarEstadoPC'])
         ->name('proposta.estado');
@@ -116,7 +119,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('produtos', function () {
-    dd(Produto::all()->where('codigo', '03901100802'));
+    dd(Produto::all());
 });
 
 Route::get('clientes', function () {
