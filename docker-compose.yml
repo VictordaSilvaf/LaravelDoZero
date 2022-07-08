@@ -7,6 +7,9 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+            args:
+                user: desiconpdv
+                uid: 1000
         image: especializati/laravel-app
         restart: unless-stopped
         working_dir: /var/www/
