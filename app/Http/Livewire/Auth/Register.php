@@ -24,9 +24,6 @@ class Register extends Component
     public $password = '';
 
     /** @var string */
-    public $avatar = '';
-
-    /** @var string */
     public $passwordConfirmation = '';
 
     public function register()
@@ -35,15 +32,13 @@ class Register extends Component
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users'],
             'password' => ['required', 'min:8', 'same:passwordConfirmation'],
-            'avatar' => 'image|max:2048',
         ]);
 
         $user = User::create([
             'email' => $this->email,
             'name' => $this->name,
-            'avatar' => $this->avatar,
             'password' => Hash::make($this->password),
-        ]);
+        ])->assignRole('user');
 
         event(new Registered($user));
 
