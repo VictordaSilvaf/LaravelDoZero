@@ -11,11 +11,7 @@
         </a>
         
         <img id="avatar" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="rounded-full cursor-pointer h-7 w-7"
-        @if (Auth()->user()->avatar != 'default.jpg')
-            src="{{ asset('storage/images/' . auth()->user()->avatar) }}"
-        @else
-            src="https://random.imagecdn.app/500/500"
-        @endif
+        src="https://random.imagecdn.app/500/500"
         alt="User dropdown">
 
         

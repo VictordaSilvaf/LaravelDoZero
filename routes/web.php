@@ -18,6 +18,7 @@ use App\Http\Livewire\Pages\Proposta\PropostaCreate;
 use App\Http\Livewire\Pages\Proposta\Show;
 use App\Http\Livewire\Pages\Propostas;
 use App\Http\Livewire\Pc\ShowClient;
+use App\Http\Livewire\Testes;
 use App\Models\Cliente;
 use App\Models\Pagamento;
 use App\Models\Produto;
@@ -129,3 +130,5 @@ Route::get('clientes', function () {
 Route::get('pagamentos', function () {
     dd(Pagamento::all());
 });
+
+Route::get('test', Testes::class)->name('test');

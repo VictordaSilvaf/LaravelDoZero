@@ -22,10 +22,11 @@ class Produtos extends Component
             $ListaProdutos = $produtos->where('descricao', 'LIKE', "%{$filtro}%")
                 ->orWhere('id', 'LIKE', "%{$filtro}%")->paginate(5);
 
-            return view('livewire.pages.produtos', compact('produtos', 'listaProdutos', 'filtro'));
+            return view('livewire.pages.produtos', compact('produtos', 'listaProdutos', 'filtro'))
+                ->extends('livewire.layouts.dashboard-layout');
         }
 
-        return view('livewire.pages.produtos', compact('produtos'));
+        return view('livewire.pages.produtos', compact('produtos'))->extends('livewire.layouts.dashboard-layout');
     }
 
     public function export()

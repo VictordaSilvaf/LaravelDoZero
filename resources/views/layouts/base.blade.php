@@ -18,22 +18,20 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ url(mix('css/app.css')) }}">
-    @livewireStyles
-
-    <!-- Scripts -->
-    <script src="{{ url(mix('js/app.js')) }}"></script>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    {{-- Flowbit --}}
+    @livewireStyles
 </head>
 
 <body>
     @yield('body')
 
-    <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
     @livewireScripts
+    {{-- Flowbit --}}
+    <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>
+    <!-- Scripts -->
+    <script src="{{ url(mix('js/app.js')) }}"></script>
 </body>
-
 </html>

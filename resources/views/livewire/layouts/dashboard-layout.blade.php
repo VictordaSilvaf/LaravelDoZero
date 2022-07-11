@@ -13,9 +13,4 @@
             @livewire('components.right-menu')
         </div>
     </div>
-
-    @isset($slot)
-        {{ $slot }}
-    @endisset
-
 @endsection

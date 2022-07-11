@@ -8,7 +8,7 @@ use Livewire\Component;
 
 class Home extends Component
 {
-    public $teste;
+    public $test;
 
     public function render()
     {
@@ -20,7 +20,8 @@ class Home extends Component
         $paginacaoPropostas = Proposta::take(2)->get();
         $descontos = Desconto::orderBy('updated_at', 'asc')->paginate(2);
 
-        return view('livewire.pages.home', compact('chartjs', 'propostas', 'descontos', 'paginacaoPropostas'));
+        return view('livewire.pages.home', compact('chartjs', 'propostas', 'descontos', 'paginacaoPropostas'))
+            ->extends('livewire.layouts.dashboard-layout');
     }
 
     public function grafico($dados)

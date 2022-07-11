@@ -9,11 +9,13 @@ class Propostas extends Component
 {
     public $estado = 0;
     public $name;
+    public $test;
 
     public function render()
     {
         $propostas = Proposta::paginate(10);
-        return view('livewire.pages.propostas', compact('propostas'));
+        return view('livewire.pages.propostas', compact('propostas'))
+            ->extends('livewire.layouts.dashboard-layout');
     }
 
     public function filtrarEstado($estado)
