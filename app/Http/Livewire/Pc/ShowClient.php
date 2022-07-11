@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Cache;
 
 class ShowClient extends Component
 {
-    public $identificacaoCliente = '146.005.437-77';
+    public $identificacaoCliente;
     public $clienteConsumoRevenda;
     public $clienteNota = false;
 

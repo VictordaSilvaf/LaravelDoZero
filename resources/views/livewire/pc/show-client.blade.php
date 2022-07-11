@@ -7,7 +7,7 @@
                 CNPJ</label>
             <input
                 class="block w-full px-4 py-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none"
-                type="text" id="clienteCPF" placeholder="CPF ou CNPJ" name="identificacaoCliente"
+                type="text" id="clienteCPF" placeholder="CPF ou CNPJ com os caracteres especiais" name="identificacaoCliente"
                 wire:model='identificacaoCliente' required />
             @error('identificacaoCliente')
                 <div class="" style="color: red; text-align: left; opacity: .65;">
