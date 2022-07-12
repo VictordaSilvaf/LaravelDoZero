@@ -1,7 +1,8 @@
-@extends('.livewire.layouts.dashboard-layout')
-@section('content')
-
     <div class="flex flex-col">
+        <div>
+            <input type="text" name="test" id="test" wire:model='test'>
+            <p>{{ $test }}</p>
+        </div>
         <div class="">
             <h2 class="font-medium">Dashboard</h2>
             <h3 class="font-light text-desicon-natural">Olá, Victor. Seja bem vindo ao PDV Desicon</h3>
@@ -86,7 +87,8 @@
             <div class="flex flex-col p-3 font-light bg-desicon-white rounded-xl">
                 <h2 class="font-medium whitespace-nowrap">Útimos descontos</h2>
                 @foreach ($descontos as $desconto)
-                    <a href="#" class="flex flex-col p-1 mt-2 rounded hover:bg-desicon-natural7 hover:bg-opacity-50">
+                    <a href="#"
+                        class="flex flex-col p-1 mt-2 rounded hover:bg-desicon-natural7 hover:bg-opacity-50">
                         <div class="flex flex-col w-full ">
                             <h2 class="text-sm font-extralight">
                                 {{ mb_strimwidth($descontos->first()->produto->descricao, 0, 30, '...') }}</h2>
@@ -97,7 +99,5 @@
             </div>
 
         </div>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.min.js"></script>
-@endsection

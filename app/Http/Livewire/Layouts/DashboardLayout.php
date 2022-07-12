@@ -8,6 +8,7 @@ class DashboardLayout extends Component
 {
     public function render()
     {
-        return view('livewire.layouts.dashboard-layout');
+        return view('livewire.layouts.dashboard-layout')
+            ->extends('layouts.dashboard-layout');
     }
 }

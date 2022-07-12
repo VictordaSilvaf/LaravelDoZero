@@ -1,6 +1,3 @@
-@extends('.livewire.layouts.dashboard-layout')
-@section('content')
-
     {{-- Mesagens de erro --}}
     @if (session('msgErro'))
         <div class="w-full p-2 mb-2 bg-red-600 rounded-lg text-desicon-white">
@@ -12,46 +9,27 @@
             <p class="msg" style="text-align: center;">{{ session('msg') }}</p>
         </div>
     @endif
+
     <h1 class="text-lg font-light">Produtos</h1>
 
-    <div class="grid grid-cols-6">
-        <div class="flex flex-row col-span-4">
-            <form action="{{ route('produtos.importar') }}" method="POST" class="flex" enctype="multipart/form-data">
-                @csrf
-                <input
-                    class="block w-full pr-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-                    id="file_input" name="file_input" type="file" required>
-
-                @error('file_input')
-                    <span class="error">{{ $message }}</span>
-                @enderror
-
-                <button type="submit"
-                    class="h-full px-2 ml-2 rounded-lg bg-desicon-blue text-desicon-white">Importar</button>
-            </form>
-
-            <form action="{{ route('produtos.exportar') }}" method="GET">
-                @csrf
-                <button type="submit"
-                    class="h-full px-2 ml-4 rounded-lg bg-desicon-blue text-desicon-white ">Exportar</button>
-            </form>
-        </div>
-
-        <form action="{{ route('dashboard.produtos.adicionar') }}" wire:submit.prevent='adicionarProduto'
-            class="col-span-2" method="POST">
-            @csrf
-            <div class="flex justify-end w-full">
-                <div class="mr-1">
-                    <input type="text" name="skuProduto" id="skuProduto" class="rounded-lg"
-                        placeholder="Adicionar produto" wire:model='skuProduto' required>
-                </div>
-
-                <button href="" type="submit" class="p-2 rounded-lg bg-desicon-blue text-desicon-white">
-                    <x-ri-add-fill class="w-6 h-6" />
-                </button>
+    <form method="POST" action="{{ route('dashboard.produtos.adicionar') }}" wire:submit.prevent='adicionarProduto'>
+        <label for="skuProduto" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Search</label>
+        <div class="relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                </svg>
             </div>
-        </form>
-    </div>
+            <input type="search" name="skuProduto" id="skuProduto"
+                class="block w-full p-4 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Digite o nome ou o SKU do produto..." wire:model='skuProduto'>
+            <button type="submit"
+                class="text-white absolute right-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="submit">Buscar</button>
+        </div>
+    </form>
 
     <table class="w-full mt-2 border table-auto border-slate-400 bg-desicon-white">
         <thead>
@@ -109,4 +87,3 @@
             {{ $produtos->onEachSide(1)->links() }}
         @endisset
     </div>
-@endsection

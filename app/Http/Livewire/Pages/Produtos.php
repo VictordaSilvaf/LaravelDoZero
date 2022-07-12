@@ -15,17 +15,18 @@ class Produtos extends Component
 
     public function render()
     {
-        $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->paginate(16);
+        $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->paginate(9);
 
         if ($this->skuProduto != null) {
             $filtro = $this->skuProduto;
             $ListaProdutos = $produtos->where('descricao', 'LIKE', "%{$filtro}%")
                 ->orWhere('id', 'LIKE', "%{$filtro}%")->paginate(5);
 
-            return view('livewire.pages.produtos', compact('produtos', 'listaProdutos', 'filtro'));
+            return view('livewire.pages.produtos', compact('produtos', 'listaProdutos', 'filtro'))
+                ->extends('livewire.layouts.dashboard-layout');
         }
 
-        return view('livewire.pages.produtos', compact('produtos'));
+        return view('livewire.pages.produtos', compact('produtos'))->extends('livewire.layouts.dashboard-layout');
     }
 
     public function export()

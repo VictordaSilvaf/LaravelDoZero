@@ -34,18 +34,22 @@ class DescontoCreate extends Component
 
                 $produto = Produto::all()->where('codigo', $request->identificacaoProduto)->first();
                 if (count(Desconto::all()->where('produto_id', $produto->id)) != 1) {
-                    return view('livewire.pages.desconto.desconto-create', compact('produto', 'busca'));
+                    return view('livewire.pages.desconto.desconto-create', compact('produto', 'busca'))
+                        ->extends('livewire.layouts.dashboard-layout');
                 } else {
                     $erro = "Produto já tem desconto cadastrado.";
-                    return view('livewire.pages.desconto.desconto-create', compact('erro'));
+                    return view('livewire.pages.desconto.desconto-create', compact('erro'))
+                        ->extends('livewire.layouts.dashboard-layout');
                 }
             } else {
                 $produtos = Produto::where('codigo', "LIKE",  "%" . $request->identificacaoProduto . "%")->paginate(6);
                 if (count($produtos) > 0) {
-                    return view('livewire.pages.desconto.desconto-create', compact('produtos', 'busca'));
+                    return view('livewire.pages.desconto.desconto-create', compact('produtos', 'busca'))
+                        ->extends('livewire.layouts.dashboard-layout');
                 } else {
                     $erro = "Produto Não encontrado.";
-                    return view('livewire.pages.desconto.desconto-create', compact('erro'));
+                    return view('livewire.pages.desconto.desconto-create', compact('erro'))
+                        ->extends('livewire.layouts.dashboard-layout');
                 }
             }
 

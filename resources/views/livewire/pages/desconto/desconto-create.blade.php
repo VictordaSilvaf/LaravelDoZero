@@ -1,5 +1,4 @@
-@extends('.livewire.layouts.dashboard-layout')
-@section('content')
+
     <div class="">
         {{-- {{ dd($produtos) }} --}}
         <div class="">
@@ -157,4 +156,3 @@
             </form>
         </div>
     </div>
-@endsection
