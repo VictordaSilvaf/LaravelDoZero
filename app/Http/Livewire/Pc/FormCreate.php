@@ -13,7 +13,7 @@ class FormCreate extends Component
 {
     public $selecaoPagamento;
     public $descontoVendedor = 0;
-    public $selecaoParcelas = 1;
+    public $selecaoParcelas;
     public $observacaoVendedor;
     public $formaPagamento = 0;
     public $formaPagamento2;
@@ -104,6 +104,10 @@ class FormCreate extends Component
 
     public function render()
     {
+        if ($this->selecaoParcelas == null) {
+            $this->selecaoParcelas = 1;
+        }
+
         $produtos = Cache::get('produtos_user_id_produtos' . auth()->user()->id);
 
         $this->formaPagamento = Pagamento::all()->whereIn('id_bling', ['50972', '69590', '777279', '777565', '787855', '789959', '789960', '797755', '947074', '947314', '1302911']);
@@ -113,6 +117,7 @@ class FormCreate extends Component
         $this->pesoTotal = $this->calcularPesoTotal($produtos);
 
         $valorParcelas = $this->dividirValorDasParcelas($this->calcTotal($produtos, $this->descontoVendedor));
+
         return view('livewire.pc.form-create', compact('produtos', 'valorParcelas'));
     }
 
@@ -148,16 +153,11 @@ class FormCreate extends Component
             /* Selecionando formas de pagamento que podem parcelar */
             $items = ['787855', '69590', '789959'];
 
-
-            foreach ($items as $item) {
-
-                if ($item == $this->parcelaFormaPagamento0) {
-                    $this->podeParcelar = 1;
-                    break;
-                } else {
-                    $this->podeParcelar = 0;
-                    $this->selecaoParcelas = 1;
-                }
+            if ($items[0] == $this->parcelaFormaPagamento0 || $items[1] == $this->parcelaFormaPagamento0 || $items[2] == $this->parcelaFormaPagamento0) {
+                $this->podeParcelar = 1;
+            } else {
+                $this->selecaoParcelas = 1;
+                $this->podeParcelar = 0;
             }
 
             /* 3% de desconto do pix */
@@ -190,13 +190,15 @@ class FormCreate extends Component
         if (isset($produtos)) {
 
             foreach ($produtos as $produto) {
-                $total += $produto[3][0] * $produto[1];
+                $total += $produto[3][2] * $produto[1];
             }
+
             if (isset($descontoVendedor) && $descontoVendedor <= 15 && $descontoVendedor > 0) {
                 $total -= ($total * $descontoVendedor) / 100;
             }
+
             /* 3% é o desconto caso o modo de pagamento for pix */
-            if ($this->selecaoPagamento == 20) {
+            if ($this->parcelaFormaPagamento0 == '1302911') {
                 $total -= ($total * 3) / 100;
             }
 
@@ -368,6 +370,12 @@ class FormCreate extends Component
                 return null;
                 break;
         }
+    }
+
+    public function definirParcela($parcela)
+    {
+        dd('entrei');
+        $this->selecaoParcelas = $parcela;
     }
 
     public function descontoPagamento()
