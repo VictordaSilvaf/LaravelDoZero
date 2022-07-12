@@ -3,44 +3,54 @@
 namespace App\Http\Livewire\Pages;
 
 use App\Models\Proposta;
+use Illuminate\Http\Request;
 use Livewire\Component;
 
 class Propostas extends Component
 {
-    public $estado = 0;
-    public $name;
-    public $test;
+    public $filtro = "todas";
+    public $busca;
 
     public function render()
     {
-        $propostas = Proposta::paginate(10);
+        if ($this->filtro == 'todas') {
+            $propostas = Proposta::paginate(10);
+        } else {
+            $propostas = Proposta::paginate(10)->where('status', '==', $this->filtro);
+        }
+
         return view('livewire.pages.propostas', compact('propostas'))
             ->extends('livewire.layouts.dashboard-layout');
     }
 
-    public function filtrarEstado($estado)
+    public function buscarPropostas()
     {
-        $this->estado = $estado;
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function mudarEstadoPC($id, $estado)
-    {
-        $proposta = Proposta::all()->find($id);
-
-        if ($estado == 1) {
-            $proposta->status = 'aceita';
-        } else if ($estado == 2) {
-            $proposta->status = 'recusada';
+        if ($this->filtro == 'todas') {
+            $propostas = Proposta::all();
+        } else {
+            $propostas = Proposta::where('status', $this->filtro);
         }
 
-        $proposta->save();
+        if (isset($this->busca)) {
+            // dd($propostas->first()->clientes);
+            $propostas = $propostas->with(
+                [
+                    'clientes' => function ($query) {
+                        $query->where('clientes.cnpj', 'LIKE', "%$this->filtro%");
+                    }
+                ]
+            );
+        } else {
+            $propostas = Proposta::all();
+        }
+        $propostas->paginate(10);
 
-        return redirect()->back();
+        return view('livewire.pages.propostas', compact('propostas'))
+            ->extends('livewire.layouts.dashboard-layout');
+    }
+
+    public function mudarFiltro($filtro)
+    {
+        $this->filtro = $filtro;
     }
 }

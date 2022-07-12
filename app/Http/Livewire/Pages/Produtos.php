@@ -15,7 +15,7 @@ class Produtos extends Component
 
     public function render()
     {
-        $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->paginate(16);
+        $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->paginate(9);
 
         if ($this->skuProduto != null) {
             $filtro = $this->skuProduto;
