@@ -1,8 +1,4 @@
     <div class="flex flex-col">
-        <div>
-            <input type="text" name="test" id="test" wire:model='test'>
-            <p>{{ $test }}</p>
-        </div>
         <div class="">
             <h2 class="font-medium">Dashboard</h2>
             <h3 class="font-light text-desicon-natural">Olá, Victor. Seja bem vindo ao PDV Desicon</h3>
