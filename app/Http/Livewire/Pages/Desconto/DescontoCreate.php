@@ -13,76 +13,49 @@ class DescontoCreate extends Component
     public $quantidadeParcelas = 5;
 
     public $identificacaoProduto;
+    public $busca;
+
+    public $produto;
 
     public $quantidadeProduto0;
-    public $porcentagemProduto0;
+    public $porcentagemDesconto0;
     public $quantidadeProduto1;
-    public $porcentagemProduto1;
+    public $porcentagemDesconto1;
     public $quantidadeProduto2;
-    public $porcentagemProduto2;
+    public $porcentagemDesconto2;
     public $quantidadeProduto3;
-    public $porcentagemProduto3;
+    public $porcentagemDesconto3;
     public $quantidadeProduto4;
-    public $porcentagemProduto4;
+    public $porcentagemDesconto4;
 
     public function render(Request $request)
     {
-
-        if (isset($request->identificacaoProduto)) {
-            $busca = $request->identificacaoProduto;
-            if (count(Produto::all()->where('codigo', $request->identificacaoProduto)) == 1) {
-
-                $produto = Produto::all()->where('codigo', $request->identificacaoProduto)->first();
-                if (count(Desconto::all()->where('produto_id', $produto->id)) != 1) {
-                    return view('livewire.pages.desconto.desconto-create', compact('produto', 'busca'))
-                        ->extends('livewire.layouts.dashboard-layout');
-                } else {
-                    $erro = "Produto já tem desconto cadastrado.";
-                    return view('livewire.pages.desconto.desconto-create', compact('erro'))
-                        ->extends('livewire.layouts.dashboard-layout');
-                }
-            } else {
-                $produtos = Produto::where('codigo', "LIKE",  "%" . $request->identificacaoProduto . "%")->paginate(6);
-                if (count($produtos) > 0) {
-                    return view('livewire.pages.desconto.desconto-create', compact('produtos', 'busca'))
-                        ->extends('livewire.layouts.dashboard-layout');
-                } else {
-                    $erro = "Produto Não encontrado.";
-                    return view('livewire.pages.desconto.desconto-create', compact('erro'))
-                        ->extends('livewire.layouts.dashboard-layout');
-                }
-            }
-
-
-            return view('livewire.pages.desconto.desconto-create');
-        }
-
-        return view('livewire.pages.desconto.desconto-create');
+        return view('livewire.pages.desconto.desconto-create')->extends('livewire.layouts.dashboard-layout');
     }
 
-    public function store(Request $request)
+    public function store()
     {
         //função para impedir cadastrar 2 skus iguais
-        $verificar_sku_duplicado = $this->verificarSkuDuplicado($request->identificacaoProduto);
+        $verificar_sku_duplicado = $this->verificarSkuDuplicado($this->identificacaoProduto);
         if ($verificar_sku_duplicado === 0) {
             $desconto = new Desconto();
 
-            $produto = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->where('codigo', $request->get('identificacaoProduto'))->first();
+            $produto = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->where('codigo', $this->identificacaoProduto)->first();
 
             try {
                 $salvarDesconto = $desconto->create([
                     'user_id' => Auth::id(),
                     'produto_id' => $produto->id,
-                    'quantidade0' => intval($request->get('quantidadeProduto0')),
-                    'porcentagem0' => intval($request->get('porcentagemDesconto0')),
-                    'quantidade1' => intval($request->get('quantidadeProduto1')),
-                    'porcentagem1' => intval($request->get('porcentagemDesconto1')),
-                    'quantidade2' => intval($request->get('quantidadeProduto2')),
-                    'porcentagem2' => intval($request->get('porcentagemDesconto2')),
-                    'quantidade3' => intval($request->get('quantidadeProduto3')),
-                    'porcentagem3' => intval($request->get('porcentagemDesconto3')),
-                    'quantidade4' => intval($request->get('quantidadeProduto4')),
-                    'porcentagem4' => intval($request->get('porcentagemDesconto4')),
+                    'quantidade0' => intval($this->quantidadeProduto0),
+                    'porcentagem0' => intval($this->porcentagemDesconto0),
+                    'quantidade1' => intval($this->quantidadeProduto1),
+                    'porcentagem1' => intval($this->porcentagemDesconto1),
+                    'quantidade2' => intval($this->quantidadeProduto2),
+                    'porcentagem2' => intval($this->porcentagemDesconto2),
+                    'quantidade3' => intval($this->quantidadeProduto3),
+                    'porcentagem3' => intval($this->porcentagemDesconto3),
+                    'quantidade4' => intval($this->quantidadeProduto4),
+                    'porcentagem4' => intval($this->porcentagemDesconto4),
                 ]);
             } catch (\Throwable $th) {
                 return redirect()->route('descontos.index')->with('msgErro',  'Não foi possivel adicionar o desconto.');
@@ -117,8 +90,26 @@ class DescontoCreate extends Component
 
     public function buscarProduto()
     {
+
         if ($this->identificacaoProduto != null) {
-            return dd($this->identificacaoProduto);
+            $this->busca = $this->identificacaoProduto;
+
+            if (count(Produto::all()->where('codigo', $this->identificacaoProduto)) == 1) {
+                $this->produto  = Produto::all()->where('codigo', $this->identificacaoProduto)->first();
+            } else {
+                $produtos = Produto::where('codigo', "LIKE",  "%" . $this->identificacaoProduto . "%")->paginate(6);
+                if (count($produtos) > 0) {
+                    return view('livewire.pages.desconto.desconto-create', compact('produtos', 'busca'))
+                        ->extends('livewire.layouts.dashboard-layout');
+                } else {
+                    $erro = "Produto Não encontrado.";
+                    return view('livewire.pages.desconto.desconto-create', compact('erro'))
+                        ->extends('livewire.layouts.dashboard-layout');
+                }
+            }
+
+
+            return view('livewire.pages.desconto.desconto-create')->extends('livewire.layouts.dashboard-layout');
         }
     }
 }
