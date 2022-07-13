@@ -44,7 +44,8 @@
                     do Produto</label>
                 <input
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
-                    type="number" name="pesoTotal" id="pesoTotal" placeholder="Peso" wire:model='pesoTotal' required disabled value="">
+                    type="number" name="pesoTotal" id="pesoTotal" placeholder="Peso" wire:model='pesoTotal' required
+                    disabled value="">
             </div>
 
             <div class="pc--sessaoInput pc--sessaoInput1">
@@ -52,8 +53,8 @@
                     for="totalFrete">Frete</label>
                 <input
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
-                    type="number" name="totalFrete" id="totalFrete" placeholder="Frete"
-                    wire:model='totalFrete' required>
+                    type="text" name="totalFrete" id="totalFrete" placeholder="Frete" wire:model='totalFrete'
+                    required>
             </div>
 
         </div>
@@ -83,14 +84,15 @@
                     for="selecaoParcelas">Parcelas</label>
 
                 <select
-                    class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white" 
-                    @if ($this->podeParcelar != true) disabled  @endif
-                    id="selecaoParcelas" name="selecaoParcelas" wire:model.debounce='selecaoParcelas' required >
-                    
-                    <option selected >{{ $this->selecaoParcelas }}</option>
-                    
+                    class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
+                    @if ($this->podeParcelar != true && $this->selecaoParcelas > 0) disabled @endif id="selecaoParcelas" name="selecaoParcelas"
+                    wire:model.debounce='selecaoParcelas' required>
+
+                    <option selected>{{ $selecaoParcelas }}</option>
+
                     @for ($i = 1; $i <= 12; $i++)
-                        <option value="{{ $i }}" wire:click="definirParcela({{ $i }})">{{ $i }}</option>
+                        <option value="{{ $i }}" wire:click="definirParcela({{ $i }})">
+                            {{ $i }}</option>
                     @endfor
 
                 </select>
@@ -110,16 +112,18 @@
                         <div class="truncate">
                             <input
                                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
-                                wire:model={{ 'parcelaValor' . $c }} type="number" name={{ 'parcelaValor' . $c }}
-                                id={{ 'parcelaValor' . $c }} value="{{ $valorParcelas[$c] }}" placeholder="{{ $valorParcelas[$c] }}" @if ($this->selecaoParcelas == 1)
-                                    disabled
-                                @endif required>
+                                wire:model={{ 'parcelaValor' . $c }} type="text" name={{ 'parcelaValor' . $c }}
+                                id={{ 'parcelaValor' . $c }}
+                                placeholder="{{ number_format($valorParcelas[$c], 2, '.', '') }}"
+                                value="{{ number_format($valorParcelas[$c], 2, '.', '') }}"
+                                @if ($c != 0 || $selecaoParcelas == 1) disabled @endif required>
                         </div>
                         <div class="truncate">
                             <select
                                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                                 id={{ 'parcelaFormaPagamento' . $c }} name="{{ 'parcelaFormaPagamento' . $c }}"
-                                wire:model={{ 'parcelaFormaPagamento' . $c }} class="formaPagamento" wire:change='mudarFormaPagamento'>
+                                wire:model={{ 'parcelaFormaPagamento' . $c }} class="formaPagamento"
+                                wire:change='mudarFormaPagamento'>
                                 <option selected class="text-gray-500" value="">Forma de pag...</option>
                                 @foreach ($this->formaPagamento as $pagamento)
                                     <option value="{{ $pagamento->id_bling }}">{{ $pagamento->descricao }}
@@ -154,12 +158,16 @@
             <div class="flex justify-between gap-4 px-5 mt-2 text-center font-extralight">
                 <div>
                     <p class="truncate">Total Bruto</p>
-                    <p class="truncate">R$ {{ number_format($this->calcTotalSemDesconto($produtos), 2, '.', '') }}</p>
+                    <p class="truncate">
+                        R$ {{ number_format($this->calcTotalSemDesconto($produtos), 2, '.', '') }}
+                    </p>
                 </div>
 
                 <div>
                     <p class="truncate">Desc. Vend.</p>
-                    <p class="truncate">{{ $this->descontoVendedor == null ? 0 : $this->descontoVendedor }}%</p>
+                    <p class="truncate">
+                        {{ $this->descontoVendedor == null ? 0 : $this->descontoVendedor }}%
+                    </p>
                 </div>
 
                 <div>
@@ -174,10 +182,11 @@
 
                 <div>
                     <p class="truncate">Total</p>
-                    <p class="truncate">{{ number_format($this->calcTotal($produtos, $this->descontoVendedor), 2, ',', '.') }}</p>
+                    <p class="truncate">
+                        {{ number_format($this->calcTotal($produtos, $this->descontoVendedor), 2, ',', '.') }}</p>
                 </div>
 
-                
+
             </div>
         </div>
     </section>

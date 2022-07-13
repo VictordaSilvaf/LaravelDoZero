@@ -1,7 +1,5 @@
 @extends('.livewire.layouts.dashboard-layout')
 @section('content')
-    <link rel="stylesheet" href="{{ asset('css/propostaComercial/create.css') }}">
-
     <div class="">
 
         {{-- Conteudo Formulario --}}

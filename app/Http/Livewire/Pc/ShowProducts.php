@@ -83,7 +83,7 @@ class ShowProducts extends Component
 
         $tipoCliente = $this->verificarTipoCliente($cliente);
 
-        if ($tipoCliente == true) {
+        if ($tipoCliente == false) {
 
             /* Verifica se o cliente é de são paulo */
             if ($cliente->uf == "SP") {
@@ -102,7 +102,7 @@ class ShowProducts extends Component
             } else {
                 return 0;
             }
-        } elseif ($tipoCliente == false) {
+        } elseif ($tipoCliente == true) {
             /* Verificar se é consumo e ou revenda */
             if ($tipoVenda == 'consumo') {
                 return $this->descontoUF($produto, $cliente, $clienteNota);

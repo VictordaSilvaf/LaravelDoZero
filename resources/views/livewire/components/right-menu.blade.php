@@ -9,39 +9,35 @@
             class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 hover:opacity-100 duration-100">
             <x-fas-bell class="w-4 h-4" />
         </a>
-        
-        <img id="avatar" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start" class="rounded-full cursor-pointer h-7 w-7"
-        src="https://random.imagecdn.app/500/500"
-        alt="User dropdown">
 
-        
+        <img id="avatar" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start"
+            class="rounded-full cursor-pointer h-7 w-7" src="https://random.imagecdn.app/500/500" alt="User dropdown">
+
         <!-- Dropdown menu -->
-        <div id="userDropdown" class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+        <div id="userDropdown"
+            class="z-10 hidden bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
             <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div>{{ Auth()->User()->name }}</div>
-            <div class="font-medium truncate">{{ Auth()->User()->email }}</div>
+                <div>{{ Auth()->User()->name }}</div>
+                <div class="font-medium truncate">{{ Auth()->User()->email }}</div>
             </div>
             <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
-            <li>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Perfil</a>
-            </li>
-{{--             <li>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Settings</a>
-            </li> --}}
-{{--             <li>
-                <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Earnings</a>
-            </li> --}}
+                <li>
+                    <a href="#"
+                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Perfil</a>
+                </li>
             </ul>
             <div class="py-1">
-                <form action={{ route('logout') }} method="POST" class="block text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                <form action={{ route('logout') }} method="GET"
+                    class="block text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                     @csrf
-                    <button type="submit" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+                    <button type="submit"
+                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                         Deslogar
                     </button>
                 </form>
             </div>
         </div>
-        
+
     </div>
 
     {{-- Profile --}}
@@ -50,7 +46,8 @@
             <img src="https://random.imagecdn.app/500/500" alt="" class="rounded-full">
         </div>
         <p class="mt-1 font-light">{{ Auth()->User()->name }}</p>
-        <p class="font-light text-desicon-natural">{{ (auth()->user()->roles[0]->name == 'admin') ? "Administrador" : "Vendedor" }}</p>
+        <p class="font-light text-desicon-natural">
+            {{ auth()->user()->roles[0]->name == 'admin' ? 'Administrador' : 'Vendedor' }}</p>
     </div>
 
     {{-- Last actions --}}
@@ -77,13 +74,11 @@
                             <div class="w-5 h-5 ml-2 rounded-full bg-desicon-green">
 
                             </div>
-                        @endif
-                        @if ($proposta->status == 'pendente')
+                        @elseif ($proposta->status == 'pendente')
                             <div class="w-5 h-5 ml-2 rounded-full bg-desicon-yellow">
 
                             </div>
-                        @endif
-                        @if ($proposta->status == 'recusada')
+                        @elseif ($proposta->status == 'recusada')
                             <div class="w-5 h-5 ml-2 rounded-full bg-desicon-red">
 
                             </div>

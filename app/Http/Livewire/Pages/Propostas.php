@@ -49,6 +49,21 @@ class Propostas extends Component
             ->extends('livewire.layouts.dashboard-layout');
     }
 
+    public function mudarEstadoPC($id, $estado)
+    {
+        $proposta = Proposta::all()->find($id);
+
+        if ($estado == 1) {
+            $proposta->status = 'aceita';
+        } else if ($estado == 2) {
+            $proposta->status = 'recusada';
+        }
+
+        $proposta->save();
+
+        return redirect()->back();
+    }
+
     public function mudarFiltro($filtro)
     {
         $this->filtro = $filtro;
