@@ -53,7 +53,7 @@
                     for="totalFrete">Frete</label>
                 <input
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
-                    type="number" name="totalFrete" id="totalFrete" placeholder="Frete" wire:model='totalFrete'
+                    type="text" name="totalFrete" id="totalFrete" placeholder="Frete" wire:model='totalFrete'
                     required>
             </div>
 
@@ -112,10 +112,11 @@
                         <div class="truncate">
                             <input
                                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
-                                wire:model={{ 'parcelaValor' . $c }} type="number" name={{ 'parcelaValor' . $c }}
-                                id={{ 'parcelaValor' . $c }} value="{{ $valorParcelas[$c] }}"
-                                placeholder="{{ $valorParcelas[$c] }}"
-                                @if ($c != 0) disabled @endif required>
+                                wire:model={{ 'parcelaValor' . $c }} type="text" name={{ 'parcelaValor' . $c }}
+                                id={{ 'parcelaValor' . $c }}
+                                placeholder="{{ number_format($valorParcelas[$c], 2, '.', '') }}"
+                                value="{{ number_format($valorParcelas[$c], 2, '.', '') }}"
+                                @if ($c != 0 || $selecaoParcelas == 1) disabled @endif required>
                         </div>
                         <div class="truncate">
                             <select
@@ -157,13 +158,16 @@
             <div class="flex justify-between gap-4 px-5 mt-2 text-center font-extralight">
                 <div>
                     <p class="truncate">Total Bruto</p>
-                    <p class="truncate">R$ {{ number_format($this->calcTotalSemDesconto($produtos), 2, '.', '') }}
+                    <p class="truncate">
+                        R$ {{ number_format($this->calcTotalSemDesconto($produtos), 2, '.', '') }}
                     </p>
                 </div>
 
                 <div>
                     <p class="truncate">Desc. Vend.</p>
-                    <p class="truncate">{{ $this->descontoVendedor == null ? 0 : $this->descontoVendedor }}%</p>
+                    <p class="truncate">
+                        {{ $this->descontoVendedor == null ? 0 : $this->descontoVendedor }}%
+                    </p>
                 </div>
 
                 <div>
