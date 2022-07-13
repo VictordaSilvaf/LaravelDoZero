@@ -49,7 +49,6 @@ class ShowClient extends Component
                     }
 
                     Cache::add($key_cache, [$cliente, $this->clienteConsumoRevenda, $this->clienteNota], 1200);
-                    $this->refresh();
                 } else {
                     $this->addError('identificacaoCliente', 'Cliente não encontado.');
                 }
