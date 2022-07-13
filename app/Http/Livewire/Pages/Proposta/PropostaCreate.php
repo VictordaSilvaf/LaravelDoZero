@@ -11,6 +11,6 @@ class PropostaCreate extends Component
     {
         /* dd(Proposta::all()->first()->produtosProposta->first()->produtos->desconto); */
         return view('livewire.pages.proposta.create')
-            ->extends('livewire.layouts.dashboard-layout');;
+            ->extends('livewire.layouts.dashboard-layout');
     }
 }
