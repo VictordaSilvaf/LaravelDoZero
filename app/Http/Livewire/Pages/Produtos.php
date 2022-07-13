@@ -26,7 +26,8 @@ class Produtos extends Component
                 ->extends('livewire.layouts.dashboard-layout');
         }
 
-        return view('livewire.pages.produtos', compact('produtos'))->extends('livewire.layouts.dashboard-layout');
+        return view('livewire.pages.produtos', compact('produtos'))
+            ->extends('livewire.layouts.dashboard-layout');
     }
 
     public function export()

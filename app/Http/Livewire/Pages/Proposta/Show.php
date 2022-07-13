@@ -17,7 +17,8 @@ class Show extends Component
         $proposta = Proposta::all()->find($request->id);
 
         $produto1 = $proposta->produtosProposta->first()->produtos;
-        return view('livewire.pages.proposta.show', compact('proposta'));
+        return view('livewire.pages.proposta.show', compact('proposta'))
+            ->extends('livewire.layouts.dashboard-layout');;
     }
 
     /**

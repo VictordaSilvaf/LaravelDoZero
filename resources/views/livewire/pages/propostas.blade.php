@@ -128,20 +128,24 @@
                                     <a href={{ route('proposta.show', ['id' => $proposta->id]) }}
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Visualizar</a>
                                 </li>
-                                <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Editar</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        wire:click="mudarEstadoPC({{ $proposta->id }}, {{ 1 }})"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Aceitar</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        wire:click="mudarEstadoPC({{ $proposta->id }}, {{ 2 }})"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Recusar</a>
-                                </li>
+                                @if ($proposta->status != 'recusada' && $proposta->status != 'aceita')
+                                    <li>
+                                        <a href="#"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Editar</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="#"
+                                            wire:click="mudarEstadoPC({{ $proposta->id }}, {{ 1 }})"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Aceitar</a>
+                                    </li>
+                                    <li>
+                                        <a href="#"
+                                            wire:click="mudarEstadoPC({{ $proposta->id }}, {{ 2 }})"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Recusar</a>
+                                    </li>
+                                @endif
+
                                 <li>
                                     <a href="{{ route('proposta.enviarpdf', $proposta->id) }}"
                                         class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Email</a>
@@ -159,9 +163,9 @@
         </tbody>
     </table>
     <div class="w-full">
-        {{-- @isset($propostas)
-            {{ $propostas->appends(['stats' => $status])->onEachSide(1)->links() }}
-        @endisset --}}
+        @isset($propostas)
+            {{ $propostas->onEachSide(1)->links() }}
+        @endisset
     </div>
 
     <script src="https://unpkg.com/flowbite@1.4.7/dist/flowbite.js"></script>

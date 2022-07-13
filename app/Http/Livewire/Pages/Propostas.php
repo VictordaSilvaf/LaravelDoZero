@@ -16,7 +16,7 @@ class Propostas extends Component
         if ($this->filtro == 'todas') {
             $propostas = Proposta::paginate(10);
         } else {
-            $propostas = Proposta::paginate(10)->where('status', '==', $this->filtro);
+            $propostas = Proposta::where('status', '==', $this->filtro)->paginate(10);
         }
 
         return view('livewire.pages.propostas', compact('propostas'))
@@ -26,24 +26,10 @@ class Propostas extends Component
     public function buscarPropostas()
     {
         if ($this->filtro == 'todas') {
-            $propostas = Proposta::all();
+            $propostas = Proposta::paginate(10);
         } else {
-            $propostas = Proposta::where('status', $this->filtro);
+            $propostas = Proposta::where('status', $this->filtro)->paginate(10);
         }
-
-        if (isset($this->busca)) {
-            // dd($propostas->first()->clientes);
-            $propostas = $propostas->with(
-                [
-                    'clientes' => function ($query) {
-                        $query->where('clientes.cnpj', 'LIKE', "%$this->filtro%");
-                    }
-                ]
-            );
-        } else {
-            $propostas = Proposta::all();
-        }
-        $propostas->paginate(10);
 
         return view('livewire.pages.propostas', compact('propostas'))
             ->extends('livewire.layouts.dashboard-layout');

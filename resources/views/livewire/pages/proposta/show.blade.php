@@ -1,7 +1,4 @@
-
-
-@extends('.livewire.layouts.dashboard-layout')
-@section('content')
+<div>
     <div class="w-full">
         <h2>Visualizar proposta</h2>
     </div>
@@ -55,7 +52,7 @@
             </div>
         </div>
 
-        <div class="p-2 px-4 text-center rounded-lg bg-desicon-white">
+        <div class="p-2 px-4 </div>text-center rounded-lg bg-desicon-white">
             <h3 class="mt-2 font-light">Dados vendedor</h3>
             <div class="flex justify-center w-full">
                 <div class="mt-3 rounded-full w-36 h-36 bg-desicon-blue">
@@ -193,4 +190,4 @@
             </table>
         </div>
     </section>
-@endsection
+</div>
