@@ -30,7 +30,7 @@ Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
         ->name('login');
 
-    Route::get('register', Register::class)
+    Route::get('registrar', Register::class)
         ->name('register');
 });
 
@@ -120,11 +120,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('produtos', function () {
-    dd(Produto::all());
+    dd(Produto::all()->where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->where('grupoProduto', 'ST Nacional')->random());
 });
 
 Route::get('clientes', function () {
-    dd(Cliente::all());
+    dd(Cliente::all()->where('uf', 'RN')->where('contribuinte', '1')->random());
 });
 
 Route::get('pagamentos', function () {

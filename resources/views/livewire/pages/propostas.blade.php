@@ -1,6 +1,6 @@
 <div>
     <h1 class="text-lg font-light">Propostas</h1>
-    <form class="mt-2" method="POST" wire:submit.prevent='buscarPropostas'>
+    <form class="mt-2" method="POST" wire:submit.prevent='render'>
         <div class="flex">
             <label for="search-dropdown" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Buscar
                 propostas</label>
