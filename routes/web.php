@@ -30,7 +30,7 @@ Route::middleware('guest')->group(function () {
     Route::get('login', Login::class)
         ->name('login');
 
-    Route::get('register', Register::class)
+    Route::get('registrar', Register::class)
         ->name('register');
 });
 
@@ -77,7 +77,7 @@ Route::middleware('auth')->group(function () {
 
 /* Desconto */
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard/descontos', DescontoIndex::class)
+    Route::any('dashboard/descontos', DescontoIndex::class)
         ->name('descontos.index');
 
     Route::get('dashboard/descontos/create', DescontoCreate::class)
@@ -101,9 +101,7 @@ Route::middleware('auth')->group(function () {
 
 /* Proposta */
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard/propostas', Propostas::class)->name('propostas.index');
-
-    Route::post('dashboard/proposta', Propostas::class)->name('proposta.search');
+    Route::any('dashboard/propostas', Propostas::class)->name('propostas.index');
 
     Route::get('dashboard/proposta/cadastrar', PropostaCreate::class)->name('proposta.create');
 
@@ -120,11 +118,11 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('produtos', function () {
-    dd(Produto::all());
+    dd(Produto::all()->where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->where('grupoProduto', 'ST Nacional')->random());
 });
 
 Route::get('clientes', function () {
-    dd(Cliente::all());
+    dd(Cliente::all()->where('uf', 'RN')->where('contribuinte', '1')->random());
 });
 
 Route::get('pagamentos', function () {

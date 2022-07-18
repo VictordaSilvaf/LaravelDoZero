@@ -25,7 +25,7 @@
     @livewireStyles
 </head>
 
-<body>
+<body class="min-h-screen overflow-y-hidden">
     @yield('body')
 
     @livewireScripts
@@ -34,4 +34,5 @@
     <!-- Scripts -->
     <script src="{{ url(mix('js/app.js')) }}"></script>
 </body>
+
 </html>

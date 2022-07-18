@@ -81,41 +81,49 @@ class ShowProducts extends Component
         $tipoVenda = Cache::get('produtos_user_id_cliente' . auth()->user()->id)[1];
         $clienteNota = Cache::get('produtos_user_id_cliente' . auth()->user()->id)[2];
 
-        $tipoCliente = $this->verificarTipoCliente($cliente);
+        try {
 
-        if ($tipoCliente == false) {
+            $tipoCliente = $this->verificarTipoCliente($cliente);
 
-            /* Verifica se o cliente é de são paulo */
-            if ($cliente->uf == "SP") {
+            if ($tipoCliente == false) {
 
-                /* Verifica se o cliente quer ou não nota */
-                if ($clienteNota == false) {
-                    /* Pega os produtos que não são ST */
-                    if (!strpos($produto->grupoProduto, 'ST')) {
-                        return 12;
+                /* Verifica se o cliente é de são paulo */
+                if ($cliente->uf == "SP") {
+
+                    /* Verifica se o cliente quer ou não nota */
+                    if ($clienteNota == false) {
+                        /* Pega os produtos que não são ST */
+                        if (!strpos($produto->grupoProduto, 'ST')) {
+                            return 12;
+                        } else {
+                            return 0;
+                        }
                     } else {
                         return 0;
                     }
                 } else {
                     return 0;
                 }
+            } elseif ($tipoCliente == true) {
+
+                /* Verificar se é consumo e ou revenda */
+                if ($tipoVenda == 'consumo') {
+
+                    return $this->descontoUF($produto, $cliente, $clienteNota);
+                } elseif ($tipoVenda == 'revenda') {
+                    // dd(strpos($produto->grupoProduto, 'ST'));
+                    if (strpos($produto->grupoProduto, 'ST') !== false) {
+                        dd("Verificar produto!");
+                    } else {
+                        return $this->descontoUF($produto, $cliente, $clienteNota);
+                    }
+                }
             } else {
                 return 0;
             }
-        } elseif ($tipoCliente == true) {
-            /* Verificar se é consumo e ou revenda */
-            if ($tipoVenda == 'consumo') {
-                return $this->descontoUF($produto, $cliente, $clienteNota);
-            } elseif ($tipoVenda == 'revenda') {
-                // dd(strpos($produto->grupoProduto, 'ST'));
-                if (strpos($produto->grupoProduto, 'ST') !== false) {
-                    dd("Verificar produto!");
-                } else {
-                    return $this->descontoUF($produto, $cliente, $clienteNota);
-                }
-            }
-        } else {
-            return 0;
+            //code...
+        } catch (\Throwable $th) {
+            dd($th);
         }
     }
 
@@ -139,7 +147,9 @@ class ShowProducts extends Component
 
     public function descontoUF($produto, $cliente, $clienteNota)
     {
+
         if ($cliente->uf == "SP") {
+
             /* Verifica se o cliente quer ou não nota */
             if ($clienteNota == 'false') {
                 /* Pega os produtos que não são ST */
@@ -152,6 +162,7 @@ class ShowProducts extends Component
                 return 0;
             }
         } else {
+
             if ($produto->grupoProduto == 'Importado' || $produto->grupoProduto == 'importado') {
                 if ($cliente->uf == 'RJ') {
                     return 12;
@@ -166,6 +177,8 @@ class ShowProducts extends Component
                 } else {
                     return 11;
                 }
+            } else {
+                return 0;
             }
         }
     }

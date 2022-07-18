@@ -1,17 +1,26 @@
 <div class="p-2">
     {{-- top menu --}}
     <div class="flex justify-end w-full gap-3 pr-3">
-        <a href="#"
-            class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 hover:opacity-100 duration-100">
+        <a class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 {{-- hover:opacity-100 --}} duration-100 disabled"
+            disabled>
             <x-entypo-help-with-circle class="w-4 h-4" />
         </a>
-        <a href="#"
-            class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 hover:opacity-100 duration-100">
+        <a class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 {{-- hover:opacity-100 --}} duration-100 disabled"
+            disabled>
             <x-fas-bell class="w-4 h-4" />
         </a>
 
-        <img id="avatar" type="button" data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start"
-            class="rounded-full cursor-pointer h-7 w-7" src="https://random.imagecdn.app/500/500" alt="User dropdown">
+        <div
+            class="flex items-center justify-center duration-100 rounded-full opacity-50 bg-desicon-natural5 w-7 h-7 {{-- hover:opacity-100 --}}">
+            <div class="relative w-5 h-5 overflow-hidden rounded-full">
+                <svg class="absolute w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"
+                    xmlns="http://www.w3.org/2000/svg" style="">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                        clip-rule="evenodd">
+                    </path>
+                </svg>
+            </div>
+        </div>
 
         <!-- Dropdown menu -->
         <div id="userDropdown"
@@ -42,9 +51,20 @@
 
     {{-- Profile --}}
     <div class="flex flex-col justify-center mt-5 text-center">
-        <div class="w-[150px] h-[150px] rounded-full m-auto">
-            <img src="https://random.imagecdn.app/500/500" alt="" class="rounded-full">
+        <div class="flex flex-col content-center justify-center w-full ">
+            <div style="margin: 0 auto;"
+                class="flex items-center justify-center p-2 duration-100 rounded-full opacity-50 bg-desicon-natural5 hover:opacity-60 w-[170px] h-[170px]">
+                <div class="w-[130px] h-[130px] rounded-full m-auto bg-desicon-natural5 opacity-50">
+                    <svg class="absolute w-[130px] h-[130px] text-white" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg" style="">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                            clip-rule="evenodd">
+                        </path>
+                    </svg>
+                </div>
+            </div>
         </div>
+
         <p class="mt-1 font-light">{{ Auth()->User()->name }}</p>
         <p class="font-light text-desicon-natural">
             {{ auth()->user()->roles[0]->name == 'admin' ? 'Administrador' : 'Vendedor' }}</p>
