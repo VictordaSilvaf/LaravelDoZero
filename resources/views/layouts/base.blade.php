@@ -25,7 +25,7 @@
     @livewireStyles
 </head>
 
-<body class="overflow-y-hidden">
+<body class="min-h-screen overflow-y-hidden">
     @yield('body')
 
     @livewireScripts

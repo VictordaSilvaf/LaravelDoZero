@@ -1,17 +1,17 @@
 <div class="p-2">
     {{-- top menu --}}
     <div class="flex justify-end w-full gap-3 pr-3">
-        <a href="#"
-            class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 hover:opacity-100 duration-100">
+        <a class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 {{-- hover:opacity-100 --}} duration-100 disabled"
+            disabled>
             <x-entypo-help-with-circle class="w-4 h-4" />
         </a>
-        <a href="#"
-            class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 hover:opacity-100 duration-100">
+        <a class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 {{-- hover:opacity-100 --}} duration-100 disabled"
+            disabled>
             <x-fas-bell class="w-4 h-4" />
         </a>
 
         <div
-            class="flex items-center justify-center duration-100 rounded-full opacity-50 bg-desicon-natural5 w-7 h-7 hover:opacity-100">
+            class="flex items-center justify-center duration-100 rounded-full opacity-50 bg-desicon-natural5 w-7 h-7 {{-- hover:opacity-100 --}}">
             <div class="relative w-5 h-5 overflow-hidden rounded-full">
                 <svg class="absolute w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg" style="">
