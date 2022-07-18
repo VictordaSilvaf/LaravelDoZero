@@ -77,7 +77,7 @@ Route::middleware('auth')->group(function () {
 
 /* Desconto */
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard/descontos', DescontoIndex::class)
+    Route::any('dashboard/descontos', DescontoIndex::class)
         ->name('descontos.index');
 
     Route::get('dashboard/descontos/create', DescontoCreate::class)
@@ -101,9 +101,7 @@ Route::middleware('auth')->group(function () {
 
 /* Proposta */
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard/propostas', Propostas::class)->name('propostas.index');
-
-    Route::post('dashboard/proposta', Propostas::class)->name('proposta.search');
+    Route::any('dashboard/propostas', Propostas::class)->name('propostas.index');
 
     Route::get('dashboard/proposta/cadastrar', PropostaCreate::class)->name('proposta.create');
 

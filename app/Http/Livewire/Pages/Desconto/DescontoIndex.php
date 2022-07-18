@@ -11,12 +11,17 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class DescontoIndex extends Component
 {
-    public $search = 'sanidnal';
+    public $busca;
 
     public function render()
     {
-        $transportadoras = ["JADLOG.COM", "JADLOG.PACKAGE", "SEDEX - EXPRESSO CORREIOS", "PAC - ECONÔMICO CORREIOS", "JONAS VIEIRA", "PEX", "RETIRAR", "OUTROS"];
-        $descontos = Desconto::paginate(8);
+        if (isset($this->busca)) {
+            $descontos = Desconto::whereHas('produto', function ($query) {
+                $query->where('codigo', 'LIKE', "$this->busca%");
+            })->paginate(10);
+        } else {
+            $descontos = Desconto::paginate(10);
+        }
 
         return view('livewire.pages.desconto.desconto-index', compact('descontos'))
             ->extends('livewire.layouts.dashboard-layout');

@@ -12,18 +12,14 @@ use Maatwebsite\Excel\Facades\Excel;
 class Produtos extends Component
 {
     public $skuProduto = 0;
+    public $busca;
 
     public function render()
     {
-        $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->paginate(9);
-
-        if ($this->skuProduto != null) {
-            $filtro = $this->skuProduto;
-            $ListaProdutos = $produtos->where('descricao', 'LIKE', "%{$filtro}%")
-                ->orWhere('id', 'LIKE', "%{$filtro}%")->paginate(5);
-
-            return view('livewire.pages.produtos', compact('produtos', 'listaProdutos', 'filtro'))
-                ->extends('livewire.layouts.dashboard-layout');
+        if (isset($this->busca)) {
+            $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->where('codigo', 'LIKE', "$this->busca%")->paginate(20);
+        } else {
+            $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->paginate(16);
         }
 
         return view('livewire.pages.produtos', compact('produtos'))
