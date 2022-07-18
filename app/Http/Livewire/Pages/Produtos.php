@@ -17,7 +17,7 @@ class Produtos extends Component
     public function render()
     {
         if (isset($this->busca)) {
-            $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->where('codigo', 'LIKE', "$this->busca%")->paginate(20);
+            $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->where('codigo', 'LIKE', "$this->busca%")->paginate(16);
         } else {
             $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->paginate(16);
         }
