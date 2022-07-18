@@ -16,9 +16,9 @@
 
         @can('admin')
             <div class="flex mt-4">
-                <div class="flex flex-row">
-                    <form action="{{ route('descontos.importar') }}" method="POST" class="flex"
-                        enctype="multipart/form-data">
+                <div class="grid w-full grid-cols-6">
+                    <form action="{{ route('descontos.importar') }}" method="POST" class="flex col-span-4"
+                        enctype="multipart/form-data" class="w-full">
                         @csrf
                         <input
                             class="block w-full pr-4 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
@@ -32,13 +32,10 @@
                             class="h-full px-2 ml-2 rounded-lg bg-desicon-blue text-desicon-white">Importar</button>
                     </form>
 
-                    <form action="{{ route('descontos.exportar') }}" method="GET">
-                        @csrf
-                        <button type="submit"
-                            class="h-full px-2 ml-4 rounded-lg bg-desicon-blue text-desicon-white ">Exportar</button>
-                    </form>
+                    <a href="{{ route('descontos.exportar') }}"
+                        class="flex items-center w-auto h-full col-span-1 px-2 ml-4 text-center rounded-lg bg-desicon-blue text-desicon-white">Exportar</a>
                     <a href="{{ route('descontos.create') }}"
-                        class="flex items-center h-full px-2 ml-4 text-center rounded-lg bg-desicon-blue text-desicon-white">Adicionar</a>
+                        class="flex items-center w-auto h-full col-span-1 px-2 ml-4 text-center rounded-lg bg-desicon-blue text-desicon-white">Adicionar</a>
                 </div>
             </div>
         @endcan
@@ -66,7 +63,8 @@
 
 
 
-        <table class="w-full mt-2 text-sm border table-auto border-slate-400 bg-desicon-white">
+        <table
+            class="w-full max-w-full mt-2 overflow-x-scroll text-sm border table-auto border-slate-400 bg-desicon-white">
             <thead class="">
                 <tr class="">
                     <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">ID</th>

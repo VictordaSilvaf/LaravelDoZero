@@ -58,7 +58,7 @@
         </div>
     </form>
 
-    <table class="w-full mt-4 border table-auto border-slate-400 bg-desicon-white">
+    <table class="w-full max-w-full mt-4 overflow-x-scroll border table-auto border-slate-400 bg-desicon-white">
         <thead>
             <tr>
                 <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
