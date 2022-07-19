@@ -22,6 +22,9 @@ use App\Http\Livewire\Testes;
 use App\Models\Cliente;
 use App\Models\Pagamento;
 use App\Models\Produto;
+use App\Models\Proposta;
+use App\Models\PropostaProduto;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', SplashScreen::class)->name('home');
@@ -127,6 +130,11 @@ Route::get('clientes', function () {
 
 Route::get('pagamentos', function () {
     dd(Pagamento::all());
+});
+
+Route::get('proposta', function () {
+    dd(Carbon::createFromFormat("!Y-m-d", Carbon::now()->format('Y-m-d'))
+        ->addDays(30)->format('Y-m-d'));
 });
 
 Route::get('test', Testes::class)->name('test');

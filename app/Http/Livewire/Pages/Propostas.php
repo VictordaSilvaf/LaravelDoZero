@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire\Pages;
 
+use App\Jobs\EnviarPropostaBling;
 use App\Models\Cliente;
 use App\Models\Proposta;
 use Illuminate\Http\Request;
@@ -44,12 +45,14 @@ class Propostas extends Component
         $proposta = Proposta::all()->find($id);
 
         if ($estado == 1) {
-            $proposta->status = 'aceita';
+            /* $proposta->status = 'aceita';
+            $proposta->save(); */
+
+            EnviarPropostaBling::dispatch($proposta);
         } else if ($estado == 2) {
             $proposta->status = 'recusada';
+            $proposta->save();
         }
-
-        $proposta->save();
 
         return redirect()->back();
     }

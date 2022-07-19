@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('users_id')->constrained();
-            $table->foreignId('clientes_id')->constrained();
+            $table->foreignId('clientes_id')->nullable()->unsigned()->constrained();
 
             $table->string('consumo_revenda');
             $table->string('observacaoVendedor')->nullable();

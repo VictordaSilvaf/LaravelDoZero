@@ -29,6 +29,6 @@ class Proposta extends Model
 
     public function produtosProposta()
     {
-        return $this->hasMany(PropostaProduto::class);
+        return $this->hasMany(PropostaProduto::class, 'propostas_id', 'id');
     }
 }

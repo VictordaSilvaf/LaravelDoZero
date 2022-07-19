@@ -225,11 +225,12 @@ class FormCreate extends Component
         $produtos = Cache::get('produtos_user_id_produtos' . auth()->user()->id);
         $cliente = Cache::get('produtos_user_id_cliente' . auth()->user()->id);
         $parcelas = $this->buildParcels();
+        $total = $this->calcTotal($produtos, $this->descontoVendedor);
 
-        if ($produtos) {
+        if (isset($produtos)) {
             $pc = Proposta::create([
                 'users_id' => auth()->user()->id,
-                'clientes_id' => $cliente[0]->id,
+                'clientes_id' => intval($cliente[0]->id),
 
                 'consumo_revenda' => $cliente[1],
                 'observacaoVendedor' => $this->observacaoVendedor,
@@ -240,10 +241,20 @@ class FormCreate extends Component
                 'parcelas' => $parcelas,
                 'desconto_vendedor' => (float) $this->descontoVendedor,
                 'desconto_total' => (float) $this->descontoVendedor, // Calcular o desconto total
-                'total' => (float) $this->calcTotal($produtos, $this->descontoVendedor),
+                'total' => (float) $total,
             ]);
 
-            $this->storeProdutos($pc, $produtos);
+            if ($this->storeProdutos($pc, $produtos)) {
+                $pc->save();
+
+                Cache::forget('produtos_user_id_produtos');
+                Cache::forget('produtos_user_id_cliente');
+                Cache::forget('produtos_user_id_pagamento');
+
+                return redirect()->route('propostas.index')->with('msg', 'Proposta salva com sucesso!');
+            } else {
+                return redirect()->with('error', 'Adicione produtos a lista para cadastrar a proposta.');
+            };
         } else {
             return redirect()->with('error', 'Adicione produtos a lista para cadastrar a proposta.');
         }
@@ -253,26 +264,20 @@ class FormCreate extends Component
     public function storeProdutos($pc, $produtos)
     {
         try {
-
             $produtoProposta = new PropostaProduto();
-            foreach ($produtos as $produto) {
 
-                $pdt = $produtoProposta->create([
-                    'proposta_id' => $pc['id'],
+            foreach ($produtos as $produto) {
+                $produtoProposta->create([
+                    'propostas_id' => $pc->id,
                     'produtos_id' => $produto['0']['id'],
                     'users_id' => auth()->user()->id,
                     'quantidade' => $produto['1'],
-                ]);
-
-                $pdt->save();
+                ])->save();
             }
 
-            Cache::forget('produtos_user_id_produtos');
-            Cache::forget('produtos_user_id_cliente');
-            Cache::forget('produtos_user_id_pagamento');
-            return redirect("/dashboard/propostas?stats=pendentes")->with('msg', 'Proposta salva com sucesso!');
+            return true;
         } catch (\Throwable $th) {
-            return back()->with('msgError', 'Erro ao cadastrar o(s) produto(s).');
+            return false;
         }
     }
 
@@ -374,7 +379,6 @@ class FormCreate extends Component
 
     public function definirParcela($parcela)
     {
-        dd('entrei');
         $this->selecaoParcelas = $parcela;
     }
 
