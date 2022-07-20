@@ -3,16 +3,13 @@
 namespace App\Jobs;
 
 use App\Models\Proposta;
-use App\Models\PropostaProduto;
-use DateInterval;
-use DateTime;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Carbon\Carbon;
+use GuzzleHttp\Psr7\Request;
 
 class EnviarPropostaBling implements ShouldQueue
 {
@@ -41,8 +38,48 @@ class EnviarPropostaBling implements ShouldQueue
         try {
             $xml = $this->gerarXML($this->proposta);
             dd($xml);
+            /* if ($this->enviarXMLBling($xml)) {
+                $this->proposta->status = 'aceita';
+                $this->proposta->save();
+
+                session()->flash('flash.banner', 'Proposta cadastrada com sucesso!');
+            } else {
+                session()->flash('flash.banner', 'Ocorreu algum erro na hora de enviar a proposta para o bling');
+            } */
         } catch (\Throwable $th) {
             dd($th);
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function enviarXMLBling($xml)
+    {
+        $url = 'https://bling.com.br/Api/v2/pedido/json/';
+
+        $posts = array(
+            "apikey" => env('API_KEY_BLING'),
+            "xml" => rawurlencode($xml)
+        );
+
+        $curl_handle = curl_init();
+        curl_setopt($curl_handle, CURLOPT_URL, $url);
+        curl_setopt($curl_handle, CURLOPT_POST, count($posts));
+        curl_setopt($curl_handle, CURLOPT_POSTFIELDS, $posts);
+        curl_setopt($curl_handle, CURLOPT_RETURNTRANSFER, TRUE);
+
+        $response = curl_exec($curl_handle);
+        curl_close($curl_handle);
+        $jsonPedidoEnviado = json_decode($response, true);
+
+        if (isset($jsonPedidoEnviado['retorno']['erros'])) {
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -59,9 +96,9 @@ class EnviarPropostaBling implements ShouldQueue
                 <pedido>
                     <cliente>
                         <nome>' . $proposta->clientes->nome . '</nome>
-                        <tipoPessoa>' . $proposta->clientes->tipoPessoa . '</tipoPessoa>
+                        <tipoPessoa>' . $proposta->clientes->tipo . '</tipoPessoa>
                         <endereco>' . $proposta->clientes->endereco . '</endereco>
-                        <cpf_cnpj>' . $proposta->clientes->cnpj_cpf . '</cpf_cnpj>
+                        <cpf_cnpj>' . $proposta->clientes->cnpj . '</cpf_cnpj>
                         <numero>' . $proposta->clientes->numero . '</numero>
                         <complemento>none</complemento>
                         <bairro>' . $proposta->clientes->bairro . '</bairro>
@@ -104,9 +141,6 @@ class EnviarPropostaBling implements ShouldQueue
                 </pedido>';
 
         return $xml;
-
-        /* ' . $this->xmlProdutos($proposta->produtos) . ' */
-        /* ' . $this->gerarParcelas($proposta) . ' */
     }
 
     public function xmlProdutos(Proposta $proposta)
@@ -128,22 +162,28 @@ class EnviarPropostaBling implements ShouldQueue
     public function gerarParcelas(Proposta $proposta)
     {
         $xml = '<parcelas>';
-        foreach ($proposta->parcelas as $parcela) {
-            dd(now()->date);
-            /*pegando data do json das parcelas e transformando em data no formato que o php entende */
-            $date = Carbon::createFromFormat("!Y-m-d", Carbon::now()->format('Y-m-d'))
-                ->addDays(30)->format('Y-m-d');
-            $xml .= '
+        foreach ($proposta->parcelas as $key => $parcela) {
+            if ($parcela['status'] == true) {
+                if ($parcela['dia'] != null) {
+
+                    /*pegando data do json das parcelas e transformando em data no formato que o php entende */
+                    $date = Carbon::createFromFormat("!Y-m-d", Carbon::now()->format('Y-m-d'))
+                        ->addDays(30)->format('Y-m-d');
+
+                    $xml .= '
                      <parcela>
-                            <dias>' . $parcelas[$x]['parcela-dia'] . '</dias>
+                            <dias>' . $parcela['dia'] . '</dias>
                             <data>' . $date . '</data>
-                            <vlr>' . $parcelas[$x]['parcela-valor'] . '</vlr>
-                            <forma_pagamento><id>' . $parcelas[$x]['parcela-modoPagamento'] . '</id></forma_pagamento>
-                            <obs>' . $parcelas[$x]['parcela-obs'] . '</obs>
+                            <vlr>' . $parcela['valor'] . '</vlr>
+                            <forma_pagamento><id>' . $parcela['forma_pagamento'] . '</id></forma_pagamento>
+                            <obs>' . $parcela['descricao'] . '</obs>
                      </parcela>
 ';
+                }
+            }
         }
-        $xml .= '                   </parcelas>';
+        $xml .= '</parcelas>';
+
 
         return $xml;
     }

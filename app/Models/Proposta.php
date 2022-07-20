@@ -10,7 +10,7 @@ class Proposta extends Model
     use HasFactory;
 
     protected $fillable = [
-        'users_id', 'clientes_id', 'pagamentos_id', 'consumo_revenda', 'observacaoVendedor', 'transportadora', 'modo_envio', 'frete', 'peso_total', 'parcelas', 'desconto_vendedor', 'desconto_total', 'total'
+        'users_id', 'cliente_id', 'pagamentos_id', 'consumo_revenda', 'observacaoVendedor', 'transportadora', 'modo_envio', 'frete', 'peso_total', 'parcelas', 'desconto_vendedor', 'desconto_total', 'total'
     ];
 
     protected $casts = [
@@ -24,7 +24,7 @@ class Proposta extends Model
 
     public function clientes()
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Cliente::class, 'cliente_id', 'id');
     }
 
     public function produtosProposta()

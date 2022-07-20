@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('body')
-    <div class="max-h-screen min-h-screen lg:min-h-screen bg-[#F5F6FA]">
+    <div class="max-h-screen min-h-screen bg-blue-600 lg:min-h-screen ">
         <nav
             class="mt-0 w-full bg-desicon-blue border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900 block lg:hidden absolute z-20">
 
@@ -67,8 +67,8 @@
             </div>
         </nav>
 
-        <div class="grid h-full grid-cols-5 overflow-hidden overflow-x-hidden">
-            <div class="hidden h-screen max-h-screen px-2 py-5 overflow-hidden bg-desicon-white lg:block">
+        <div class="flex grid w-full h-full grid-cols-5 overflow-hidden overflow-x-hidden-row">
+            <div class="hidden w-full h-screen max-h-screen px-2 py-5 overflow-hidden bg-desicon-white lg:block">
                 @livewire('components.left-menu')
             </div>
 

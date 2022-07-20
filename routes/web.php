@@ -133,8 +133,7 @@ Route::get('pagamentos', function () {
 });
 
 Route::get('proposta', function () {
-    dd(Carbon::createFromFormat("!Y-m-d", Carbon::now()->format('Y-m-d'))
-        ->addDays(30)->format('Y-m-d'));
+    dd(Proposta::all()->last());
 });
 
 Route::get('test', Testes::class)->name('test');

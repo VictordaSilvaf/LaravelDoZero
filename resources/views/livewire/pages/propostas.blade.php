@@ -1,4 +1,6 @@
-<div>
+<div class="">
+    <livewire:components.alert />
+
     <h1 class="text-lg font-light">Propostas</h1>
     <form class="mt-2" method="POST" wire:submit.prevent='render'>
         <div class="flex">
