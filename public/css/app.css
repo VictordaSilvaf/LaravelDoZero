@@ -1357,6 +1357,9 @@ input:invalid, textarea:invalid, select:invalid {
 .overflow-y-auto {
   overflow-y: auto;
 }
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
 .overflow-y-hidden {
   overflow-y: hidden;
 }
@@ -1556,6 +1559,10 @@ input:invalid, textarea:invalid, select:invalid {
 .bg-gray-900 {
   --tw-bg-opacity: 1;
   background-color: rgb(17 24 39 / var(--tw-bg-opacity));
+}
+.bg-slate-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(100 116 139 / var(--tw-bg-opacity));
 }
 .bg-opacity-80 {
   --tw-bg-opacity: 0.8;
@@ -2422,6 +2429,9 @@ input:invalid, textarea:invalid, select:invalid {
   .lg\:block {
     display: block;
   }
+  .lg\:flex {
+    display: flex;
+  }
   .lg\:hidden {
     display: none;
   }
@@ -2434,11 +2444,19 @@ input:invalid, textarea:invalid, select:invalid {
   .lg\:min-h-full {
     min-height: 100%;
   }
+  .lg\:flex-nowrap {
+    flex-wrap: nowrap;
+  }
   .lg\:overflow-auto {
     overflow: auto;
   }
   .lg\:overflow-scroll {
     overflow: scroll;
+  }
+  .lg\:truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
   .lg\:whitespace-nowrap {
     white-space: nowrap;

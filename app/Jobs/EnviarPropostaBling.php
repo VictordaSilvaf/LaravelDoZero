@@ -37,15 +37,14 @@ class EnviarPropostaBling implements ShouldQueue
     {
         try {
             $xml = $this->gerarXML($this->proposta);
-            dd($xml);
-            /* if ($this->enviarXMLBling($xml)) {
+            if ($this->enviarXMLBling($xml)) {
                 $this->proposta->status = 'aceita';
                 $this->proposta->save();
 
                 session()->flash('flash.banner', 'Proposta cadastrada com sucesso!');
             } else {
                 session()->flash('flash.banner', 'Ocorreu algum erro na hora de enviar a proposta para o bling');
-            } */
+            }
         } catch (\Throwable $th) {
             dd($th);
         }
@@ -133,11 +132,11 @@ class EnviarPropostaBling implements ShouldQueue
                         ' . $this->xmlProdutos($proposta) . ' 
                     </itens>
                     ' . $this->gerarParcelas($proposta) . '
+                    <loja>203345790</loja>
                     <vlr_frete>' . floatval($proposta->frete) . '</vlr_frete>
-                    <vlr_desconto>' . floatval($proposta->desconto_total) . '</vlr_desconto>
-                    <intermediador>
-                    <nomeUsuario>' . $proposta->users->name . '</nomeUsuario>
-                    </intermediador>
+                    <vlr_desconto>0</vlr_desconto>
+                    <vendedor>Maria Eduarda</vendedor>
+                    <obs_internas>' . $proposta->observacaoVendedor . '</obs_internas>
                 </pedido>';
 
         return $xml;
@@ -168,7 +167,7 @@ class EnviarPropostaBling implements ShouldQueue
 
                     /*pegando data do json das parcelas e transformando em data no formato que o php entende */
                     $date = Carbon::createFromFormat("!Y-m-d", Carbon::now()->format('Y-m-d'))
-                        ->addDays(30)->format('Y-m-d');
+                        ->addDays($parcela['dia'])->format('d/m/Y');
 
                     $xml .= '
                      <parcela>

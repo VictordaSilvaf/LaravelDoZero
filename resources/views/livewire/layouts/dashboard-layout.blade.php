@@ -9,7 +9,7 @@
                     <span class="self-center text-xl font-semibold text-white whitespace-nowrap">DesiconPDV</span>
                 </a>
                 <button data-collapse-toggle="mobile-menu" type="button"
-                    class="inline-flex items-center p-2 ml-3 text-sm text-white duration-75 duration-150 rounded-lg md:hidden hover:opacity-70 focus:outline-none focus:ring-2 dark:text-gray-400 dark:hover:bg-gray-700 rounded-mddark:focus:ring-gray-600"
+                    class="inline-flex items-center p-2 ml-3 text-sm text-white duration-150 rounded-lg md:hidden hover:opacity-70 focus:outline-none focus:ring-2 dark:text-gray-400 dark:hover:bg-gray-700 rounded-mddark:focus:ring-gray-600"
                     aria-controls="mobile-menu" aria-expanded="false">
                     <span class="sr-only">Abrir menu princpal</span>
                     <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
@@ -73,7 +73,7 @@
             </div>
 
             <div
-                class="lg:min-h-full lg:max-h-screen lg:col-span-3 col-span-5 bg-[#F5F6FA] px-7 py-5 w-full mt-14 md:mt-24 lg:mt-0">
+                class="lg:min-h-full lg:max-h-screen lg:col-span-3 col-span-5 bg-[#F5F6FA] px-7 py-5 w-full mt-14 md:mt-24 lg:mt-0 overflow-auto">
                 @yield('content')
             </div>
 

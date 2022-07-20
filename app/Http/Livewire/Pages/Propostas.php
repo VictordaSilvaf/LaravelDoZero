@@ -45,8 +45,6 @@ class Propostas extends Component
             $proposta->status = 'recusada';
             $proposta->save();
         }
-
-        return redirect()->back();
     }
 
     public function mudarFiltro($filtro)
