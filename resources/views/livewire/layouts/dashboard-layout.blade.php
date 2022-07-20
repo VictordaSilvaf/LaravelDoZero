@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('body')
-    <div class="max-h-screen min-h-screen lg:min-h-screen bg-[#F5F6FA]">
+    <div class="lg:max-h-screen lg:min-h-screen bg-[#F5F6FA]">
         <nav
             class="mt-0 w-full bg-desicon-blue border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900 block lg:hidden absolute z-20">
 
@@ -67,17 +67,17 @@
             </div>
         </nav>
 
-        <div class="grid h-full grid-cols-5 overflow-hidden overflow-x-hidden">
-            <div class="hidden h-screen max-h-screen px-2 py-5 overflow-hidden bg-desicon-white lg:block">
+        <div class="grid h-full min-h-screen grid-cols-5">
+            <div class="hidden h-screen max-h-screen px-2 py-5 bg-desicon-white sm:hidden md:hidden lg:block">
                 @livewire('components.left-menu')
             </div>
 
             <div
-                class="mt-11 sm:mt-12 md:mt-12 lg:mt-0 max-h-full lg:min-h-full lg:max-h-screen lg:col-span-3 col-span-5 bg-[#F5F6FA] px-7 py-5 overflow-y-auto w-full overflow-x-hidden">
+                class="lg:min-h-full lg:max-h-screen lg:col-span-3 col-span-5 bg-[#F5F6FA] px-7 py-5 w-full mt-14 md:mt-24 lg:mt-0">
                 @yield('content')
             </div>
 
-            <div class="hidden h-screen max-h-screen overflow-x-hidden overflow-y-auto bg-desicon-white lg:block">
+            <div class="hidden h-screen max-h-screen bg-desicon-white lg:block sm:hidden md:hidden">
                 @livewire('components.right-menu')
             </div>
         </div>

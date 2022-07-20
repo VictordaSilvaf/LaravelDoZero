@@ -11,6 +11,7 @@ class RightMenu extends Component
     {
         $propostas = Proposta::take(4)
             ->get();
+
         return view('livewire.components.right-menu', compact('propostas'));
     }
 }
