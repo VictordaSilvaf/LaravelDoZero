@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('body')
-    <div class="max-h-screen min-h-screen bg-blue-600 lg:min-h-screen ">
+    <div class="max-h-screen min-h-screen lg:min-h-screen bg-[#F5F6FA]">
         <nav
             class="mt-0 w-full bg-desicon-blue border-gray-200 px-2 sm:px-4 py-2.5 dark:bg-gray-900 block lg:hidden absolute z-20">
 
@@ -33,13 +33,13 @@
                                 class="block py-2 pl-3 md:px-2 pr-4 text-white duration-150 border-gray-100 hover:bg-gray-50 hover:bg-opacity-20 md:hover:bg-transparent md:border-0 md:hover:text-desicon-orange dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 rounded-md dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ request()->is('dashboard/home') ? 'rounded-md bg-white bg-opacity-20 hover:bg-opacity-10 hover:text-desicon-orange p-0 md:p-2 sm:p-2' : '' }}">Dashboard</a>
                         </li>
                         {{-- <li>
-                            <a href="#"
-                                class="block py-2 pl-3 md:px-2 pr-4 text-white duration-150 border-gray-100 hover:bg-gray-50 hover:bg-opacity-20 md:hover:bg-transparent md:border-0 md:hover:text-desicon-orange dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 rounded-md dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ request()->is('dashboard/mensagens') ? 'rounded-md bg-white bg-opacity-20 hover:bg-opacity-10 hover:text-desicon-orange' : 'md:hover:text-desicon-orange md:hover:bg-transparent ' }}">Mensagens</a>
-                        </li>
-                        <li>
-                            <a href="#"
-                                class="block py-2 pl-3 md:px-2 pr-4 text-white duration-150 border-b border-gray-100 hover:bg-gray-50 hover:bg-opacity-20 md:hover:bg-transparent md:border-0 md:hover:text-desicon-orange dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 rounded-md dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ request()->is('dashboard/calendario') ? 'rounded-md bg-white bg-opacity-20 hover:bg-opacity-10 hover:text-desicon-orange' : 'md:hover:text-desicon-orange md:hover:bg-transparent ' }}">Calendário</a>
-                        </li> --}}
+                        <a href="#"
+                            class="block py-2 pl-3 md:px-2 pr-4 text-white duration-150 border-gray-100 hover:bg-gray-50 hover:bg-opacity-20 md:hover:bg-transparent md:border-0 md:hover:text-desicon-orange dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 rounded-md dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ request()->is('dashboard/mensagens') ? 'rounded-md bg-white bg-opacity-20 hover:bg-opacity-10 hover:text-desicon-orange' : 'md:hover:text-desicon-orange md:hover:bg-transparent ' }}">Mensagens</a>
+                    </li>
+                    <li>
+                        <a href="#"
+                            class="block py-2 pl-3 md:px-2 pr-4 text-white duration-150 border-b border-gray-100 hover:bg-gray-50 hover:bg-opacity-20 md:hover:bg-transparent md:border-0 md:hover:text-desicon-orange dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 rounded-md dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ request()->is('dashboard/calendario') ? 'rounded-md bg-white bg-opacity-20 hover:bg-opacity-10 hover:text-desicon-orange' : 'md:hover:text-desicon-orange md:hover:bg-transparent ' }}">Calendário</a>
+                    </li> --}}
                         <li>
                             <a href="{{ route('propostas.index') }}"
                                 class="block py-2 pl-3 md:px-2 pr-4 md:text-center text-white duration-150 border-gray-100 hover:bg-gray-50 hover:bg-opacity-20 md:hover:bg-transparent md:border-0 md:hover:text-desicon-orange dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 rounded-md dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ request()->is('dashboard/propostas') ? 'rounded-md bg-white bg-opacity-20 hover:bg-opacity-10 hover:text-desicon-orange' : 'md:hover:text-desicon-orange md:hover:bg-transparent ' }}">Propostas</a>
@@ -47,7 +47,7 @@
                         <li>
                             <a href={{ route('proposta.create') }}
                                 class="block py-2 pl-3 md:px-2 pr-4 text-white duration-150 hover:bg-gray-50 hover:bg-opacity-20  md:border-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 rounded-md dark:hover:text-white md:dark:hover:bg-transparent truncate 
-                                {{ request()->is('dashboard/proposta/cadastrar') ? 'rounded-md bg-white bg-opacity-20 hover:bg-opacity-10 hover:text-desicon-orange' : 'md:hover:text-desicon-orange md:hover:bg-transparent ' }}">Cadastrar
+                            {{ request()->is('dashboard/proposta/cadastrar') ? 'rounded-md bg-white bg-opacity-20 hover:bg-opacity-10 hover:text-desicon-orange' : 'md:hover:text-desicon-orange md:hover:bg-transparent ' }}">Cadastrar
                                 Proposta</a>
                         </li>
                         <li>
@@ -59,16 +59,16 @@
                                 class="block py-2 pl-3 md:px-2 pr-4 text-white duration-150 border-gray-100 hover:bg-gray-50 hover:bg-opacity-20 md:hover:bg-transparent md:border-0 md:hover:text-desicon-orange dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 rounded-md dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ request()->is('dashboard/descontos') ? 'rounded-md bg-white bg-opacity-20 hover:bg-opacity-10 hover:text-desicon-orange' : 'md:hover:text-desicon-orange md:hover:bg-transparent ' }}">Descontos</a>
                         </li>
                         {{-- <li>
-                            <a href="#"
-                                class="disabled block py-2 pl-3 md:px-2 pr-4 text-white duration-150 border-gray-100 hover:bg-gray-50 hover:bg-opacity-20 md:hover:bg-transparent md:border-0 md:hover:text-desicon-orange dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 rounded-md dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ request()->is('dashboard/analise') ? 'rounded-md bg-white bg-opacity-20 hover:bg-opacity-10 hover:text-desicon-orange' : 'md:hover:text-desicon-orange md:hover:bg-transparent ' }}">Margem</a>
-                        </li> --}}
+                        <a href="#"
+                            class="disabled block py-2 pl-3 md:px-2 pr-4 text-white duration-150 border-gray-100 hover:bg-gray-50 hover:bg-opacity-20 md:hover:bg-transparent md:border-0 md:hover:text-desicon-orange dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 rounded-md dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 {{ request()->is('dashboard/analise') ? 'rounded-md bg-white bg-opacity-20 hover:bg-opacity-10 hover:text-desicon-orange' : 'md:hover:text-desicon-orange md:hover:bg-transparent ' }}">Margem</a>
+                    </li> --}}
                     </ul>
                 </div>
             </div>
         </nav>
 
-        <div class="flex grid w-full h-full grid-cols-5 overflow-hidden overflow-x-hidden-row">
-            <div class="hidden w-full h-screen max-h-screen px-2 py-5 overflow-hidden bg-desicon-white lg:block">
+        <div class="grid h-full grid-cols-5 overflow-hidden overflow-x-hidden">
+            <div class="hidden h-screen max-h-screen px-2 py-5 overflow-hidden bg-desicon-white lg:block">
                 @livewire('components.left-menu')
             </div>
 
