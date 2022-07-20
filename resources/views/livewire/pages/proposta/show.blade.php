@@ -163,22 +163,22 @@
                     @foreach ($proposta->produtosProposta as $produto)
                         <tr>
                             <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                                {{ mb_strimwidth($produto->produtos->codigo, 0, 14, '...') }}
+                                {{ mb_strimwidth($produto->produto->codigo, 0, 14, '...') }}
                             </td>
                             <td class="px-2 py-1 font-light text-gray-600 border border-slate-300" maxlength="10">
-                                {{ mb_strimwidth($produto->produtos->descricao, 0, 35, '...') }}
+                                {{ mb_strimwidth($produto->produto->descricao, 0, 35, '...') }}
                             </td>
                             <td class="px-2 py-1 font-light text-center text-gray-600 border border-slate-300">
                                 {{ $produto->quantidade }}
                             </td>
                             <td class="px-2 py-1 font-light text-center text-gray-600 border border-slate-300">
-                                {{ $produto->produtos->estoqueAtual }}
+                                {{ $produto->produto->estoqueAtual }}
                             </td>
                             <td class="px-2 py-1 font-light text-center text-gray-600 truncate border border-slate-300">
-                                R$ {{ number_format($produto->produtos->preco, 2, ',', '.') }}
+                                R$ {{ number_format($produto->produto->preco, 2, ',', '.') }}
                             </td>
                             <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                                {{-- @isset(count($produtos->first()->descontos))
+                                {{-- @isset(count($produto->first()->descontos))
                                     <a href="#" class="p-1 rounded-lg bg-desicon-blue">
                                         Desconto
                                     </a>

@@ -2,12 +2,14 @@
 
 namespace App\Http\Livewire\Pc;
 
+use App\Models\Cliente;
 use App\Models\Pagamento;
 use App\Models\Proposta;
 use App\Models\PropostaProduto;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\Http;
 use Livewire\Component;
+
+use function PHPSTORM_META\type;
 
 class FormCreate extends Component
 {
@@ -86,11 +88,6 @@ class FormCreate extends Component
     public $parcelaDescricao11;
     public $parcelaFormaPagamento11;
 
-    public $parcelaDia12;
-    public $parcelaValor12;
-    public $parcelaDescricao12;
-    public $parcelaFormaPagamento12;
-
     public $total = 0.00;
     public $totalDesc = 0.00;
     public $totalDescEsc = 0.00;
@@ -109,7 +106,6 @@ class FormCreate extends Component
         }
 
         $produtos = Cache::get('produtos_user_id_produtos' . auth()->user()->id);
-
         $this->formaPagamento = Pagamento::all()->whereIn('id_bling', ['50972', '69590', '777279', '777565', '787855', '789959', '789960', '797755', '947074', '947314', '1302911']);
 
         $this->formaPagamento2 = Pagamento::all()->whereIn('id_bling', ['50972', '777565']);
@@ -210,26 +206,19 @@ class FormCreate extends Component
         return $total;
     }
 
-    public function calcTotalParcelas($total)
-    {
-        if ($this->selecaoParcelas == 1) {
-            $this->parcelaValor0 = $total;
-        } else {
-        }
-    }
-
     public function submit()
     {
         $this->validate();
 
         $produtos = Cache::get('produtos_user_id_produtos' . auth()->user()->id);
         $cliente = Cache::get('produtos_user_id_cliente' . auth()->user()->id);
-        $parcelas = $this->buildParcels();
+        $total = $this->calcTotal($produtos, $this->descontoVendedor);
+        $parcelas = $this->buildParcels($total);
 
-        if ($produtos) {
+        if (isset($produtos)) {
             $pc = Proposta::create([
                 'users_id' => auth()->user()->id,
-                'clientes_id' => $cliente[0]->id,
+                'cliente_id' => $cliente[0]->id,
 
                 'consumo_revenda' => $cliente[1],
                 'observacaoVendedor' => $this->observacaoVendedor,
@@ -240,12 +229,25 @@ class FormCreate extends Component
                 'parcelas' => $parcelas,
                 'desconto_vendedor' => (float) $this->descontoVendedor,
                 'desconto_total' => (float) $this->descontoVendedor, // Calcular o desconto total
-                'total' => (float) $this->calcTotal($produtos, $this->descontoVendedor),
+                'total' => floatval(number_format($total, 2, '.', '')),
             ]);
 
-            $this->storeProdutos($pc, $produtos);
+            if ($this->storeProdutos($pc, $produtos)) {
+                Cache::forget('produtos_user_id_produtos');
+                Cache::forget('produtos_user_id_cliente');
+                Cache::forget('produtos_user_id_pagamento');
+
+                if ($pc->save()) {
+                    session()->flash('message', 'Proposta aceita com sucesso!');
+                    return redirect()->route('propostas.index');
+                } else {
+                    session()->flash('message', 'Erro ao aceitar propostas.');
+                };
+            } else {
+                session()->flash('Adicione produtos a lista para cadastrar a proposta.');
+            };
         } else {
-            return redirect()->with('error', 'Adicione produtos a lista para cadastrar a proposta.');
+            session()->flash('Adicione produtos a lista para cadastrar a proposta.');
         }
     }
 
@@ -253,106 +255,130 @@ class FormCreate extends Component
     public function storeProdutos($pc, $produtos)
     {
         try {
-
             $produtoProposta = new PropostaProduto();
-            foreach ($produtos as $produto) {
 
-                $pdt = $produtoProposta->create([
-                    'proposta_id' => $pc['id'],
+            foreach ($produtos as $produto) {
+                $produtoProposta->create([
+                    'propostas_id' => $pc->id,
                     'produtos_id' => $produto['0']['id'],
                     'users_id' => auth()->user()->id,
                     'quantidade' => $produto['1'],
-                ]);
-
-                $pdt->save();
+                ])->save();
             }
 
-            Cache::forget('produtos_user_id_produtos');
-            Cache::forget('produtos_user_id_cliente');
-            Cache::forget('produtos_user_id_pagamento');
-            return redirect("/dashboard/propostas?stats=pendentes")->with('msg', 'Proposta salva com sucesso!');
+            return true;
         } catch (\Throwable $th) {
-            return back()->with('msgError', 'Erro ao cadastrar o(s) produto(s).');
+            return false;
         }
     }
 
     // Montar o json de parcelas
-    public function buildParcels()
+    public function buildParcels($total)
     {
-        return [
-            "parcela0" => [
+        $parcelas = [
+            "0" => [
                 'dia' => $this->parcelaDia0,
-                'valor' => $this->parcelaValor0,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao0,
                 'forma_pagamento' => $this->parcelaFormaPagamento0,
+                'status' => false,
             ],
-            "parcela1" => [
+            "1" => [
                 'dia' => $this->parcelaDia1,
-                'valor' => $this->parcelaValor1,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao1,
                 'forma_pagamento' => $this->parcelaFormaPagamento1,
+                'status' => false,
             ],
-            "parcela2" => [
+            "2" => [
                 'dia' => $this->parcelaDia2,
-                'valor' => $this->parcelaValor2,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao2,
                 'forma_pagamento' => $this->parcelaFormaPagamento2,
+                'status' => false,
             ],
-            "parcela3" => [
+            "3" => [
                 'dia' => $this->parcelaDia3,
-                'valor' => $this->parcelaValor3,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao3,
                 'forma_pagamento' => $this->parcelaFormaPagamento3,
+                'status' => false,
             ],
-            "parcela4" => [
+            "4" => [
                 'dia' => $this->parcelaDia4,
-                'valor' => $this->parcelaValor4,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao4,
                 'forma_pagamento' => $this->parcelaFormaPagamento4,
+                'status' => false,
             ],
-            "parcela5" => [
+            "5" => [
                 'dia' => $this->parcelaDia5,
-                'valor' => $this->parcelaValor5,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao5,
                 'forma_pagamento' => $this->parcelaFormaPagamento5,
+                'status' => false,
             ],
-            "parcela6" => [
+            "6" => [
                 'dia' => $this->parcelaDia6,
-                'valor' => $this->parcelaValor6,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao6,
                 'forma_pagamento' => $this->parcelaFormaPagamento6,
+                'status' => false,
             ],
-            "parcela7" => [
+            "7" => [
                 'dia' => $this->parcelaDia7,
-                'valor' => $this->parcelaValor7,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao7,
                 'forma_pagamento' => $this->parcelaFormaPagamento7,
+                'status' => false,
             ],
-            "parcela8" => [
+            "8" => [
                 'dia' => $this->parcelaDia8,
-                'valor' => $this->parcelaValor8,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao8,
                 'forma_pagamento' => $this->parcelaFormaPagamento8,
+                'status' => false,
             ],
-            "parcela9" => [
+            "9" => [
                 'dia' => $this->parcelaDia9,
-                'valor' => $this->parcelaValor9,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao9,
                 'forma_pagamento' => $this->parcelaFormaPagamento9,
+                'status' => false,
             ],
-            "parcela10" => [
+            "10" => [
                 'dia' => $this->parcelaDia10,
-                'valor' => $this->parcelaValor10,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao10,
                 'forma_pagamento' => $this->parcelaFormaPagamento10,
+                'status' => false,
             ],
-            "parcela11" => [
+            "11" => [
                 'dia' => $this->parcelaDia11,
-                'valor' => $this->parcelaValor11,
+                'valor' => 0,
                 'descricao' => $this->parcelaDescricao11,
                 'forma_pagamento' => $this->parcelaFormaPagamento11,
+                'status' => false,
             ]
         ];
+
+        if ($this->parcelaValor0 != null) {
+            $total -= $this->parcelaValor0;
+            $parcelas[0]['valor'] = floatval($this->parcelaValor0);
+            $parcelas[0]['status'] = true;
+
+            for ($i = 1; $i < $this->selecaoParcelas; $i++) {
+                $parcelas[$i]['valor'] = ($total / $this->selecaoParcelas);
+                $parcelas[$i]['status'] = true;
+            }
+        } else {
+            for ($i = 0; $i < $this->selecaoParcelas; $i++) {
+                $parcelas[$i]['valor'] = ($total / $this->selecaoParcelas);
+                $parcelas[$i]['status'] = true;
+            }
+        }
+
+        return $parcelas;
     }
 
     public function verificarTipoCliente($cliente)
@@ -374,7 +400,6 @@ class FormCreate extends Component
 
     public function definirParcela($parcela)
     {
-        dd('entrei');
         $this->selecaoParcelas = $parcela;
     }
 

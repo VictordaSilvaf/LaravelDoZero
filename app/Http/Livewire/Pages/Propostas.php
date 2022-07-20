@@ -2,13 +2,9 @@
 
 namespace App\Http\Livewire\Pages;
 
-use App\Models\Cliente;
+use App\Jobs\EnviarPropostaBling;
 use App\Models\Proposta;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Livewire\Component;
-
-use function PHPSTORM_META\type;
 
 class Propostas extends Component
 {
@@ -44,14 +40,11 @@ class Propostas extends Component
         $proposta = Proposta::all()->find($id);
 
         if ($estado == 1) {
-            $proposta->status = 'aceita';
+            EnviarPropostaBling::dispatch($proposta);
         } else if ($estado == 2) {
             $proposta->status = 'recusada';
+            $proposta->save();
         }
-
-        $proposta->save();
-
-        return redirect()->back();
     }
 
     public function mudarFiltro($filtro)

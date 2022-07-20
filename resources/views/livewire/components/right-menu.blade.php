@@ -81,11 +81,11 @@
                     <div class="p-5 ml-1 rounded-full bg-slate-400">
 
                     </div>
-                    <div class="ml-3">
-                        <h3 class="text-sm truncate">
+                    <div class="w-full ml-3 ">
+                        <h3 class="w-full text-sm truncate">
                             {{ mb_strimwidth($proposta->clientes->nome, 0, 20, '...') }}
                         </h3>
-                        <p class="text-sm font-extralight ">
+                        <p class="text-sm font-extralight lg:truncate">
                             R$ {{ number_format($proposta->total, 2, ',', '.') }}
                         </p>
                     </div>

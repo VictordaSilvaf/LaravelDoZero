@@ -9,8 +9,10 @@
                     class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                     id="clienteTransportadora" name="clienteTransportadora" wire:model='clienteTransportadora' required>
                     <option selected value="">Nome da transportadora...</option>
-                    <option value="JADLOG.COM">JADLOG.COM</option>
-                    <option value="JADLOG.PACKAGE">JADLOG.PACKAGE</option>
+                    <option value='MANDAÊ SERVIÇOS DE CONSULTORIA EM LOGÍSTICA S/A'>
+                        MANDAÊ SERVIÇOS DE CONSULTORIA EM
+                        LOGÍSTICA S/A
+                    </option>
                     <option value="SEDEX - EXPRESSO CORREIOS">SEDEX - EXPRESSO CORREIOS</option>
                     <option value="PAC - ECONÔMICO CORREIOS">PAC - ECONÔMICO CORREIOS</option>
                     <option value="JONAS VIEIRA">JONAS VIEIRA</option>
@@ -116,7 +118,7 @@
                                 id={{ 'parcelaValor' . $c }}
                                 placeholder="{{ number_format($valorParcelas[$c], 2, '.', '') }}"
                                 value="{{ number_format($valorParcelas[$c], 2, '.', '') }}"
-                                @if ($c != 0 || $selecaoParcelas == 1) disabled @endif required>
+                                @if ($c != 0 || $selecaoParcelas == 1) disabled @endif>
                         </div>
                         <div class="truncate">
                             <select

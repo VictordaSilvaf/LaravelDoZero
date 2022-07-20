@@ -9,7 +9,11 @@ use Illuminate\Support\Facades\Cache;
 
 class ShowClient extends Component
 {
+<<<<<<< HEAD
     public $identificacaoCliente;
+=======
+    public $identificacaoCliente = '25.782.134/0001-32';
+>>>>>>> master
     public $clienteConsumoRevenda;
     public $clienteNota = false;
 
@@ -99,8 +103,10 @@ class ShowClient extends Component
     public function store($dado)
     {
         $cliente = new Cliente($dado);
-        return $cliente;
-        if (!$cliente->save()) {
+
+        if ($cliente->save()) {
+            return $cliente;
+        } else {
             $this->addError('identificacaoCliente', 'Digite um CPF / CNPJ existente por gentileza.');
         }
     }
