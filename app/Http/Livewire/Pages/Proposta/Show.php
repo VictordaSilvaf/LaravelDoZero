@@ -38,6 +38,7 @@ class Show extends Component
     {
         $propostaComercial = Proposta::find($id);
 
+        //nolint:gosec
         $pdf = PDF::loadView('pdf.proposta', compact('propostaComercial'));
 
         return $pdf;

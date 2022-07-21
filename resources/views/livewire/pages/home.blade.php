@@ -13,7 +13,7 @@
                     <p class="text-[.8rem] text-desicon-natural">+14% Inc</p>
                 </div>
                 <div class="flex items-center justify-center w-1/3">
-                    <div class="w-8 h-8 rounded-full md:w-12 md:h-12 bg-desicon-green"></div>
+                    <div class="w-6 h-6 rounded-full lg:w-8 lg:h-8 bg-desicon-green"></div>
                 </div>
             </div>
 
@@ -26,7 +26,7 @@
                     <p class="text-[.8rem] text-desicon-natural">+14% Inc</p>
                 </div>
                 <div class="flex items-center justify-center w-1/3">
-                    <div class="w-8 h-8 rounded-full md:w-12 md:h-12 bg-desicon-yellow"></div>
+                    <div class="w-6 h-6 rounded-full lg:w-8 lg:h-8 bg-desicon-yellow"></div>
                 </div>
             </div>
 
@@ -39,7 +39,7 @@
                     <p class="text-[.8rem] text-desicon-natural">+14% Inc</p>
                 </div>
                 <div class="flex items-center justify-center w-1/3">
-                    <div class="w-8 h-8 rounded-full md:w-12 md:h-12 bg-desicon-red"></div>
+                    <div class="w-6 h-6 rounded-full lg:w-8 lg:h-8 bg-desicon-red"></div>
                 </div>
             </div>
         </div>

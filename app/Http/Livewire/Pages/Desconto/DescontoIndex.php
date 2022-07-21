@@ -20,7 +20,7 @@ class DescontoIndex extends Component
                 $query->where('codigo', 'LIKE', "$this->busca%");
             })->paginate(10);
         } else {
-            $descontos = Desconto::paginate(10);
+            $descontos = Desconto::orderBy('updated_at', 'desc')->paginate(10);
         }
 
         return view('livewire.pages.desconto.desconto-index', compact('descontos'))

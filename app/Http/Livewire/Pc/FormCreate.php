@@ -26,7 +26,6 @@ class FormCreate extends Component
     public $clienteEnvio;
     public $pesoTotal = 0;
     public $clienteConsumoRevenda;
-    public $clienteFrete;
 
     public $parcelaDia0;
     public $parcelaValor0;
@@ -224,7 +223,7 @@ class FormCreate extends Component
                 'observacaoVendedor' => $this->observacaoVendedor,
                 'transportadora' => $this->clienteTransportadora,
                 'modo_envio' => $this->clienteEnvio,
-                'frete' => (float) $this->clienteFrete,
+                'frete' => (float) $this->totalFrete,
                 'peso_total' => (float) $this->pesoTotal,
                 'parcelas' => $parcelas,
                 'desconto_vendedor' => (float) $this->descontoVendedor,

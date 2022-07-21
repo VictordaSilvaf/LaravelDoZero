@@ -2,7 +2,7 @@
     <div class="">
         <div class="mb-2 text-lg font-light">
             <h2>
-                {{ isset($produto) ? 'Editar' : 'Cadastrar' }} desconto
+                {{ $update ? 'Editar' : 'Cadastrar' }}
             </h2>
         </div>
 
@@ -25,7 +25,8 @@
                 <input type="text" id="identificacaoProduto" name="identificacaoProduto" class="w-full rounded-lg"
                     placeholder="Buscar produto" wire:model='identificacaoProduto'
                     @isset($busca) value="{{ $busca }}" @endisset
-                    @if (isset($produto)) value="{{ $produto->codigo }}" @endif />
+                    @isset($produto) value="{{ $produto->codigo }}" @endisset
+                    {{ $update ? 'disabled' : '' }} />
             </div>
             <div class="w-full text-center text-red-600 font-extralight">
                 <span>{{ isset($erro) ? $erro : '' }}</span>
@@ -48,110 +49,106 @@
                 </div>
             @endif
 
-            <button class="w-full p-2 my-2 rounded-lg bg-desicon-green text-desicon-white" type="submit">
+            <button class="w-full p-2 my-2 rounded-lg bg-desicon-green text-desicon-white"
+                {{ $update ? 'hidden' : '' }} type="submit">
                 Buscar produto
             </button>
         </form>
     </div>
 
-    @if (isset($desconto))
-        <form method="POST" wire:submit.prevent='store' class="@if (!isset($produto)) hidden @endif">
-        @else
-            <form wire:submit.prevent='store' class="@if (!isset($produto)) hidden @endif">
-    @endif
-    @csrf
-    <input type="text" wire:model='identificacaoProduto' id="identificacaoProduto" name="identificacaoProduto" hidden
-        value='{{ isset($produto->codigo) ? $produto->codigo : '' }}'>
-    <div class="grid grid-cols-2 gap-2 font-extralight">
-        <div class="">
-            <label class="" for="quantidade">Quantidade para desconto</label>
+    <form wire:submit.prevent='store' class="{{ $update || isset($busca) ? '' : 'hidden' }}">
+        @csrf
+        <input type="text" wire:model='identificacaoProduto' id="identificacaoProduto" name="identificacaoProduto"
+            hidden value='{{ isset($produto->codigo) ? $produto->codigo : '' }}'>
+        <div class="grid grid-cols-2 gap-2 font-extralight">
+            <div class="">
+                <label class="" for="quantidade">Quantidade para desconto</label>
+            </div>
+
+            <div class="">
+                <label class="" for="porcentagem">Porcentagem de desconto(%)</label>
+            </div>
         </div>
 
-        <div class="">
-            <label class="" for="porcentagem">Porcentagem de desconto(%)</label>
-        </div>
-    </div>
 
-    <div class="grid grid-cols-2 gap-2 mt-2 font-extralight">
-        <div class="">
-            <input type="number" id='quantidadeProduto0' name='quantidadeProduto0' class="w-full rounded-lg"
-                placeholder="Quantidade" wire:model='quantidadeProduto0'
-                placeholder="{{ isset($desconto) ? $desconto->quantidade0 : '0' }}"
-                value="{{ isset($desconto) ? $desconto->quantidade0 : '' }}" />
-        </div>
 
-        <div class="">
-            <input type="number" id='porcentagemDesconto0' name='porcentagemDesconto0' class="w-full rounded-lg"
-                placeholder="Porcentagem" wire:model='porcentagemDesconto0'
-                value="{{ isset($desconto) ? $desconto->porcentagem0 : '' }}" />
+        <div class="grid grid-cols-2 gap-2 mt-2 font-extralight">
+            <div class="">
+                <input type="number" id='quantidadeProduto0' name='quantidadeProduto0' class="w-full rounded-lg"
+                    placeholder="Quantidade" wire:model='quantidadeProduto0' />
+            </div>
+            <div class="">
+                <input type="number" id='porcentagemDesconto0' name='porcentagemDesconto0' class="w-full rounded-lg"
+                    placeholder="Porcentagem" wire:model='porcentagemDesconto0' />
+            </div>
         </div>
-    </div>
+        @error('porcentagemDesconto0')
+            <span class="error">{{ $message }}</span>
+        @enderror
 
-    <div class="grid grid-cols-2 gap-2 mt-2 font-extralight">
-        <div class="">
-            <input type="number" id='quantidadeProduto1' name='quantidadeProduto1' class="w-full rounded-lg"
-                placeholder="Quantidade" wire:model='quantidadeProduto1'
-                value="{{ isset($desconto) ? $desconto->quantidade1 : '' }}" />
-        </div>
+        <div class="grid grid-cols-2 gap-2 mt-2 font-extralight">
+            <div class="">
+                <input type="number" id='quantidadeProduto1' name='quantidadeProduto1' class="w-full rounded-lg"
+                    placeholder="Quantidade" wire:model='quantidadeProduto1' />
+            </div>
 
-        <div class="">
-            <input type="number" id='porcentagemDesconto1' name='porcentagemDesconto1' class="w-full rounded-lg"
-                placeholder="Porcentagem" wire:model='porcentagemDesconto1'
-                value="{{ isset($desconto) ? $desconto->porcentagem1 : '' }}" />
+            <div class="">
+                <input type="number" id='porcentagemDesconto1' name='porcentagemDesconto1' class="w-full rounded-lg"
+                    placeholder="Porcentagem" wire:model='porcentagemDesconto1' />
+            </div>
         </div>
-    </div>
+        @error('porcentagemDesconto1')
+            <span class="error">{{ $message }}</span>
+        @enderror
 
-    <div class="grid grid-cols-2 gap-2 mt-2 font-extralight">
-        <div class="">
-            <input type="number" id='quantidadeProduto2' name='quantidadeProduto2' class="w-full rounded-lg"
-                placeholder="Quantidade" wire:model='quantidadeProduto2'
-                value="{{ isset($desconto) ? $desconto->quantidade2 : '' }}" />
-        </div>
+        <div class="grid grid-cols-2 gap-2 mt-2 font-extralight">
+            <div class="">
+                <input type="number" id='quantidadeProduto2' name='quantidadeProduto2' class="w-full rounded-lg"
+                    placeholder="Quantidade" wire:model='quantidadeProduto2' />
+            </div>
 
-        <div class="">
-            <input type="number" id='porcentagemDesconto2' name='porcentagemDesconto2' class="w-full rounded-lg"
-                placeholder="Porcentagem" wire:model='porcentagemDesconto2'
-                value="{{ isset($desconto) ? $desconto->porcentagem2 : '' }}" />
+            <div class="">
+                <input type="number" id='porcentagemDesconto2' name='porcentagemDesconto2' class="w-full rounded-lg"
+                    placeholder="Porcentagem" wire:model='porcentagemDesconto2' />
+            </div>
         </div>
-    </div>
+        @error('porcentagemDesconto2')
+            <span class="error">{{ $message }}</span>
+        @enderror
 
-    <div class="grid grid-cols-2 gap-2 mt-2 font-extralight">
-        <div class="">
-            <input type="number" id='quantidadeProduto3' name='quantidadeProduto3' class="w-full rounded-lg"
-                placeholder="Quantidade" wire:model='quantidadeProduto3'
-                value="{{ isset($desconto) ? $desconto->quantidade3 : '' }}" />
-        </div>
+        <div class="grid grid-cols-2 gap-2 mt-2 font-extralight">
+            <div class="">
+                <input type="number" id='quantidadeProduto3' name='quantidadeProduto3' class="w-full rounded-lg"
+                    placeholder="Quantidade" wire:model='quantidadeProduto3' />
+            </div>
 
-        <div class="">
-            <input type="number" id='porcentagemDesconto3' name='porcentagemDesconto3' class="w-full rounded-lg"
-                placeholder="Porcentagem" wire:model='porcentagemDesconto3'
-                value="{{ isset($desconto) ? $desconto->porcentagem3 : '' }}" />
+            <div class="">
+                <input type="number" id='porcentagemDesconto3' name='porcentagemDesconto3'
+                    class="w-full rounded-lg" placeholder="Porcentagem" wire:model='porcentagemDesconto3' />
+            </div>
         </div>
-    </div>
+        @error('porcentagemDesconto3')
+            <span class="error">{{ $message }}</span>
+        @enderror
 
-    <div class="grid grid-cols-2 gap-2 mt-2 font-extralight">
-        <div class="">
-            <input type="number" id='quantidadeProduto4' name='quantidadeProduto4' class="w-full rounded-lg"
-                placeholder="Quantidade" wire:model='quantidadeProduto4'
-                value="{{ isset($desconto) ? $desconto->quantidade4 : '' }}" />
-        </div>
+        <div class="grid grid-cols-2 gap-2 mt-2 font-extralight">
+            <div class="">
+                <input type="number" id='quantidadeProduto4' name='quantidadeProduto4' class="w-full rounded-lg"
+                    placeholder="Quantidade" wire:model='quantidadeProduto4' />
+            </div>
 
-        <div class="">
-            <input type="number" id='porcentagemDesconto4' name='porcentagemDesconto4' class="w-full rounded-lg"
-                placeholder="Porcentagem" wire:model='porcentagemDesconto4'
-                value="{{ isset($desconto) ? $desconto->porcentagem4 : '' }}" />
+            <div class="">
+                <input type="number" id='porcentagemDesconto4' name='porcentagemDesconto4'
+                    class="w-full rounded-lg" placeholder="Porcentagem" wire:model='porcentagemDesconto4' />
+            </div>
         </div>
+        @error('porcentagemDesconto4')
+            <span class="error">{{ $message }}</span>
+        @enderror
 
         <div class=''>
             <button type="submit" class="w-full p-2 my-2 rounded-lg bg-desicon-blue text-desicon-white"
                 id="btnSalvar">Salvar</button>
         </div>
-        </form>
-    </div>
-
-    <div class=''>
-        <button type="submit" class="w-full p-2 my-2 rounded-lg bg-desicon-blue text-desicon-white"
-            id="btnSalvar">Salvar</button>
-    </div>
     </form>
 </div>
