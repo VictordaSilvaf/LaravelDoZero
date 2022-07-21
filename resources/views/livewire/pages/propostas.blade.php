@@ -60,110 +60,113 @@
         </div>
     </form>
 
-    <table class="w-full max-w-full mt-4 overflow-x-scroll border table-auto border-slate-400 bg-desicon-white">
-        <thead>
-            <tr>
-                <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
-                    ID
-                </th>
-                <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
-                    Vendedor
-                </th>
-                <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
-                    CPF Cliente
-                </th>
-                <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
-                    Total
-                </th>
-                <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
-                    Data
-                </th>
-                @can('admin')
+    <div class='w-full overflow-auto'>
+        <table class="w-full max-w-full mt-4 overflow-x-scroll border table-auto border-slate-400 bg-desicon-white">
+            <thead>
+                <tr>
                     <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
-
+                        ID
                     </th>
-                @endcan
+                    <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
+                        Vendedor
+                    </th>
+                    <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
+                        CPF Cliente
+                    </th>
+                    <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
+                        Total
+                    </th>
+                    <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
+                        Data
+                    </th>
+                    @can('admin')
+                        <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">
 
-            </tr>
-        </thead>
-        <tbody>
-            @isset($propostas)
-                @foreach ($propostas as $proposta)
-                    <tr>
-                        <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                            {{ $proposta->id }}
-                        </td>
-                        <td class="px-2 py-1 font-light text-center text-gray-600 truncate border border-slate-300 ">
+                        </th>
+                    @endcan
 
-                            {{ mb_strimwidth($proposta->users->name, 0, 20, '...') }}
-                        </td>
-                        <td class="px-2 py-1 font-light text-gray-600 truncate border border-slate-300">
-                            {{ $proposta->clientes->cnpj }}
-                        </td>
-                        <td class="px-2 py-1 font-light text-center text-gray-600 truncate border border-slate-300">
-                            R$ {{ $proposta->total }}
-                        </td>
-                        <td class="px-2 py-1 font-light text-center text-gray-600 border border-slate-300">
-                            {{ $proposta->updated_at }}
-                        </td>
-                        @can('admin')
-                            <td
-                                class="px-2 py-1 font-light text-center text-gray-600 duration-150 border border-slate-300 hover:opacity-80">
-                                <button id={{ 'dropdownButton' . $loop->index }}
-                                    class="dropdownButton p-1.5 rounded-lg 
+                </tr>
+            </thead>
+            <tbody>
+                @isset($propostas)
+                    @foreach ($propostas as $proposta)
+                        <tr>
+                            <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
+                                {{ $proposta->id }}
+                            </td>
+                            <td class="px-2 py-1 font-light text-center text-gray-600 truncate border border-slate-300 ">
+
+                                {{ mb_strimwidth($proposta->users->name, 0, 20, '...') }}
+                            </td>
+                            <td class="px-2 py-1 font-light text-gray-600 truncate border border-slate-300">
+                                {{ $proposta->clientes->cnpj }}
+                            </td>
+                            <td class="px-2 py-1 font-light text-center text-gray-600 truncate border border-slate-300">
+                                R$ {{ $proposta->total }}
+                            </td>
+                            <td class="px-2 py-1 font-light text-center text-gray-600 border border-slate-300">
+                                {{ $proposta->updated_at }}
+                            </td>
+                            @can('admin')
+                                <td
+                                    class="px-2 py-1 font-light text-center text-gray-600 duration-150 border border-slate-300 hover:opacity-80">
+                                    <button id={{ 'dropdownButton' . $loop->index }}
+                                        class="dropdownButton p-1.5 rounded-lg 
                                     @if ($proposta->status == 'aceita') bg-desicon-green
                                     @elseif ($proposta->status == 'recusada')
                                         bg-desicon-red
                                         @else
                                         bg-desicon-yellow @endif
                                      focus:opacity-60"
-                                    type="button">
-                                    <x-bi-gear-fill class="w-3 h-3 text-desicon-white" />
-                                </button>
-                            </td>
-                        @endcan
-                        <!-- Dropdown menu -->
-                        <div id={{ 'dropdownMenu' . $loop->index }}
-                            class="hidden text-center bg-white divide-y divide-gray-100 rounded shadow w-28 dropdownMenuz-10 dark:bg-gray-700 dropdownMenu">
-                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownButton">
-                                <li>
-                                    <a href={{ route('proposta.show', ['id' => $proposta->id]) }}
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Visualizar</a>
-                                </li>
-                                @if ($proposta->status != 'recusada' && $proposta->status != 'aceita')
+                                        type="button">
+                                        <x-bi-gear-fill class="w-3 h-3 text-desicon-white" />
+                                    </button>
+                                </td>
+                            @endcan
+                            <!-- Dropdown menu -->
+                            <div id={{ 'dropdownMenu' . $loop->index }}
+                                class="hidden text-center bg-white divide-y divide-gray-100 rounded shadow w-28 dropdownMenuz-10 dark:bg-gray-700 dropdownMenu">
+                                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownButton">
                                     <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Editar</a>
+                                        <a href={{ route('proposta.show', ['id' => $proposta->id]) }}
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Visualizar</a>
                                     </li>
+                                    @if ($proposta->status != 'recusada' && $proposta->status != 'aceita')
+                                        <li>
+                                            <a href="#"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Editar</a>
+                                        </li>
+
+                                        <li>
+                                            <a href="#"
+                                                wire:click="mudarEstadoPC({{ $proposta->id }}, {{ 1 }})"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Aceitar</a>
+                                        </li>
+                                        <li>
+                                            <a href="#"
+                                                wire:click="mudarEstadoPC({{ $proposta->id }}, {{ 2 }})"
+                                                class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Recusar</a>
+                                        </li>
+                                    @endif
 
                                     <li>
-                                        <a href="#"
-                                            wire:click="mudarEstadoPC({{ $proposta->id }}, {{ 1 }})"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Aceitar</a>
+                                        <a href="{{ route('proposta.enviarpdf', $proposta->id) }}"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Email</a>
                                     </li>
                                     <li>
-                                        <a href="#"
-                                            wire:click="mudarEstadoPC({{ $proposta->id }}, {{ 2 }})"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Recusar</a>
+                                        <a href="{{ route('proposta.pdf', $proposta->id) }}"
+                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PDF</a>
                                     </li>
-                                @endif
+                                </ul>
+                            </div>
+                        </tr>
+                    @endforeach
+                @endisset
 
-                                <li>
-                                    <a href="{{ route('proposta.enviarpdf', $proposta->id) }}"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Email</a>
-                                </li>
-                                <li>
-                                    <a href="{{ route('proposta.pdf', $proposta->id) }}"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">PDF</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </tr>
-                @endforeach
-            @endisset
+            </tbody>
+        </table>
+    </div>
 
-        </tbody>
-    </table>
     <div class="w-full">
         @isset($propostas)
             {{ $propostas->onEachSide(1)->links() }}

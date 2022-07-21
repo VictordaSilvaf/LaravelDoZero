@@ -17,9 +17,9 @@ class Produtos extends Component
     public function render()
     {
         if (isset($this->busca)) {
-            $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->where('codigo', 'LIKE', "$this->busca%")->paginate(16);
+            $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->where('codigo', 'LIKE', "$this->busca%")->orderBy('updated_at', 'desc')->paginate(16);
         } else {
-            $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->paginate(16);
+            $produtos = Produto::where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->orderBy('updated_at', 'desc')->paginate(16);
         }
 
         return view('livewire.pages.produtos', compact('produtos'))

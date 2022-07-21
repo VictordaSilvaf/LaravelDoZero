@@ -62,21 +62,11 @@ class Propostas extends Controller
 
         if (isset($request->search)) {
             $search = $request->search;
-            /* $propostas = $propostas->where('id', 'LIKE', '%' . intval($search) . '%')
-                ->join('clientes', function ($join, $search) {
-                    return $join->on("clientes.cnpj", 'LIKE', "%$search%");
-                })
-                ->get(); */
 
             $propostas = $propostas->join("clientes", "cnpj", "LIKE", intval($search))->get();
-
-            dd($propostas);
-
-            return view('livewire.pages.proposta.index  ', compact('propostas', 'status', 'search'));
         }
 
         $propostas = $propostas->paginate(10);
-        return view('livewire.pages.proposta.index', compact('propostas', 'status'));
     }
 
     /**

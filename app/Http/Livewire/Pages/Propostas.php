@@ -17,17 +17,17 @@ class Propostas extends Component
             if ($this->filtro != 'todas') {
                 $propostas = Proposta::whereHas('clientes', function ($query) {
                     $query->where('cnpj', 'LIKE', "$this->busca%");
-                })->paginate(10);
+                })->orderBy('updated_at', 'desc')->paginate(10);
             } else {
                 $propostas = Proposta::whereHas('clientes', function ($query) {
                     $query->where('cnpj', 'LIKE', "$this->busca%");
-                })->paginate(10);
+                })->orderBy('updated_at', 'desc')->paginate(10);
             }
         } else {
             if ($this->filtro != 'todas') {
-                $propostas = Proposta::where('status', $this->filtro)->paginate(10);
+                $propostas = Proposta::where('status', $this->filtro)->orderBy('updated_at', 'desc')->paginate(10);
             } else {
-                $propostas = Proposta::paginate(10);
+                $propostas = Proposta::orderBy('updated_at', 'desc')->paginate(10);
             }
         }
 

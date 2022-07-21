@@ -41,17 +41,6 @@ class ShowClient extends Component
                 Cache::add($key_cache, [$cliente, $this->clienteConsumoRevenda, $this->clienteNota], 1200);
             } else {
                 $cliente = $this->getCliente($this->identificacaoCliente);
-                if ($cliente) {
-                    $key_cache = 'produtos_user_id_cliente' . auth()->user()->id;
-
-                    if (Cache::has($key_cache)) {
-                        Cache::forget($key_cache);
-                    }
-
-                    Cache::add($key_cache, [$cliente, $this->clienteConsumoRevenda, $this->clienteNota], 1200);
-                } else {
-                    $this->addError('identificacaoCliente', 'Cliente não encontado.');
-                }
             }
         } else {
             $this->addError('identificacaoCliente', 'Digite um CPF / CNPJ valido por gentileza.');
@@ -74,12 +63,11 @@ class ShowClient extends Component
     {
         $clienteCPF = str_replace('/', '', $clienteCPF);
 
-        $responseCliente = Http::get("https://bling.com.br/Api/v2/contato/" . strval($clienteCPF) . "/json&apikey=9e9423b85ebb62aac022e74a212a2fa643dd9704753fdfebe07457803cc475c0c78211b2");
+        $responseCliente = Http::get("https://bling.com.br/Api/v2/contato/" . strval($clienteCPF) . "/json&apikey=" + env('API_KEY_BLING'));
 
         // Verifica de a response tem retorno 
         if ($responseCliente) {
-            //adicionar retorno no banco, e percorrendo o array/json 
-
+            //adicionar retorno no banco, e percorrendo o array/json
             //verifica se retonar erro caso não encontrado no api
             if (isset($cliente['erro']['cod'])) {
                 if ($cliente['erro']['cod'] === 14) {
@@ -89,9 +77,9 @@ class ShowClient extends Component
                 $cliente = $responseCliente['retorno']['contatos'][0]['contato'];
                 $cliente = $this->store($cliente);
 
-                return $cliente;
+                return $this->search($clienteCPF);
             } else {
-                dd("Erro");
+                return $this->addError('identificacaoCliente', 'Cliente não encontado.');
             }
         }
     }

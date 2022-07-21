@@ -86,11 +86,8 @@ Route::middleware('auth')->group(function () {
     Route::get('dashboard/descontos/create', DescontoCreate::class)
         ->name('descontos.create');
 
-    Route::get('dashboard/descontos/update/{id}', DescontoUpdate::class)
+    Route::get('dashboard/descontos/update/{id}', DescontoCreate::class)
         ->name('descontos.update');
-
-    Route::post('dashboard/descontos/store2', [DescontoUpdate::class, 'update'])
-        ->name('descontos.update2');
 
     Route::post('dashboard/descontos/store', [DescontoCreate::class, 'store'])
         ->name('descontos.store');

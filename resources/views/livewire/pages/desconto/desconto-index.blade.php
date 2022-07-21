@@ -61,94 +61,92 @@
             </div>
         </form>
 
+        <div class='w-full overflow-auto'>
+            <table
+                class="w-full max-w-full mt-2 overflow-x-scroll text-sm border table-auto border-slate-400 bg-desicon-white">
+                <thead class="">
+                    <tr class="">
+                        <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">ID</th>
+                        <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">SKU</th>
+                        <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">Descrição</th>
+                        <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">Descontos</th>
+                        <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300"></th>
+                    </tr>
+                </thead>
 
+                <tbody>
+                    @isset($descontos)
+                        @foreach ($descontos as $id => $item)
+                            <tr class="">
+                                <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
+                                    {{ $item->id }}</td>
+                                <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
+                                    {{ $item->produto->codigo }}</td>
 
-        <table
-            class="w-full max-w-full mt-2 overflow-x-scroll text-sm border table-auto border-slate-400 bg-desicon-white">
-            <thead class="">
-                <tr class="">
-                    <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">ID</th>
-                    <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">SKU</th>
-                    <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">Descrição</th>
-                    <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300">Descontos</th>
-                    <th class="px-2 py-2 font-normal bg-gray-200 border border-slate-300"></th>
-                </tr>
-            </thead>
-
-            <tbody>
-                @isset($descontos)
-                    @foreach ($descontos as $id => $item)
-                        {{-- {{ dd($item->produto) }} --}}
-
-                        <tr class="">
-                            <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                                {{ $item->id }}</td>
-                            <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                                {{ $item->produto->codigo }}</td>
-
-                            <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
-                                <p data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-content="Disabled popover"
-                                    id="popUp">
-                                    {{ mb_strimwidth($item->produto->descricao, 0, 20, '...') }}
-                                </p>
-                            </td>
-                            <td class="text-gray-600 border font-extralight border-slate-300">
-                                <div class="grid grid-cols-5">
-                                    <div class="flex flex-col px-2 text-center truncate ">
-                                        @isset($item->quantidade0)
-                                            <p>{{ $item->quantidade0 }}</p>
-                                            <p>{{ $item->porcentagem0 }}%</p>
-                                        @endisset
+                                <td class="px-2 py-1 font-light text-gray-600 border border-slate-300">
+                                    <p data-bs-toggle="popover" data-bs-trigger="hover focus"
+                                        data-bs-content="Disabled popover" id="popUp">
+                                        {{ mb_strimwidth($item->produto->descricao, 0, 20, '...') }}
+                                    </p>
+                                </td>
+                                <td class="text-gray-600 border font-extralight border-slate-300">
+                                    <div class="grid grid-cols-5">
+                                        <div class="flex flex-col px-2 text-center truncate ">
+                                            @isset($item->quantidade0)
+                                                <p>{{ $item->quantidade0 }}</p>
+                                                <p>{{ $item->porcentagem0 }}%</p>
+                                            @endisset
+                                        </div>
+                                        <div class="flex flex-col px-2 text-center truncate">
+                                            @isset($item->quantidade1)
+                                                <p>{{ $item->quantidade1 }}</p>
+                                                <p>{{ $item->porcentagem1 }}%</p>
+                                            @endisset
+                                        </div>
+                                        <div class="flex flex-col px-2 text-center truncate">
+                                            @isset($item->quantidade2)
+                                                <p>{{ $item->quantidade2 }}</p>
+                                                <p>{{ $item->porcentagem2 }}%</p>
+                                            @endisset
+                                        </div>
+                                        <div class="flex flex-col px-2 text-center truncate">
+                                            @isset($item->quantidade3)
+                                                <p>{{ $item->quantidade3 }}</p>
+                                                <p>{{ $item->porcentagem3 }}%</p>
+                                            @endisset
+                                        </div>
+                                        <div class="flex flex-col px-2 text-center truncate">
+                                            @isset($item->quantidade4)
+                                                <p>{{ $item->quantidade4 }}</p>
+                                                <p>{{ $item->porcentagem4 }}%</p>
+                                            @endisset
+                                        </div>
                                     </div>
-                                    <div class="flex flex-col px-2 text-center truncate">
-                                        @isset($item->quantidade1)
-                                            <p>{{ $item->quantidade1 }}</p>
-                                            <p>{{ $item->porcentagem1 }}%</p>
-                                        @endisset
-                                    </div>
-                                    <div class="flex flex-col px-2 text-center truncate">
-                                        @isset($item->quantidade2)
-                                            <p>{{ $item->quantidade2 }}</p>
-                                            <p>{{ $item->porcentagem2 }}%</p>
-                                        @endisset
-                                    </div>
-                                    <div class="flex flex-col px-2 text-center truncate">
-                                        @isset($item->quantidade3)
-                                            <p>{{ $item->quantidade3 }}</p>
-                                            <p>{{ $item->porcentagem3 }}%</p>
-                                        @endisset
-                                    </div>
-                                    <div class="flex flex-col px-2 text-center truncate">
-                                        @isset($item->quantidade4)
-                                            <p>{{ $item->quantidade4 }}</p>
-                                            <p>{{ $item->porcentagem4 }}%</p>
-                                        @endisset
-                                    </div>
-                                </div>
-                            </td>
+                                </td>
 
-                            <td class="justify-center px-2 py-1 font-light text-gray-600 border border-slate-300">
-                                <div class="flex justify-center">
-                                    <a href="{{ route('descontos.update', $item->id) }}"
-                                        class="duration-100 hover:opacity-50" id='adicionarDesconto'>
-                                        <x-feathericon-edit class="w-5 h-5" />
-                                    </a>
+                                <td class="justify-center px-2 py-1 font-light text-gray-600 border border-slate-300">
+                                    <div class="flex justify-center">
+                                        <a href="{{ route('descontos.update', $item->id) }}"
+                                            class="duration-100 hover:opacity-50" id='adicionarDesconto'>
+                                            <x-feathericon-edit class="w-5 h-5" />
+                                        </a>
 
-                                    <form action="{{ route('descontos.destroy', $item->id) }}" method="POST"
-                                        class="ml-4">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="duration-100 hover:opacity-50">
-                                            <x-heroicon-o-trash class="w-5 h-5" />
-                                        </button>
-                                    </form>
-                                </div>
-                            </td>
-                        </tr>
-                    @endforeach
-                @endisset
-            </tbody>
-        </table>
+                                        <form action="{{ route('descontos.destroy', $item->id) }}" method="POST"
+                                            class="ml-4">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="duration-100 hover:opacity-50">
+                                                <x-heroicon-o-trash class="w-5 h-5" />
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endisset
+                </tbody>
+            </table>
+        </div>
         <div class="w-full">
             @isset($descontos)
                 {{ $descontos->onEachSide(1)->links() }}

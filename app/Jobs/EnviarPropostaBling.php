@@ -43,10 +43,10 @@ class EnviarPropostaBling implements ShouldQueue
 
                 session()->flash('flash.banner', 'Proposta cadastrada com sucesso!');
             } else {
-                session()->flash('flash.banner', 'Ocorreu algum erro na hora de enviar a proposta para o bling');
+                session()->flash('flash.banner', 'Ocorreu algum erro na hora de enviar a proposta para o bling.');
             }
         } catch (\Throwable $th) {
-            dd($th);
+            session()->flash('flash.banner', 'Ocorreu algum erro inesperado, contate um administrador.');
         }
     }
 
