@@ -3,24 +3,26 @@
     <div class="flex justify-end w-full gap-3 pr-3">
         <a class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 {{-- hover:opacity-100 --}} duration-100 disabled"
             disabled>
-            <x-entypo-help-with-circle class="w-4 h-4" />
+            <x-entypo-help-with-circle class="w-5 h-5" />
         </a>
-        <a class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 {{-- hover:opacity-100 --}} duration-100 disabled"
+        <a class="flex items-center justify-center p-1.5 rounded-full bg-desicon-natural5 text-desicon-white opacity-50 {{-- hover:opacity-100 --}} duration-100 "
             disabled>
-            <x-fas-bell class="w-4 h-4" />
+            <x-fas-bell class="w-5 h-5" />
         </a>
 
-        <div
-            class="flex items-center justify-center duration-100 rounded-full opacity-50 bg-desicon-natural5 w-7 h-7 {{-- hover:opacity-100 --}}">
-            <div class="relative w-5 h-5 overflow-hidden rounded-full">
-                <svg class="absolute w-5 h-5 text-white" fill="currentColor" viewBox="0 0 20 20"
+        <button data-dropdown-toggle="userDropdown" data-dropdown-placement="bottom-start"
+            class="flex items-center justify-center duration-100 rounded-full opacity-50 bg-desicon-natural5 hover:opacity-100 p-1.5">
+            <div class="relative">
+                <svg class="w-5 h-5 rounded-full text-desicon-white" fill="currentColor" viewBox="0 0 20 20"
                     xmlns="http://www.w3.org/2000/svg" style="">
                     <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
                         clip-rule="evenodd">
                     </path>
                 </svg>
+                <span
+                    class="-top-2 left-4 absolute  w-3.5 h-3.5 bg-green-400 border-2 border-white dark:border-gray-800 rounded-full"></span>
             </div>
-        </div>
+        </button>
 
         <!-- Dropdown menu -->
         <div id="userDropdown"

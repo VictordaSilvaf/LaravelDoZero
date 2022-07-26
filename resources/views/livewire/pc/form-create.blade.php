@@ -42,21 +42,24 @@
 
         <div class="grid pc--dadosLinha">
             <div class="pc--sessaoInput pc--sessaoInput1">
-                <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase" for="pesoTotal">Peso
-                    do Produto</label>
-                <input
-                    class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
-                    type="number" name="pesoTotal" id="pesoTotal" placeholder="Peso" wire:model='pesoTotal' required
-                    disabled value="">
-            </div>
-
-            <div class="pc--sessaoInput pc--sessaoInput1">
                 <label class="block mb-2 text-xs font-bold tracking-wide text-gray-700 uppercase"
-                    for="totalFrete">Frete</label>
-                <input
-                    class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
-                    type="text" name="totalFrete" id="totalFrete" placeholder="Frete" wire:model='totalFrete'
-                    required>
+                    for="tipoFrete">Frete</label>
+                <div class='grid grid-cols-12 gap-2'>
+                    <select
+                        class="block w-full col-span-10 px-4 py-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
+                        id="tipoFrete" name="tipoFrete" wire:model='tipoFrete' required>
+                        <option value='' selected>Selecione o tipo de envio...</option>
+                        <option value='1'>Econômico</option>
+                        <option value='2'>Rápido</option>
+                    </select>
+
+                    <div class='h-full col-span-2'>
+                        <button wire:click.prevent='calcFrete'
+                            class="w-full h-full px-4 font-light text-white duration-150 bg-blue-500 rounded hover:bg-blue-700"
+                            id="btnBuscarProduto">Calcular
+                            Frete</button>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -125,7 +128,7 @@
                                 class="block w-full px-4 py-3 mb-3 leading-tight text-gray-700 border rounded appearance-none bg-desicon-white focus:outline-none focus:bg-white"
                                 id={{ 'parcelaFormaPagamento' . $c }} name="{{ 'parcelaFormaPagamento' . $c }}"
                                 wire:model={{ 'parcelaFormaPagamento' . $c }} class="formaPagamento"
-                                wire:change='mudarFormaPagamento'>
+                                wire:change='mudarFormaPagamento' required>
                                 <option selected class="text-gray-500" value="">Forma de pag...</option>
                                 @foreach ($this->formaPagamento as $pagamento)
                                     <option value="{{ $pagamento->id_bling }}">{{ $pagamento->descricao }}
@@ -174,7 +177,7 @@
 
                 <div>
                     <p class="truncate">Frete</p>
-                    <p class="truncate">R$ {{ $this->totalFrete }}</p>
+                    <p class="truncate">R$ {{ $this->valorFrete }}</p>
                 </div>
 
                 <div>

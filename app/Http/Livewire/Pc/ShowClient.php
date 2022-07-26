@@ -63,7 +63,7 @@ class ShowClient extends Component
     {
         $clienteCPF = str_replace('/', '', $clienteCPF);
 
-        $responseCliente = Http::get("https://bling.com.br/Api/v2/contato/" . strval($clienteCPF) . "/json&apikey=" + env('API_KEY_BLING'));
+        $responseCliente = Http::get("https://bling.com.br/Api/v2/contato/$clienteCPF/json&apikey=" . env('API_KEY_BLING'));
 
         // Verifica de a response tem retorno 
         if ($responseCliente) {

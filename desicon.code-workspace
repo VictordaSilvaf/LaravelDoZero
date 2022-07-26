@@ -44,5 +44,8 @@
     },
     "liveServer.settings.donotShowInfoMsg": true,
     "liveServer.settings.donotVerifyTags": true
+  },
+  "extensions": {
+    "recommendations": ["SimonSiefke.prettier-vscode"]
   }
 }
