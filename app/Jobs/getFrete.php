@@ -75,11 +75,11 @@ class getFrete implements ShouldQueue
     $client = new Client();
 
     $headers = [
-      'Authorization' => 'edc0ed6dadc2fbcc53c57805356807f0',
+      'Authorization' => env('API_TOKEN_MANDAE'),
       'Content-Type' => 'application/json'
     ];
 
-    $request = new Request('POST', 'http://api.mandae.com.br/v3/postalcodes/04864100/rates?Authorization=adbc97923f98681b48bdf3ec28478a5e', $headers, $body);
+    $request = new Request('POST', 'http://api.mandae.com.br/v3/postalcodes/04864100/rates?Authorization=' . env('API_TOKEN_MANDAE'), $headers, $body);
 
     $res = $client->sendAsync($request)->wait();
 
