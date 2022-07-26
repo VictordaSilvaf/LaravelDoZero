@@ -36,7 +36,6 @@ class BuscarCliente implements ShouldQueue
 
         if (isset($request['retorno']['contatos'])) {
             $dado = $request['retorno']['contatos'];
-            dd($dado);
 
             $listarClientes = new Cliente([
                 'id' => $dado['contato']['id'],

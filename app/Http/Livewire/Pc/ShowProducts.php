@@ -64,6 +64,7 @@ class ShowProducts extends Component
     public function verificarProdutoExisteNaLista($id, $key)
     {
         $produtos = Cache::get($key);
+
         if ($produtos) {
             foreach ($produtos as $produto) {
                 if ($produto[0]->codigo == $id) {

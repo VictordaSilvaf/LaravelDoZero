@@ -2,10 +2,11 @@
 
 namespace App\Http\Livewire\Pc;
 
-use App\Models\Cliente;
+use App\Jobs\getFrete;
 use App\Models\Pagamento;
 use App\Models\Proposta;
 use App\Models\PropostaProduto;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\Cache;
 use Livewire\Component;
 
@@ -19,12 +20,13 @@ class FormCreate extends Component
     public $observacaoVendedor;
     public $formaPagamento = 0;
     public $formaPagamento2;
+    public $valorFrete = 0;
 
     public $podeParcelar = false;
 
     public $clienteTransportadora;
     public $clienteEnvio;
-    public $pesoTotal = 0;
+    public $tipoFrete;
     public $clienteConsumoRevenda;
 
     public $parcelaDia0;
@@ -109,13 +111,18 @@ class FormCreate extends Component
 
         $this->formaPagamento2 = Pagamento::all()->whereIn('id_bling', ['50972', '777565']);
 
+        $this->verificarFrete();
+
         $this->pesoTotal = $this->calcularPesoTotal($produtos);
 
         $valorParcelas = $this->dividirValorDasParcelas($this->calcTotal($produtos, $this->descontoVendedor));
 
+        $frete = Cache::get('fretes_produtos_user_id_cliente' . auth()->user()->id);
+
+        $this->verificarFrete();
+
         return view('livewire.pc.form-create', compact('produtos', 'valorParcelas'));
     }
-
 
     private function dividirValorDasParcelas($total)
     {
@@ -224,7 +231,7 @@ class FormCreate extends Component
                 'transportadora' => $this->clienteTransportadora,
                 'modo_envio' => $this->clienteEnvio,
                 'frete' => (float) $this->totalFrete,
-                'peso_total' => (float) $this->pesoTotal,
+                'peso_total' => (float) $this->calcularPesoTotal($produtos),
                 'parcelas' => $parcelas,
                 'desconto_vendedor' => (float) $this->descontoVendedor,
                 'desconto_total' => (float) $this->descontoVendedor, // Calcular o desconto total
@@ -232,9 +239,10 @@ class FormCreate extends Component
             ]);
 
             if ($this->storeProdutos($pc, $produtos)) {
-                Cache::forget('produtos_user_id_produtos');
-                Cache::forget('produtos_user_id_cliente');
-                Cache::forget('produtos_user_id_pagamento');
+                Cache::forget('produtos_user_id_produtos' . auth()->user()->id);
+                Cache::forget('produtos_user_id_cliente' . auth()->user()->id);
+                Cache::forget('produtos_user_id_pagamento' . auth()->user()->id);
+                Cache::forget('fretes_produtos_user_id_cliente' . auth()->user()->id);
 
                 if ($pc->save()) {
                     session()->flash('message', 'Proposta aceita com sucesso!');
@@ -409,5 +417,25 @@ class FormCreate extends Component
         $formaPagamento = Cache::get($key_cache);
 
         return $formaPagamento;
+    }
+
+    public function calcFrete()
+    {
+        $status = getFrete::dispatchSync(auth()->user()->id);
+    }
+
+    public function verificarFrete()
+    {
+        $data = Cache::get('fretes_produtos_user_id_cliente' . auth()->user()->id);
+
+        if (isset($data)) {
+            if ($this->tipoFrete == '1') {
+                $this->valorFrete = $data['data']->shippingServices[0]->price;
+            } elseif ($this->tipoFrete == '2') {
+                $this->valorFrete = $data['data']->shippingServices[1]->price;
+            } else {
+                $this->valorFrete = 0;
+            }
+        }
     }
 }

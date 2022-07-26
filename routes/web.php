@@ -11,7 +11,6 @@ use App\Http\Livewire\Auth\Verify;
 use App\Http\Livewire\Components\SplashScreen;
 use App\Http\Livewire\Pages\Desconto\DescontoCreate;
 use App\Http\Livewire\Pages\Desconto\DescontoIndex;
-use App\Http\Livewire\Pages\Desconto\DescontoUpdate;
 use App\Http\Livewire\Pages\Home;
 use App\Http\Livewire\Pages\Produtos;
 use App\Http\Livewire\Pages\Proposta\PropostaCreate;
@@ -23,8 +22,6 @@ use App\Models\Cliente;
 use App\Models\Pagamento;
 use App\Models\Produto;
 use App\Models\Proposta;
-use App\Models\PropostaProduto;
-use Carbon\Carbon;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', SplashScreen::class)->name('home');

@@ -3,10 +3,14 @@
 <div class="flex items-center justify-center w-screen h-screen bg-desicon-blue">
     <div class=" sm:mx-auto sm:w-full sm:max-w-md">
         <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
-            <div class="sm:mx-auto sm:w-full sm:max-w-md">
-                <a href="{{ route('home') }}" class="flex justify-center w-16 h-16">
-                    <x-logo class="text-indigo-600 " />
-                </a>
+            <div class="w-full text-center sm:mx-auto sm:max-w-md">
+                <div class='flex justify-center w-full'>
+                    <div class='w-2/3 text-center'>
+                        <a href="{{ route('home') }}" class="flex justify-center w-auto h-full ">
+                            <x-logo class="" />
+                        </a>
+                    </div>
+                </div>
 
                 <h2 class="mt-6 text-2xl font-extrabold leading-9 text-center text-gray-900">
                     Entre agora na sua conta
