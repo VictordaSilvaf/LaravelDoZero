@@ -37,7 +37,7 @@ class BuscarProdutosBlingJob implements ShouldQueue
 
         do {
             $finalizado = $this->buscarDadosBling($count);
-            print_r("\n Numero do contador PRODUTOS $count \n ");
+            print_r("Numero do contador PRODUTOS $count \n ");
             $count++;
         } while ($finalizado == false);
         print_r("\n *********** Finalizado! ***********");
@@ -68,6 +68,7 @@ class BuscarProdutosBlingJob implements ShouldQueue
             }
             return false;
         } catch (\Throwable $th) {
+            dd($th);
         }
     }
 }

@@ -12,12 +12,15 @@ class Produto extends Model
     protected $cast = [
         'categoria' => 'array',
         'estrutura' => 'array',
+        'depositos' => 'array',
     ];
 
     protected $fillable = [
-        'idProduto',
+        'id',
         'codigo',
+        'depositos',
         'descricao',
+        'estrutura',
         'tipo',
         'situacao',
         'unidade',

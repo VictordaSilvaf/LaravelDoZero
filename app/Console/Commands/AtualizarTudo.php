@@ -32,9 +32,9 @@ class AtualizarTudo extends Command
     public function handle()
     {
         Bus::batch([
-            new BuscarPagamentosBling,
+            // new BuscarPagamentosBling,
             new BuscarProdutosBlingJob,
-            new BuscarClientesBlingJob,
+            // new BuscarClientesBlingJob,
         ])->name('Batch_Att_All')->dispatch();
     }
 }

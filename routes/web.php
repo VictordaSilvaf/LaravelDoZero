@@ -115,7 +115,7 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('produtos', function () {
-    dd(Produto::all()->where('descricaoComplementar', '<p>C-Vendas</p>' && 'estrutura' == null)->where('grupoProduto', 'ST Nacional')->random());
+    dd(Produto::all());
 });
 
 Route::get('clientes', function () {

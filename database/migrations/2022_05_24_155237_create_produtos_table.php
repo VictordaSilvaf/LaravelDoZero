@@ -15,7 +15,6 @@ return new class extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('idProduto');
             $table->string('codigo');
             $table->string('descricao')->nullable();
             $table->char('tipo')->nullable();
@@ -43,6 +42,8 @@ return new class extends Migration
             $table->string('descricaoFornecedor')->nullable();
             $table->bigInteger('idFabricante')->nullable();
             $table->json('categoria')->nullable(); /* Array */
+            $table->json('estrutura')->nullable(); /* Array */
+            $table->json('depositos')->nullable(); /* Array */
             $table->float('pesoLiq', 8, 2)->nullable();
             $table->float('pesoBruto', 8, 2)->nullable();
             $table->float('estoqueMinimo', 8, 2)->nullable();
